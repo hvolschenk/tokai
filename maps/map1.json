@@ -1,0 +1,27 @@
+{
+  "trees" : [
+    {
+      "position" : {
+        "top" : 1,
+        "left" : 2
+      },
+      "template" : 1
+    },
+    {
+      "position" : {
+        "top" : 5,
+        "left" : 8
+      },
+      "template" : 2
+    }
+  ],
+  "enemies" : [
+    {
+      "position" : {
+        "top" : 1,
+        "left" : 3
+      },
+      "template" : 1
+    }
+  ]
+}

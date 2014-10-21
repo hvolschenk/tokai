@@ -3,7 +3,7 @@
     <head>
         <title>Tokai - don't get lost</title>
         <style>
-            #container {
+            .map {
               width : 600px;
               height : 600px;
               border : 1px solid #000;
@@ -12,6 +12,14 @@
             }
             .tree {
               background-color : green;
+              width : 60px;
+              height : 60px;
+              position : absolute;
+              top : 60px;
+              left : 60px;
+            }
+            .enemy {
+              background-color : red;
               width : 60px;
               height : 60px;
               position : absolute;
@@ -28,75 +36,18 @@
             }
         </style>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="map.js"></script>
+        <script src="tree.js"></script>
+        <script src="enemy.js"></script>
         <script>
             $(document).ready(function () {
-                var character = $('#character'),
-                trees = $('.tree');
-                $(document).keydown(function (e) {
-                    var left = parseInt(character.css('left').replace('px', ''), 10),
-                    top = parseInt(character.css('top').replace('px', ''), 10);
-                    switch (e.keyCode) {
-                        case 37:
-                            // left
-                            character.css('left', left - 5);
-                            detectClash(left-5, top);
-                            break;
-                        case 38:
-                            // up
-                            character.css('top', top - 5);
-                            detectClash(left, top-5);
-                            break;
-                        case 39:
-                            //console.log(detectClash(left+5, top, 'right'));
-                            // right
-                            if (detectClash(left + 5, top, 'right') === false) {
-                                console.log('moveRight');
-                                character.css('left', left + 5);
-                            }
-                            break;
-                        case 40:
-                            // down
-                            character.css('top', top + 5);
-                            detectClash(left, top+5);
-                            break;
-                    };
-                });
-
-                function detectClash (left, top, direction) {
-                    trees.each(function () {
-                        var tree = $(this),
-                        right = left + 10,
-                        bottom = top + 10,
-                        treeLeft = parseInt(tree.css('left').replace('px', ''), 10),
-                        treeTop = parseInt(tree.css('top').replace('px', ''), 10),
-                        treeRight = treeLeft + 60,
-                        treeBottom = treeTop + 60;
-                        //console.log(left, top, right, bottom);
-                        //console.log(treeLeft, treeTop, treeRight, treeBottom);
-                        switch (direction) {
-                            case 'left':
-                            case 'up':
-                            case 'right':
-                                console.log(right, treeLeft);
-                                if (right > treeLeft) {
-                                  console.log('true');
-                                  return true;
-                                }
-                                break;
-                            case 'down':
-                        }
-                        console.log(left, top, treeLeft, treeTop);
-                    });
-                    return false;
-                }
-
+              // create a new Map object
+              var map = new Map();
+              // initialize the Map
+              map.initialize();
             });
         </script>
     </head>
     <body>
-        <div id="container">
-            <div id="character"></div>
-            <div class="tree tree-1"></div>
-        </div>
     </body>
 </html>
