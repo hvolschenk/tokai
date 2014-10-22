@@ -7,6 +7,52 @@
       },
       "template" : 1
     },
+    
+    
+    {
+      "position" : {
+        "top" : 2,
+        "left" : 2
+      },
+      "template" : 1
+    },
+    {
+      "position" : {
+        "top" : 3,
+        "left" : 2
+      },
+      "template" : 1
+    },
+    {
+      "position" : {
+        "top" : 3,
+        "left" : 3
+      },
+      "template" : 1
+    },
+    {
+      "position" : {
+        "top" : 3,
+        "left" : 5
+      },
+      "template" : 1
+    },
+    {
+      "position" : {
+        "top" : 2,
+        "left" : 5
+      },
+      "template" : 1
+    },
+    {
+      "position" : {
+        "top" : 1,
+        "left" : 5
+      },
+      "template" : 1
+    },
+    
+    
     {
       "position" : {
         "top" : 5,
@@ -23,5 +69,11 @@
       },
       "template" : 1
     }
-  ]
+  ],
+  "player" : {
+    "position" : {
+      "top" : 0,
+      "left" : 0
+    }
+  }
 }

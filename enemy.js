@@ -1,17 +1,23 @@
-function Enemy () {
+// defines an enemy
+// @param object map The map object
+function Enemy (map) {
+
+  // this class
+  var self;
 
   // the width of a enemy element
-  var enemyWidth = 60,
+  this.enemyWidth = 60;
   // the height of an enemy element
-  enemyHeight = 60,
-  // this class
-  self;
-
+  this.enemyHeight = 60;
   // holds the left offset of the enemy
   this.left = 0;
   // holds the top offset of the enemy
   this.top = 0;
-  // holds the enemy's template number
+  // holds the right offset of the enemy
+  this.right = this.left + this.enemyWidth;
+  // holds the bottom offset of the enemy
+  this.bottom = this.top + this.enemyHeight;
+  // holds the enemy''s template number
   this.template = 1;
   // holds the enemy html element
   this.enemyElement = $('<div class="enemy"></div>');
@@ -20,9 +26,13 @@ function Enemy () {
   // @param object enemy The enemy to load
   this.initialize = function (enemy) {
     // set the left offset value
-    self.left = enemy.position.left * enemyWidth;
+    self.left = enemy.position.left * self.enemyWidth;
     // set the top offset value
-    self.top = enemy.position.top * enemyHeight;
+    self.top = enemy.position.top * self.enemyHeight;
+    // set the right offset value
+    self.right = self.left + self.enemyWidth;
+    // set the bottom offset value
+    self.bottom = self.top + self.enemyHeight;
   }
 
   // adds the enemy to the html element specified
@@ -35,6 +45,12 @@ function Enemy () {
     });
     // append the new html to the map element
     mapElement.append(self.enemyElement);
+  }
+  
+  // adds a clash handler method
+  this.clashHandler = function () {
+    // update the status text
+    map.statusTextElement.text('Wanna fight? y/n.');
   }
 
   // set the local reference of this class

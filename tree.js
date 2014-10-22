@@ -1,17 +1,23 @@
-function Tree () {
+// defines a tree
+// @param object map The map object
+function Tree (map) {
   
-  // the width (in pixels) of a Tree element
-  var treeWidth = 60,
-  // the height (in pixels) of a Tree element
-  treeHeight = 60,
   // this class
-  self;
+  var self;
 
+  // the width (in pixels) of a Tree element
+  this.treeWidth = 60;
+  // the height (in pixels) of a Tree element
+  this.treeHeight = 60;
   // holds the left offset of the tree
   this.left = 0;
   // holds the top offset of the tree
   this.top = 0;
-  // holds the tree's template number
+  // holds the right offset of the tree
+  this.right = this.left + this.treeWidth;
+  // holds the bottom offset of the tree
+  this.bottom = this.top + this.treeHeight;
+  // holds the tree''s template number
   this.template = 1;
   // holds the tree html element
   this.treeElement = $('<div class="tree"></div>');
@@ -20,9 +26,13 @@ function Tree () {
   // @param object tree The tree to load
   this.initialize = function (tree) {
     // set the left offset value
-    self.left = tree.position.left * treeWidth;
+    self.left = tree.position.left * self.treeWidth;
     // set the top offset value
-    self.top = tree.position.top * treeHeight;
+    self.top = tree.position.top * self.treeHeight;
+    // set the right offset value
+    self.right = self.left + self.treeWidth;
+    // set the bottom offset value
+    self.bottom = self.top + self.treeHeight;
   }
 
   // adds the Tree to the html element specified
@@ -35,6 +45,13 @@ function Tree () {
     });
     // append the new html to the map element
     mapElement.append(self.treeElement);
+  }
+  
+  // adds a clash handler method
+  this.clashHandler = function () {
+    // set the status text
+    map.statusTextElement.text('Hey, watch it, I am just a tree.');
+    console.log('Hey, watch it.');
   }
 
   // set the self variable equal to this class

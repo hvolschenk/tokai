@@ -1,0 +1,39 @@
+* {
+    margin : 0;
+    padding : 0;
+    font-family : "Lucida Console", "Monaco", "monospace";
+}
+.status {
+    font-size : 16px;
+    text-align : center;
+    margin : 10px 0 0;
+}
+.map {
+    border : 1px solid #000;
+    margin : 10px auto 0;
+    position : relative;
+}
+.tree {
+    background-color : green;
+    width : 60px;
+    height : 60px;
+    position : absolute;
+    top : 60px;
+    left : 60px;
+}
+.enemy {
+    background-color : red;
+    width : 60px;
+    height : 60px;
+    position : absolute;
+    top : 60px;
+    left : 60px;
+}
+.player {
+    background-color : #eee;
+    position : absolute;
+    top : 0;
+    left : 0;
+    background-image : url(player.png);
+    background-size : 100% 100%;
+}
