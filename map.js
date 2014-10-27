@@ -10,16 +10,19 @@ function Map () {
   this.mapWidth = 600;
   // the height of the map in pixels
   this.mapHeight = 600;
-  // holds the list of trees on the map
-  this.trees = [];
-  // holds the list of enemies on the map
-  this.enemies = [];
+  // holds a list of objects on the page
+  this.objects = [];
   // holds the player''s character
   this.player;
   // holds the map html element
   this.mapElement = $('<div class="map"></div>');
   // holds the status text element
   this.statusTextElement = $('<p class="status"></p>');
+  // a triggered event to run on a certain direction
+  this.triggeredEvent = {
+    direction : null,
+    event : null
+  };
 
   // initializes the map and items on the map
   this.initialize = function () {
@@ -59,12 +62,12 @@ function Map () {
       dataType : 'json',
       url      : 'maps/map' + map + '.json',
       success  : function (data) {
-        // load the trees onto the map
-        self.loadTrees(data.trees);
-        // load the enemies onto the map
-        self.loadEnemies(data.enemies);
         // load the player onto the map
         self.loadPlayer(data.player);
+        // load the inventory element onto the map
+        self.loadInventory();
+        // load all objects
+        self.loadObjects(data);
       },
       error    : function (jqXHR, textStatus, errorThrown) {
         console.log('error', jqXHR, textStatus, errorThrown);
@@ -72,35 +75,217 @@ function Map () {
     });
   }
 
-  // loads all trees onto the map
-  // @param JSON trees The JSON list of trees from file
-  this.loadTrees = function (trees) {
-    // go through each tree
-    $.each(trees, function (index, tree) {
-      // create a new Tree object
-      var treeObject = new Tree(self);
-      // initialize this new Tree object
-      treeObject.initialize(tree);
-      // add the Tree to the document
-      treeObject.addElement(self.mapElement);
-      // add this tree object to the array of trees
-      self.trees.push(treeObject);
+  // loads all objects onto the map
+  // @param json data The data derived from the map file
+  this.loadObjects = function (data) {
+    // a list of all types to load
+    var objectTypes = ["Rock", "Tree", "Enemy", "Item", "Water"];
+    // go through each object type
+    $.each(objectTypes, function () {
+      // see if any objects of this type was found
+      if (data[this.toLowerCase()].length > 0) {
+        var objectType = this;
+        // go through each of this type
+        $.each(data[this.toLowerCase()], function () {
+          // create a new instance of this object type
+          var object = new window[objectType](self);
+          // initialize the object
+          object.initialize(this);
+          // add the element to the page
+          object.addElement(self.mapElement);
+          // add this object to the list of page objects
+          self.objects.push(object);
+        });
+      }
     });
   }
 
-  // loads all enemies onto the map
-  // @param JSON enemies The JSON list of enemies from file
-  this.loadEnemies = function (enemies) {
-    // go through each enemy
-    $.each(enemies, function (index, enemy) {
-      // create a new Enemy object
-      var enemyObject = new Enemy(self);
-      // initialize this new Enemy object
-      enemyObject.initialize(enemy);
-      // add the Enemy to the document
-      enemyObject.addElement(self.mapElement);
-      // add this enemy object to the array of trees
-      self.enemies.push(enemyObject);
+  // loads the player onto the map
+  // @param JSON player The player that must be loaded
+  this.loadPlayer = function (player) {
+    // create a new Player object
+    playerObject = new Player(self);
+    // initialize the Player
+    playerObject.initialize(player);
+    // add the player object to the page
+    playerObject.addElement(self.mapElement);
+    // add this player to the class variables
+    self.player = playerObject;
+  }
+  
+  // loads the inventory onto the map
+  this.loadInventory = function () {
+    // add the inventory element to the page
+    self.player.inventory.addElement();
+  }
+  
+  // detects a clash between the player and any object
+  // @param string direction The direction in which the player is trying to move
+  // @return boolean Whether the player clashes or not (true = clash)
+  this.detectClash = function (direction) {
+    // a list of object types to go through
+    var objectTypes = ['objects'],
+    // whether a clash has happened
+    clash = self.detectMapClash(direction);
+    // see if the player hasn''t gone out of bounds
+    if (clash === false) {
+      // go through each object type
+      $.each(objectTypes, function () {
+        // go through each of this type''s items
+        $.each(self[this], function () {
+          // see which direction we are moving in
+          switch (direction) {
+            case 'left':
+              // see if this item is to the direct left of the player
+              if (self.player.left - self.player.playerMoveSize >= this.left &&
+                  self.player.left - self.player.playerMoveSize < this.right &&
+                  self.player.bottom > this.top && self.player.top < this.bottom) {
+                // clash detected
+                clash = this;
+              }
+              break;
+            case 'up':
+              // see if this item is to the direct left of the player
+              if (self.player.top - self.player.playerMoveSize >= this.top &&
+                  self.player.top - self.player.playerMoveSize < this.bottom &&
+                  self.player.right > this.left && self.player.left < this.right) {
+                // clash detected
+                clash = this;
+              }
+              break;
+            case 'right':
+              // see if this item is to the direct left of the player
+              if (self.player.right + self.player.playerMoveSize > this.left &&
+                  self.player.left + self.player.playerMoveSize < this.right &&
+                  self.player.bottom > this.top && self.player.top < this.bottom) {
+                // clash detected
+                clash = this;
+              }
+              break;
+            case 'down':
+              // see if this item is to the direct left of the player
+              if (self.player.bottom + self.player.playerMoveSize > this.top &&
+                  self.player.top + self.player.playerMoveSize < this.bottom &&
+                  self.player.right > this.left && self.player.left < this.right) {
+                // clash detected
+                clash = this;
+              }
+              break;
+          }
+        });
+      });
+    
+    }
+    // return the result
+    return clash;
+  }
+  
+  // detects a clash between the player and the map
+  // @param string direction The direction in which the player is trying to move
+  // @return boolean Whether the player clashes or not (true = clash)
+  this.detectMapClash = function (direction) {
+    // whether the player is clashing into the bounds of the map
+    var clash = false;
+    // see which direction the player is going
+    switch (direction) {
+      case 'left':
+        //see if the player clashes
+        if (self.player.left - self.player.playerMoveSize < 0) {
+          // the player clashes
+          clash = true;
+        }
+        break;
+      case 'up':
+        //see if the player clashes
+        if (self.player.top - self.player.playerMoveSize < 0) {
+          // the player clashes
+          clash = true;
+        }
+        break;
+      case 'right':
+        //see if the player clashes
+        if (self.player.right + self.player.playerMoveSize > self.mapWidth) {
+          // the player clashes
+          clash = true;
+        }
+        break;
+      case 'down':
+        //see if the player clashes
+        if (self.player.bottom + self.player.playerMoveSize > self.mapHeight) {
+          // the player clashes
+          clash = true;
+        }
+        break;
+    }
+    // return the result
+    return clash === false ? clash : self;
+  }
+  
+  // adds a clash handler method
+  this.clashHandler = function () {
+    // update status text
+    self.statusTextElement.text('Find your house to leave this map.');
+  }
+  
+  // adds a triggered event to the map
+  this.addTriggeredEvent = function (direction, event) {
+    // set the trigger''s direction
+    self.triggeredEvent.direction = direction;
+    // set the triggered event''s event
+    self.triggeredEvent.event = event;
+  }
+  
+  // sets up the keyboard events to move this player
+  this.setupEvents = function () {
+    // when the user presses a key
+    $(document).keydown(function (event) {
+      // the direction the player is trying to move
+      var direction = false,
+      // the clash detection result
+      clashResult = false;
+      //swap based on the keyCode
+      switch (event.keyCode) {
+        case 37:
+          direction = 'left';
+          break;
+        case 38:
+          direction = 'up';
+          break;
+        case 39:
+          direction = 'right';
+          break;
+        case 40:
+          direction = 'down';
+          break;
+      }
+      // see if a direction key was pressed
+      if (direction !== null) {
+        // see if there is a triggered event for this direction
+        if (self.triggeredEvent.direction === direction && typeof self.triggeredEvent.event === 'function') {
+          // call the triggered event
+          self.triggeredEvent.event();
+          // reset the triggered event
+          self.addTriggeredEvent(null, null);
+        } else {
+          // reset the triggered event
+          self.addTriggeredEvent(null, null);
+          // test whether the player clashes
+          clashResult = self.detectClash(direction);
+          // see if the user is moving into anything
+          if (clashResult === false) {
+            // move the player in the desired direction
+            self.player.movePlayer(direction);
+            // reset the text in the status
+            self.statusTextElement.text(defaultStatusText);
+          } else {
+            // see if there is an clash handling method for this type
+            if (clashResult.clashHandler) {
+              // call the clash handler method
+              clashResult.clashHandler(direction);
+            }
+          }
+        }
+      }
     });
   }
 

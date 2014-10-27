@@ -1,6 +1,6 @@
-// defines an enemy
+// defines a water
 // @param object map The map object
-function Enemy (map) {
+function Water (map) {
   
   // holds this object for itself
   var self;
@@ -8,14 +8,14 @@ function Enemy (map) {
   // extend this object with the base object
   BaseObject.call(this, map);
   // give this object a type
-  this.type = 'enemy';
+  this.type = 'water';
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in
   this.clashHandler = function (direction) {
-    // update the status text
-    map.statusTextElement.text('Press "' + direction + '" again to fight this enemy.');
-  }
+    // write some output so the user knows water is impassable
+    map.statusTextElement.text('You left your swimming trunks at home.');
+  };
   
   // set the self variable equal to this class
   self = this;

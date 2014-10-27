@@ -15,16 +15,12 @@
 }
 .tree {
     background-color : green;
-    width : 60px;
-    height : 60px;
     position : absolute;
     top : 60px;
     left : 60px;
 }
 .enemy {
     background-color : red;
-    width : 60px;
-    height : 60px;
     position : absolute;
     top : 60px;
     left : 60px;
@@ -36,4 +32,23 @@
     left : 0;
     background-image : url(player.png);
     background-size : 100% 100%;
+}
+.inventory {
+    margin : 0 auto;
+    border : 1px solid #000;
+}
+.item {
+    background-color : black;
+    position : absolute;
+}
+.inventory .item {
+    position : static;
+}
+.rock {
+    background-color : grey;
+    position : absolute;
+}
+.water {
+    background-color : blue;
+    position : absolute;
 }

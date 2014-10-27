@@ -1,6 +1,6 @@
-// defines an enemy
+// defines a rock
 // @param object map The map object
-function Enemy (map) {
+function Rock (map) {
   
   // holds this object for itself
   var self;
@@ -8,16 +8,15 @@ function Enemy (map) {
   // extend this object with the base object
   BaseObject.call(this, map);
   // give this object a type
-  this.type = 'enemy';
+  this.type = 'rock';
   
-  // adds a clash handler method
-  // @param string direction The direction the player is moving in
+  // add a clash handler for this type
+  // @param string direction The direction the player was moving before the clash
   this.clashHandler = function (direction) {
-    // update the status text
-    map.statusTextElement.text('Press "' + direction + '" again to fight this enemy.');
+    map.statusTextElement.text('Ouch, my toe! better look out for those rocks.');
   }
   
   // set the self variable equal to this class
   self = this;
-
+  
 }
