@@ -18,15 +18,16 @@
         left: 95px;
       }
       #character {
-        background-image: url(images/p1.png);
+        background-image: url(images/char1.png);
         width: 260px;
         height: 402px;
         position: absolute;
         top: 92px;
-        left: 147px;
-        background-size: 253px;
+        left: 168px;
+        background-size: 231px;
         background-position: 0px;
         background-repeat: no-repeat;
+        z-index: 99;
       }
       #nameContainer {
         background-color: #4c4c4d;
@@ -67,7 +68,7 @@
         width: 100px;
         height: 100px;
         position: absolute;
-        top: 218px;
+        top: 248px;
         right: 32px;
         background-size: 92px;
         background-repeat: no-repeat;
@@ -79,13 +80,14 @@
         width: 100px;
         height: 100px;
         position: absolute;
-        top: 218px;
+        top: 248px;
         left: 32px;
         background-size: 92px;
         background-repeat: no-repeat;
         background-position: 0px;
         cursor: pointer;
         display: none;
+        z-index: 98;
       }
       #a1 {
         position: absolute;
@@ -97,10 +99,10 @@
         border-radius: 4px;
         border: 1px solid #f1f1f1;
         box-shadow: 0px 0px 5px #9c9c9c;
-        background-image: url(images/p1.png);
-        background-size: 57px;
+        background-image: url(images/char1.png);
+        background-size: 58px;
         background-repeat: no-repeat;
-        background-position: 9px -6px;
+        background-position: 11px -3px;
         cursor: pointer;
       }
       #a2 {
@@ -113,10 +115,10 @@
         border-radius: 4px;
         border: 1px solid #f1f1f1;
         box-shadow: 0px 0px 5px #9c9c9c;
-        background-image: url(images/p2.png);
-        background-size: 61px;
+        background-image: url(images/char2.png);
+        background-size: 58px;
         background-repeat: no-repeat;
-        background-position: 6px -10px;
+        background-position: 11px -4px;
         cursor: pointer;
       }
       #a3 {
@@ -129,20 +131,203 @@
         border-radius: 4px;
         border: 1px solid #f1f1f1;
         box-shadow: 0px 0px 5px #9c9c9c;
-        background-image: url(images/p3.png);
-        background-size: 57px;
+        background-image: url(images/char3.png);
+        background-size: 58px;
         background-repeat: no-repeat;
-        background-position: 8px -7px;
+        background-position: 13px 0px;
         cursor: pointer;
       }
-      #characterHair {
-        width: 510px;
-        height: 322px;
-        position: absolute;
-        top: 70px;
-        left: 34px;
+      .stats {
+        background-color: #4c4c4d;
+        width: 533px;
+        height: 319px;
+        margin: auto;
+        position: relative;
+        top: 55px;
+        border-radius: 4px;
+        border: 1px solid #f1f1f1;
+        box-shadow: 0px 0px 5px #f1f1f1;
         display: none;
-        background-repeat: no-repeat;
+      }
+      #selectedChar {
+        width: 238px;
+        height: 196px;
+        left: 81px;
+        margin: auto;
+        padding: 10px;
+        position: absolute;
+        top: 58px;
+        text-align: center;
+      }
+      p {
+        color: #f1f1f1;
+      }
+      #a {
+        display: none;
+      } 
+      #b {
+        display: none;
+      } 
+      #c {
+        display: none;
+      }
+      .points {
+        width: 533px;
+        height: 103px;
+        margin: auto;
+        position: relative;
+        bottom: 125px;
+        background-color: #4c4c4d;
+        border: 1px solid #f1f1f1;
+        box-shadow: 0px 0px 5px #f1f1f1;
+        border-radius: 4px;
+        display: none;
+      }
+      .aStats .health {
+        width: 300px;
+        height: 25px;
+        background: red;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px red;
+        top: 5px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+      .aStats .mana {
+        width: 100px;
+        height: 25px;
+        background: blue;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px blue;
+        top: 38px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+      .aStats .stamina {
+        width: 200px;
+        height: 25px;
+        background: green;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px green;
+        top: 71px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+
+      .bStats .health {
+        width: 200px;
+        height: 25px;
+        background: red;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px red;
+        top: 5px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+      .bStats .mana {
+        width: 100px;
+        height: 25px;
+        background: blue;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px blue;
+        top: 38px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+      .bStats .stamina {
+        width: 300px;
+        height: 25px;
+        background: green;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px green;
+        top: 71px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+
+      .cStats .health {
+        width: 100px;
+        height: 25px;
+        background: red;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px red;
+        top: 5px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+      .cStats .mana {
+        width: 300px;
+        height: 25px;
+        background: blue;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px blue;
+        top: 38px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+      .cStats .stamina {
+        width: 200px;
+        height: 25px;
+        background: green;
+        position: absolute;
+        border: 1px solid #f1f1f1;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px green;
+        top: 71px;
+        left: 7px;
+        text-align: center;
+        color: #f1f1f1;
+        line-height: 24px;
+      }
+
+      .play {
+        background: #f1f1f1;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 203px;
+        height: 84px;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 76px;
+        font-size: 60px;
+        color: lightslategrey;
+        font-family: cursive;
+        cursor: pointer;
+        box-shadow: 0px 0px 10px lightcyan;
+        display: none;
       }
   </style>
   </head>
@@ -152,6 +337,7 @@
        <span id="cnTitle">Character Name</span>
         <span id="cnInput"><input type="text" name="cname" value=""></span>
       </div>
+      <div id="cnameEmpty"></div>
       <div id="character"></div>
       <div id="characterHair"></div>
       <div class="arrow"></div>
@@ -161,12 +347,120 @@
         <span id="a2"></span>
         <span id="a3"></span>
       </div>
+      <div class="stats">
+        <span id="selectedChar">
+          <p id="a">Write about a character who pretends to be cool and tough, but is actually shy and sensitive.</p>
+          <p id="b">Write about a character who is obsessed with certain colors</p>
+          <p id="c">Write about a character who secretly plans to leave home and start a new life</p>
+        </span>
+      </div>
     </div>
+    <div class="points">
+      <div class="aStats">
+        <span class="health">300</span>
+        <span class="mana">100</span>
+        <span class="stamina">200</span>
+      </div>
+
+      <div class="bStats">
+        <span class="health">200</span>
+        <span class="mana">100</span>
+        <span class="stamina">300</span>
+      </div>
+
+      <div class="cStats">
+        <span class="health">100</span>
+        <span class="mana">300</span>
+        <span class="stamina">200</span>
+      </div>
+
+      <div class="play">
+        Play
+      </div>
+    </div>
+    <input type="hidden" name="characterName" value="" id="characterName">
+    <input type="hidden" name="characterType" value="" id="characterType">
   </body>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script type="text/javascript">
   $( document ).ready(function() {
+    // defualt character is a1
+    $('#characterType').val('a1');
+    // charater selection script
+    $('.itemChar').on('click', function (e) {
+      // getting the character that was selected
+      var clickselector = e.toElement.id;
+      if (clickselector === 'a1') {
+        $('#character').css('background-image', 'url(images/char1.png)');
+        $('#characterType').val('a1');
+      } else if (clickselector === 'a2') {
+        $('#character').css('background-image', 'url(images/char2.png)');
+        $('#characterType').val('a2');
+      } else if (clickselector === 'a3') {
+        $('#character').css('background-image', 'url(images/char3.png)');
+        $('#characterType').val('a3');
+      }
+    });
 
+    // arrow selection script
+    $('.arrow').on('click', function () {
+      var charName = $('#cnInput input').val(),
+          charType = $('#characterType').val();
+      if (charName !== "") {
+        $('.itemChar').animate({ left: '-350px',
+          opacity: 0}, 500);
+        $('#character').animate({ left: '344px',
+          opacity: 1}, 500);
+        $('.arrow').hide();
+        $('.arrow1').show();
+        $('#characterName').val(charName);
+        $('.points').slideDown().show();
+        // char selected stats + image
+        $('.stats').slideDown().show();
+        if (charType === 'a1') {
+          $('#a, .aStats, .play').slideDown().show();
+          $('#b, #c, .bStats, .cStats').slideDown().hide();
+        } else if (charType === 'a2') {
+          $('#b, .bStats, .play').slideDown().show();
+          $('#a, #c, .aStats, .cStats').slideDown().hide();
+        } else if (charType === 'a3') {
+          $('#c, .cStats, .play').slideDown().show();
+          $('#b, #a, .bStats, .aStats').slideDown().hide();
+        }
+      } else {
+        alert('Character name can not be blank');
+      }
+    });
+
+    // arrow1 selection get everything back
+    $('.arrow1').on('click', function () {
+      var charName = $('#cnInput input').val();
+      if (charName !== "") {
+        $('.itemChar').animate({ left: '95px',
+          opacity: 1}, 500);
+        $('#character').animate({ left: '168px',
+          opacity: 1}, 500);
+        $('.arrow').show();
+        $('.arrow1').hide();
+        $('.stats').slideDown().hide();
+        $('.points').slideDown().hide();
+        $('.play').slideDown().hide();
+      } else {
+        alert('Character name can not be blank');
+      }
+    });
+
+    // play the game with your selection
+    $('.play').on('click', function () {
+      var charName = $('#cnInput input').val(),
+          charType = $('#characterType').val();
+
+      // ajax call writh char to JSON file and load the first map.
+      if (charName !== "") {
+        // do ajax call
+      }
+
+    });
   });
   </script>
 </html>
