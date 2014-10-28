@@ -222,7 +222,7 @@
       }
 
       .bStats .health {
-        width: 200px;
+        width: 100px;
         height: 25px;
         background: red;
         position: absolute;
@@ -236,7 +236,7 @@
         line-height: 24px;
       }
       .bStats .mana {
-        width: 100px;
+        width: 200px;
         height: 25px;
         background: blue;
         position: absolute;
@@ -265,7 +265,7 @@
       }
 
       .cStats .health {
-        width: 100px;
+        width: 200px;
         height: 25px;
         background: red;
         position: absolute;
@@ -293,7 +293,7 @@
         line-height: 24px;
       }
       .cStats .stamina {
-        width: 200px;
+        width: 100px;
         height: 25px;
         background: green;
         position: absolute;
@@ -324,3 +324,61 @@
         box-shadow: 0px 0px 10px lightcyan;
         display: none;
       }
+
+      #a1 p {
+        position: absolute;
+        font-size: 58px;
+        color: #f1f1f1;
+        padding: 7px;
+        top: -289px;
+        left: -114px;
+        text-shadow: 0px 0px 4px #F1F1F1;
+        background: #4c4c4d;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px #f1f1f1;
+      }
+      #a2 p {
+        position: absolute;
+        font-size: 58px;
+        color: #f1f1f1;
+        padding: 7px;
+        top: -289px;
+        left: -296px;
+        text-shadow: 0px 0px 4px #F1F1F1;
+        background: #4c4c4d;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px #f1f1f1;
+      }
+      #a3 p {
+        position: absolute;
+        font-size: 58px;
+        color: #f1f1f1;
+        padding: 7px;
+        top: -274px;
+        left: -249px;
+        text-shadow: 0px 0px 4px #F1F1F1;
+        background: #4c4c4d;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px #f1f1f1;
+      }
+
+      #a span {
+        font-size: 50px;
+        position: absolute;
+        top: -43px;
+        margin: 0px auto 0px 25px;
+    }
+
+#b span {
+font-size: 50px;
+position: absolute;
+top: -43px;
+margin: 0px auto 0px 53px;
+}
+
+#c span {
+font-size: 50px;
+position: absolute;
+top: -43px;
+margin: 0px auto 0px 52px;
+}

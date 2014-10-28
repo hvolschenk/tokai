@@ -1,6 +1,7 @@
 $( document ).ready(function() {
     // defualt character is a1
     $('#characterType').val('a1');
+    $('#a2 p, #a3 p').hide();
     // charater selection script
     $('.itemChar').on('click', function (e) {
       // getting the character that was selected
@@ -8,12 +9,18 @@ $( document ).ready(function() {
       if (clickselector === 'a1') {
         $('#character').css('background-image', 'url(images/char1.png)');
         $('#characterType').val('a1');
+        $('#a1 p').show();
+        $('#a2 p, #a3 p').hide();
       } else if (clickselector === 'a2') {
         $('#character').css('background-image', 'url(images/char2.png)');
         $('#characterType').val('a2');
+        $('#a2 p').show();
+        $('#a1 p, #a3 p').hide();
       } else if (clickselector === 'a3') {
         $('#character').css('background-image', 'url(images/char3.png)');
         $('#characterType').val('a3');
+        $('#a3 p').show();
+        $('#a2 p, #a1 p').hide();
       }
     });
 
