@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     // defualt character is a1
     $('#characterType').val('a1');
-    $('#a2 p, #a3 p').hide();
+    $('#a2 p, #a3 p, #charAbilities').hide();
     // charater selection script
     $('.itemChar').on('click', function (e) {
       // getting the character that was selected
@@ -21,6 +21,24 @@ $( document ).ready(function() {
         $('#characterType').val('a3');
         $('#a3 p').show();
         $('#a2 p, #a1 p').hide();
+      }
+    });
+
+    //ability selection aAb
+    $('#abilities').on('click', function () {
+      var charType = $('#characterType').val();
+      $('#charAbilities').slideDown().show();
+      //$('#selectedChar').hide();
+      //$('#charAbilities').slideDown().show();
+      if (charType === 'a1') {
+        $('#aAb').slideDown().show();
+        $('#bAb, #cAb').hide();
+      } else if (charType === 'a2') {
+        $('#bAb').slideDown().show();
+        $('#aAb, #cAb').hide();
+      } else if (charType === 'a3') {
+        $('#cAb').slideDown().show();
+        $('#aAb, #bAb').hide();
       }
     });
 
@@ -67,6 +85,7 @@ $( document ).ready(function() {
         $('.stats').slideDown().hide();
         $('.points').slideDown().hide();
         $('.play').slideDown().hide();
+        $('#charAbilities').slideDown().hide();
       } else {
         alert('Character name can not be blank');
       }
