@@ -2,149 +2,9 @@
 <html>
   <head>
     <title>Tokai - character selection</title>
-    <style type="text/css">
-      #container {
-        width : 600px;
-        height : 600px;
-        border : 1px solid #000;
-        margin : auto;
-        position : relative;
-        background-image: url(test.jpg);
-      }
-      .itemChar {
-        position: absolute;
-        bottom: 16px;
-        width: 300px;
-        left: 95px;
-      }
-      #character {
-        background-image: url(images/p1.png);
-        width: 260px;
-        height: 402px;
-        position: absolute;
-        top: 92px;
-        left: 147px;
-        background-size: 253px;
-        background-position: 0px;
-        background-repeat: no-repeat;
-      }
-      #nameContainer {
-        background-color: #4c4c4d;
-        width: 533px;
-        height: 77px;
-        margin: auto;
-        position: relative;
-        top: 16px;
-        border-radius: 4px;
-        border: 1px solid #f1f1f1;
-        box-shadow: 0px 0px 5px #f1f1f1;
-      }
-      #cnTitle {
-        color: #9c9c9c;
-        margin: auto;
-        position: relative;
-        top: 18px;
-        left: 29px;
-        font-size: 30px;
-      }
-      #cnInput input {
-        background-color: #434343;
-        margin: auto;
-        position: relative;
-        top: 17px;
-        left: 44px;
-        width: 261px;
-        height: 27px;
-        padding: 5px;
-        color: #9c9c9c;
-        border-radius: 4px;
-        font-size: 21px;
-        border: 1px solid #f1f1f1;
-        box-shadow: 0px 0px 5px #f1f1f1;
-      }
-      .arrow {
-        background-image: url(images/nextArrow.png);
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 218px;
-        right: 32px;
-        background-size: 92px;
-        background-repeat: no-repeat;
-        background-position: 0px;
-        cursor: pointer;
-      }
-      .arrow1 {
-        background-image: url(images/prevArrow.png);
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 218px;
-        left: 32px;
-        background-size: 92px;
-        background-repeat: no-repeat;
-        background-position: 0px;
-        cursor: pointer;
-        display: none;
-      }
-      #a1 {
-        position: absolute;
-        background-color: #434343;
-        width: 80px;
-        height: 80px;
-        bottom: 13px;
-        right: 161px;
-        border-radius: 4px;
-        border: 1px solid #f1f1f1;
-        box-shadow: 0px 0px 5px #9c9c9c;
-        background-image: url(images/p1.png);
-        background-size: 57px;
-        background-repeat: no-repeat;
-        background-position: 9px -6px;
-        cursor: pointer;
-      }
-      #a2 {
-        position: absolute;
-        background-color: #434343;
-        width: 80px;
-        height: 80px;
-        bottom: 13px;
-        left: 259px;
-        border-radius: 4px;
-        border: 1px solid #f1f1f1;
-        box-shadow: 0px 0px 5px #9c9c9c;
-        background-image: url(images/p2.png);
-        background-size: 61px;
-        background-repeat: no-repeat;
-        background-position: 6px -10px;
-        cursor: pointer;
-      }
-      #a3 {
-        position: absolute;
-        background-color: #434343;
-        width: 80px;
-        height: 80px;
-        bottom: 13px;
-        left: 161px;
-        border-radius: 4px;
-        border: 1px solid #f1f1f1;
-        box-shadow: 0px 0px 5px #9c9c9c;
-        background-image: url(images/p3.png);
-        background-size: 57px;
-        background-repeat: no-repeat;
-        background-position: 8px -7px;
-        cursor: pointer;
-      }
-      #characterHair {
-        width: 510px;
-        height: 322px;
-        position: absolute;
-        top: 70px;
-        left: 34px;
-        display: none;
-        background-repeat: no-repeat;
-      }
-  </style>
+    <link rel="stylesheet" type="text/css" href="SelectCharacterstylesheet.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="characterSelect.js"></script>
   </head>
   <body>
     <div id="container">
@@ -152,21 +12,108 @@
        <span id="cnTitle">Character Name</span>
         <span id="cnInput"><input type="text" name="cname" value=""></span>
       </div>
+      <div id="cnameEmpty"></div>
       <div id="character"></div>
       <div id="characterHair"></div>
       <div class="arrow"></div>
       <div class="arrow1"></div>
       <div class="itemChar">
-        <span id="a1"></span>
-        <span id="a2"></span>
-        <span id="a3"></span>
+        <span id="a1"><p>Brutus</p></span>
+        <span id="a2"><p>Sven</p></span>
+        <span id="a3"><p>Maggie</p></span>
+      </div>
+      <div class="stats">
+        <span id="selectedChar">
+          <p id="a">
+            <span>Brutus</span>
+            &#34;Brutus&#34; grew up near the village of Werth, not too far from the capitol.
+            He&#39;s fairly educated and came from a good family, although he&#39;s had a taste
+            for getting himself in over his head as a child. His Uncle Norhan told him
+            stories of adventures and such, which got him &#34;curious&#34; about seeking 
+            fame and fortune, until that one day the big accident happend.
+          </p>
+          <p id="b">
+            <span>Sven</span>
+            &#34;Sven&#34; grew up in the streets of the capitol, from a young age he had to learn
+            to feed and fend for him self, he learnd to be a master in the shadows, never knowing
+            love or compassion until he met a compassionate girl which he fell in love with until that
+            one day the big accident happend.
+          </p>
+          <p id="c">
+            <span>Maggie</span>
+            &#34;Maggie&#34; is the daughter of the grate wizard &#34;Custos&#34; who was the guardian
+            of all magic and secrets, from a young age Maggie learned the arts of becoming his successor
+            always reading and learning new abilities, but Maggie has a dark secret that she doesn&#39;t
+            whant her father to know, untill that day the big accident happend.
+          </p>
+        </span>
+
+        <span id="charAbilities">
+          <p id="aAb">
+            <strong>Auto Attack  : (A) Gain X HP</strong>
+            <br/><font color="gold">You recieve X amount of HEALTH back.</font><br/><br/>
+            <strong>Mana1 Attack : (G) Grants Armor</strong>
+            <br/><font color="gold">You gain bonus armor X.</font><br/><br/>
+            <strong>Mana2 Attack : (R) Reduce Armor</strong>
+            <br/><font color="gold">Enemeys armor is reduced X.</font><br/><br/>
+            <strong>Stam1 Attack : (D) Double Damage</strong>
+            <br/><font color="gold">Enemy taks double (AA) Attacks.</font><br/><br/>
+            <strong>Stam2 Attack : (B) Bleed</strong>
+            <br/><font color="gold">Enemy bleeds for X rounds.</font><br/><br/>
+          </p>
+          <p id="bAb">
+            <strong>Auto Attack  : (A) Gain X ST</strong>
+            <br/><font color="gold">You recieve X amount of STAMINA back.</font><br/><br/>
+            <strong>Mana1 Attack : (I) Invis</strong>
+            <br/><font color="gold">You are invisible for 1 round after the round you do double damage (AA) to enemy.</font><br/><br/>
+            <strong>Mana2 Attack : (C) Clone</strong>
+            <br/><font color="gold">Split in two enemy has 50% change to miss his attack.</font><br/><br/>
+            <strong>Stam1 Attack : (B) Backstab</strong>
+            <br/><font color="gold">You do a critical strike dealing (150% exstra damge).</font><br/><br/>
+            <strong>Stam2 Attack : (L) Lifesteel</strong>
+            <br/><font color="gold">Grants you X amount of HEALTH back.</font><br/><br/>
+          </p>
+          <p id="cAb">
+            <strong>Auto Attack  : (A) Gain X MA</strong>
+            <br/><font color="gold">You recieve X amount of MANA back.</font><br/><br/>
+            <strong>Mana1 Attack : (S) Sileunce</strong>
+            <br/><font color="gold">Enemy can not use any magic attacks for X rounds.</font><br/><br/>
+            <strong>Mana2 Attack : (H) Heal</strong>
+            <br/><font color="gold">Heal your self with X HP.</font><br/><br/>
+            <strong>Stam1 Attack : (D) Dodge</strong>
+            <br/><font color="gold">Dodge and enemy attack for X rounds.</font><br/><br/>
+            <strong>Stam2 Attack : (N) Nuke</strong>
+            <br/><font color="gold">Release hell on an enemy by nuking it.</font><br/><br/>
+          </p>
+        </span>
+        <span id="abilities">Abilities</span>
+
       </div>
     </div>
-  </body>
-  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script type="text/javascript">
-  $( document ).ready(function() {
+    <div class="points">
+      <div class="aStats">
+        <span class="health">300</span>
+        <span class="mana">100</span>
+        <span class="stamina">200</span>
+      </div>
 
-  });
-  </script>
+      <div class="bStats">
+        <span class="health">100</span>
+        <span class="mana">200</span>
+        <span class="stamina">300</span>
+      </div>
+
+      <div class="cStats">
+        <span class="health">200</span>
+        <span class="mana">300</span>
+        <span class="stamina">100</span>
+      </div>
+
+      <div class="play">
+        Play
+      </div>
+    </div>
+    <input type="hidden" name="characterName" value="" id="characterName">
+    <input type="hidden" name="characterType" value="" id="characterType">
+  </body>
 </html>
