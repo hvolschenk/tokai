@@ -1,4 +1,4 @@
-function Player () {
+function Player (map) {
 
   // this class
   var self;
@@ -16,9 +16,11 @@ function Player () {
   // holds the bottom offset of the player
   this.bottom = this.top + this.playerHeight;
   // the amount of pixels to move
-  this.playerMoveSize = 30;
+  this.playerMoveSize = 60;
   // holds the player''s template number
   this.template = 1;
+  // The player''s inventory
+  this.inventory = new Inventory(map);
   // holds the player html element
   this.playerElement = $('<div class="player"></div>');
 
@@ -29,6 +31,10 @@ function Player () {
     self.left = player.position.left * self.playerWidth;
     // set the top offset value
     self.top = player.position.top * self.playerHeight;
+    // set the new right value
+    self.right = self.left + self.playerWidth;
+    // set the new bottom value
+    self.bottom = self.top + self.playerHeight;
   }
 
   // adds the player to the html element specified
@@ -47,6 +53,15 @@ function Player () {
       top  : self.top + 'px',
       width : self.playerWidth + 'px',
       height : self.playerHeight + 'px'
+    });
+  }
+  
+  // prepares the player for battle
+  this.prepareForBattle = function () {
+    // set the top and left offset of the element
+    self.playerElement.css({
+      top : '540px',
+      left : '0px'
     });
   }
 
