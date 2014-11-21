@@ -4,8 +4,8 @@ function ClassWarrior () {
   this.name = 'Warrior';
   // the images for this class
   this.images = {
-    front : '/images/Characters/Tank-front.png',
-    back  : '/images/Characters/Tank-back.png'
+    front : '/images/characters/tank-front.png',
+    back  : '/images/characters/tank-back.png'
   };
   // the base attack damage for this class
   this.baseAttackDamage = 10;

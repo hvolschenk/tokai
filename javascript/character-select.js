@@ -8,6 +8,10 @@ function CharacterSelect () {
   this.characterClass = '';
   // the container element that will hold the character selection screen
   this.container = $('<div class="container"></div>');
+
+  // the character element that will hold the selected class type image and name
+  this.characterElement = $('<div class="character"></div>');
+
   // the character name field holder element
   this.characterNameFieldHolder = $('<div class="characterNameContainer"></div>');
   // the character name field label
@@ -18,23 +22,50 @@ function CharacterSelect () {
   this.characterSelectList = $('<ul class="characterSelectList"></ul>');
   // a instance of the warrior class
   this.classWarrior = new ClassWarrior();
+  // a instance of the mage class
+  this.classMage = new ClassMage();
+  // a instance of the rogue class
+  this.classRogue = new ClassRogue();
   
   // initializes the charcter selection screen
   this.initialize = function () {
     // add the container element
-    self.addElement();
+    self.addContainerElement();
     // add the character name field
     self.addNameField();
+    // add the character element
+    self.addCharacterElement();
     // add the class thumbnails to the page
     self.addClassThumbnails();
   };
   
   // adds the container element to the page
-  this.addElement = function () {
+  this.addContainerElement = function () {
     // get the body element
     var body = $('body');
     // add the container to the body
     body.append(self.container);
+  };
+
+  // adds the character element to the container
+  this.addCharacterElement = function () {
+    // append the character element to the container element
+    self.container.append(self.characterElement);
+    // load the default class type
+    self.loadClassType();
+  };
+
+  // loads a class type
+  // @param string classType The class type to load (classWarrior | classMage | classRogue)
+  this.loadClassType = function (classType) {
+    // see if a class type was passed in
+    classType = classType || 'classWarrior';
+    // set the background-image of the character element
+    self.characterElement.css({'background-image' : 'url(' + self[classType].images.front + ')'});
+    // add the class type name to the element
+    self.characterElement.html('<p>' + self[classType].name + '</p>');
+    // add the next arrow to the character element
+    self.characterElement.append('<a class="next"></a>');
   };
   
   // adds the character name input field
@@ -53,6 +84,10 @@ function CharacterSelect () {
     self.container.append(self.characterSelectList);
     // add the warrior class thumbnail
     self.addClassThumbnail(self.classWarrior);
+    // add the mage class thumbnail
+    self.addClassThumbnail(self.classMage);
+    // add the rogue class thumbnail
+    self.addClassThumbnail(self.classRogue);
   };
   
   // adds a single class type''s thumbnail
