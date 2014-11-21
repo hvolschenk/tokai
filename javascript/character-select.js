@@ -37,6 +37,8 @@ function CharacterSelect () {
     self.addCharacterElement();
     // add the class thumbnails to the page
     self.addClassThumbnails();
+    // add the events to this page
+    self.addEvents();
   };
   
   // adds the container element to the page
@@ -101,8 +103,21 @@ function CharacterSelect () {
     self.characterSelectList.append(classListItem);
     // add the thumbnail to the class list item
     classListItem.append(classThumbnail);
+    // add the correct id to the thumbnail
+    classThumbnail.attr('id', 'class' + classType.name);
     // add the correct background-image to the thumbnail
     classThumbnail.css({'background-image' : 'url(' + classType.images.front + ')'});
+  };
+
+  // adds the events for the character slection screen
+  this.addEvents = function () {
+    // add an event for when a different class type gets selected
+    $(document).on('click', '.selectClass', function () {
+      // get the id of the thumbnail that was clicked
+      var id = $(this).attr('id');
+      // load the associated class type
+      self.loadClassType(id);
+    });
   };
   
   // set the self variable equal to this class
