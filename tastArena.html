@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tokai - character selection</title>
+    <link rel="stylesheet" type="text/css" href="SelectCharacterstylesheet.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="svenAbilities.js"></script>
+    <!--<script src="brutusAbilities.js"></script>
+    <script src="maggieAbilities.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="ArenaStylesheet.css" />
+  </head>
+  <body>
+    <div id="container" style="backgroud: #fff; background-image: url(images/test.jpg);">
+      <div class="playerHolder">
+        <div class="playerStats">
+          <div class="holderP">
+            <span id="playerHealth">100/100</span>
+          </div>
+          <div class="holderM">
+            <span id="playerMana">200/200</span>
+          </div>
+          <div class="holderPS">
+            <span id="playerStamina">300/300</span>
+          </div>
+          <span id="playerArmor" data-id="1"></span>
+          <div id="pname"></div>
+        </div>
+      </div>
+      <div class="playerHolderDouble"></div>
+      <div class="enemyHolder">
+        <div class="enemyStats">
+          <div class="holder">
+            <span id="enemyHealth">100/100</span>
+          </div>
+          <div class="holderME">
+            <span id="enemyMana">200/200</span>
+          </div>
+          <div class="holderES">
+            <span id="enemyStamina">300/300</span>
+          </div>
+          <span id="enemyArmor" data-id="1"></span>
+
+          <div id="eName">Shadowling</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="keys"></div>
+    <div class="Listkeys">
+      <!--Attack list-->
+      <div>
+        <strong style="text-decoration: underline;">Base Attacks</strong>
+        <ol>
+          <font color="red">("A") - Attack</font>
+        </ol>
+      </div>
+
+      <!--Magic Attack list-->
+      <div>
+        <strong style="text-decoration: underline;">Magic Attacks</strong>
+        <ol>
+          <font color="blue">("I") - Invis</font><br/>
+          <font color="blue">("C") - Clone</font>
+        </ol>
+      </div>
+
+      <!--Stamina Attack list-->
+      <div>
+        <strong style="text-decoration: underline;">Stamina Attacks</strong>
+        <ol>
+          <font color="green">("B") - Backstabe</font><br/>
+          <font color="green">("L") - Lifesteel</font>
+        </ol>
+      </div>    
+    </div>
+
+    <div class="inv">
+    </div>
+    <input type="hidden" name="characterName" value="Player1" id="characterName">
+    <input type="hidden" name="characterType" value="a1" id="characterType">
+  </body>
+</html>
