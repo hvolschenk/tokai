@@ -1,5 +1,4 @@
 function ClassMage () {
-  
   // this class''s name
   this.name = 'Mage';
   // the images for this class
@@ -25,10 +24,8 @@ function ClassMage () {
   this.baseStamina = 100;
   // the base amount of armor for this class type
   this.baseArmor = 1;
-  
   // the lore story for this class type
   this.lore = ' is the daughter of the great wizard "Custos" who was the guardian of all magic and secrets, from a young age Maggie learnt the art of becoming his successor was by reading and learning new abilities, but she has a dark secret that she does not whant her father to know about, until that day the big accident happened.';
-  
   // the description of this class type''s auto attack
   this.autoAttackDescription = 'You steal 10% mana back from auto attacks.';
   // the name of this class''s firt mana ability
@@ -47,6 +44,4 @@ function ClassMage () {
   this.staminaTwoName = 'Nuke';
   // the description of the second stamina ability
   this.staminaTwoDescription = 'Damage an enemy for 50% of your current health.';
-  
-  
 }

@@ -1,5 +1,4 @@
 function ClassWarrior () {
-  
   // this class''s name
   this.name = 'Warrior';
   // the images for this class
@@ -25,10 +24,8 @@ function ClassWarrior () {
   this.baseStamina = 200;
   // the base amount of armor for this class type
   this.baseArmor = 1;
-  
   // the lore story for this class type
   this.lore = ' grew up near the village of Werth, not too far from the capital. He is fairly educated and came from a good family, although he had a taste for getting himself in over his head as a child. His Uncle Norhan told him stories of adventures and such which got him curious about seeking fame and fortune, until that one day the big accident happened.';
-  
   // the description of this class type''s auto attack
   this.autoAttackDescription = 'You steal 10% health back from auto attacks.';
   // the name of this class''s firt mana ability
@@ -47,6 +44,4 @@ function ClassWarrior () {
   this.staminaTwoName = 'Bleed strike';
   // the description of the second stamina ability
   this.staminaTwoDescription = 'Enemy takes additional bleed damage for two rounds.';
-  
-  
 }
