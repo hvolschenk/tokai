@@ -8,10 +8,8 @@ function CharacterSelect () {
   this.characterClass = '';
   // the container element that will hold the character selection screen
   this.container = $('<div class="container"></div>');
-
   // the character element that will hold the selected class type image and name
   this.characterElement = $('<div class="character"></div>');
-
   // the character name field holder element
   this.characterNameFieldHolder = $('<div class="characterNameContainer"></div>');
   // the character name field label
@@ -26,6 +24,8 @@ function CharacterSelect () {
   this.classMage = new ClassMage();
   // a instance of the rogue class
   this.classRogue = new ClassRogue();
+  // the selected class type
+  this.selectedClassType = 'classWarrior';
   
   // initializes the charcter selection screen
   this.initialize = function () {
@@ -58,17 +58,40 @@ function CharacterSelect () {
   };
 
   // loads a class type
-  // @param string classType The class type to load (classWarrior | classMage | classRogue)
-  this.loadClassType = function (classType) {
-    // see if a class type was passed in
-    classType = classType || 'classWarrior';
+  this.loadClassType = function () {
     // set the background-image of the character element
-    self.characterElement.css({'background-image' : 'url(' + self[classType].images.front + ')'});
+    self.characterElement.css({'background-image' : 'url(' + self[self.selectedClassType].images.front + ')'});
     // add the class type name to the element
-    self.characterElement.html('<p>' + self[classType].name + '</p>');
+    self.characterElement.html('<p>' + self[self.selectedClassType].name + '</p>');
     // add the next arrow to the character element
     self.characterElement.append('<a class="next"></a>');
   };
+
+
+
+
+
+  // loads a class description
+  this.loadClassDescription = function (classType) {
+    // the next arrow
+    var nextArrow = self.characterElement.find('.next'),
+    // the paragraph element
+    paragraph = self.characterElement.find('p');
+    // remove the next arrow from the page
+    nextArrow.fadeOut(0, function () {nextArrow.remove();});
+    // remove the class name from the page
+    paragraph.fadeOut(0, function () {paragraph.remove();});
+    // add the selected class to the character element
+    self.characterElement.addClass('selected');
+    // add the previous arrow to the character element
+    self.characterElement.append('<a class="prev"></a>');
+    // add the class type description to the character element
+    self.characterElement.append('<p><span>' + self[self.selectedClassType].name + '</span>' + self[self.selectedClassType].lore + '</p>');
+  };
+
+
+
+
   
   // adds the character name input field
   this.addNameField = function () {
@@ -109,15 +132,30 @@ function CharacterSelect () {
     classThumbnail.css({'background-image' : 'url(' + classType.images.front + ')'});
   };
 
+  // selects a class type by clicking on it
+  // @param Event e The click event that caused the selection
+  this.selectClassType = function (e) {
+    // get the element that was clicked on
+    var element = $(e.target);
+    // get the id of the thumbnail that was clicked
+    self.selectedClassType = element.attr('id');
+    // load the associated class type
+    self.loadClassType();
+  };
+
+  // confirms a class type by clicking the next arrow
+  // @param Event e The click event that caused the confirmation
+  this.confirmClassType = function (e) {
+    // load the description for this class type
+    self.loadClassDescription();
+  };
+
   // adds the events for the character slection screen
   this.addEvents = function () {
     // add an event for when a different class type gets selected
-    $(document).on('click', '.selectClass', function () {
-      // get the id of the thumbnail that was clicked
-      var id = $(this).attr('id');
-      // load the associated class type
-      self.loadClassType(id);
-    });
+    $(document).on('click', '.selectClass', self.selectClassType);
+    // add an event for when the next arrow is clicked and a class type is selected
+    $(document).on('click', '.next', self.confirmClassType);
   };
   
   // set the self variable equal to this class
