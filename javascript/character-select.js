@@ -268,7 +268,7 @@ function CharacterSelect () {
     // remove the container element
     self.container.detach();
     // initialize the map
-    map.initialize();
+    map.initialize(self[self.selectedClassType]);
   };
 
   // adds the events for the character slection screen

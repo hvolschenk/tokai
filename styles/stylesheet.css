@@ -34,7 +34,9 @@ a {
     top : 0;
     left : 0;
     background-image : url(/images/player.png);
-    background-size : 100% 100%;
+    background-size : auto 100%;
+    background-position : center;
+    background-repeat : no-repeat;
 }
 .inventory {
     margin : 0 auto;
