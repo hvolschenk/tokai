@@ -4,9 +4,7 @@ function Map () {
   // this current class
   var self,
   // the default status text
-  defaultStatusText = 'Move around and explore with the arrow keys.',
-  // whether the arena is open or closed
-  arenaMode = false;
+  defaultStatusText = 'Move around and explore with the arrow keys.';
   
   // the width of the map in pixels
   this.mapWidth = 600;
@@ -36,7 +34,7 @@ function Map () {
     self.addElement();
     // set-up the movement events
     self.setupEvents();
-  }
+  };
 
   // adds the map element to the page
   this.addElement = function () {
@@ -53,7 +51,7 @@ function Map () {
     self.statusTextElement.text(defaultStatusText);
     // add the status element to the body
     body.append(self.statusTextElement);
-  }
+  };
 
   // loads a map from file
   // @param integer map The map number
@@ -78,7 +76,7 @@ function Map () {
         console.log('error', jqXHR, textStatus, errorThrown);
       }
     });
-  }
+  };
 
   // loads all objects onto the map
   // @param json data The data derived from the map file
@@ -103,7 +101,7 @@ function Map () {
         });
       }
     });
-  }
+  };
 
   // loads the player onto the map
   // @param JSON player The player that must be loaded
@@ -118,13 +116,13 @@ function Map () {
     playerObject.addElement(self.mapElement);
     // add this player to the class variables
     self.player = playerObject;
-  }
-  
+  };
+
   // loads the inventory onto the map
   this.loadInventory = function () {
     // add the inventory element to the page
     self.player.inventory.addElement();
-  }
+  };
   
   // detects a clash between the player and any object
   // @param string direction The direction in which the player is trying to move
@@ -185,7 +183,7 @@ function Map () {
     }
     // return the result
     return clash;
-  }
+  };
   
   // detects a clash between the player and the map
   // @param string direction The direction in which the player is trying to move
@@ -226,13 +224,13 @@ function Map () {
     }
     // return the result
     return clash === false ? clash : self;
-  }
+  };
   
   // adds a clash handler method
   this.clashHandler = function () {
     // update status text
     self.statusTextElement.text('Find your house to leave this map.');
-  }
+  };
   
   // adds a triggered event to the map
   this.addTriggeredEvent = function (direction, event) {
@@ -240,7 +238,7 @@ function Map () {
     self.triggeredEvent.direction = direction;
     // set the triggered event''s event
     self.triggeredEvent.event = event;
-  }
+  };
   
   // sets up the keyboard events to move this player
   this.setupEvents = function () {
@@ -294,7 +292,13 @@ function Map () {
         }
       }
     });
-  }
+  };
+
+  // unbinds all events
+  this.removeEvents = function () {
+    // remove all events
+    $(document).off();
+  };
   
   // loads the arena for fighting
   // @param object enemy The enemy that you are fighting
@@ -309,13 +313,13 @@ function Map () {
     self.statusTextElement.hide();
     // hide the inventory
     self.player.inventory.inventoryElement.hide();
+    // remove all events
+    self.removeEvents();
     // initialize the arena
     arena.initialize();
     // build the arena element
     arena.addElement(body);
-    // set the arena mode of the map
-    arenaMode = true;
-  }
+  };
 
   // set the self variable equal to this class
   self = this;

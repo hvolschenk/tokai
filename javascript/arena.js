@@ -27,6 +27,31 @@ function Arena (map, enemy) {
     // prepare the player for battle
     map.player.prepareForBattle();
   };
+
+  // set-up all the events for the arena
+  this.setupEvents = function () {
+    // bind the keyup event
+    // @param events e The keyup event that triggered the function
+    $(document).on('keyup', function (e) {
+      switch (event.keyCode) {
+        case 65:
+          // a
+          break;
+        case 81:
+          // q
+          break;
+        case 87:
+          // w
+          break;
+        case 69:
+          // e
+          break;
+        case 82:
+          // r
+          break;
+      };
+    });
+  };
   
   // set the self variable equal to this class
   self = this;
