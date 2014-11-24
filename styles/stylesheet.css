@@ -61,12 +61,13 @@ a {
     border : 1px solid blue;
 }
 .container {
-    width : 600px;
-    height : 600px;
-    border : 1px solid #000;
-    margin : 10px auto;
-    position : relative;
+    width: 600px;
+    height: 600px;
+    margin: 10px auto;
+    position: relative;
+    padding: 40px 0px 32px 0px;
     background-image: url(/images/back.jpg);
+    background-position: 0px -83px;
 }
 .characterNameContainer {
     background-color : #4c4c4d;
