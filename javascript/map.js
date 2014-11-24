@@ -67,6 +67,8 @@ function Map () {
       success  : function (data) {
         // load the player onto the map
         self.loadPlayer(data.player, classType);
+        // load all enemies
+        self.loadEnemies(data.enemy);
         // load the inventory element onto the map
         self.loadInventory();
         // load all objects
@@ -82,7 +84,7 @@ function Map () {
   // @param json data The data derived from the map file
   this.loadObjects = function (data) {
     // a list of all types to load
-    var objectTypes = ["Rock", "Enemy", "Tree", "Item", "Water"];
+    var objectTypes = ["Rock", "Tree", "Item", "Water"];
     // go through each object type
     $.each(objectTypes, function () {
       // see if any objects of this type was found
@@ -101,6 +103,37 @@ function Map () {
         });
       }
     });
+  };
+
+  // loads all enemies onto the map
+  // @param json data All enemies to load onto the map
+  this.loadEnemies = function (data) {
+    // see if any enemies are in the list
+    if (data.length > 0) {
+      // go through each enemy
+      $.each(data, function () {
+        // the enemy object
+        var enemy;
+        // see if an enemy type was set
+        if (this.name) {
+          // see if an object exists for this enemy type
+          if (typeof(window['Enemy' + this.name]) === 'function') {
+            // this type has a class, load it
+            enemy = new window['Enemy' + this.name](self);
+          }
+        } else {
+          // no enemy type was set, load the base enemy object
+          enemy = new BaseEnemy(self);
+        }
+        console.log(enemy);
+        // initialize the enemy
+        enemy.initialize(this);
+        // add the element to the page
+        enemy.addElement(self.mapElement);
+        // add this enemy to the list of page objects
+        self.objects.push(enemy);
+      });
+    }
   };
 
   // loads the player onto the map

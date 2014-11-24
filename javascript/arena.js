@@ -30,8 +30,12 @@ function Arena (map, enemy) {
     map.player.prepareForBattle();
     // add the ability list to the page
     self.addAbilitiesList();
+    // add the enemy ability list to the page
+    self.addEnemyAbilitiesList();
     // add the player statistics to the arena
     self.addClassTypeStatistics();
+    // add the enemy statistics to the arena
+    self.addEnemyStatistics();
   };
 
   // set-up all the events for the arena
@@ -72,12 +76,7 @@ function Arena (map, enemy) {
     // add the ability list to the page
     body.append(self.abilityList);
     // add the three lists to the ability list element
-    self.abilityList.append('<p>Basic Attacks</p>');
-    self.abilityList.append(basicAttacks);
-    self.abilityList.append('<p>Magic abilities</p>');
-    self.abilityList.append(magicAbilities);
-    self.abilityList.append('<p>Stamina Abilities</p>');
-    self.abilityList.append(staminaAbilities);
+    self.abilityList.append('<p class="name">' + map.player.classType.characterName + '</p>', '<p>Basic Attacks</p>', basicAttacks, '<p>Magic abilities</p>', magicAbilities, '<p>Stamina Abilities</p>', staminaAbilities);
     // add the auto attacks list items
     self.addBasicAttackList(basicAttacks);
     // add the magic abilities list items
@@ -123,7 +122,14 @@ function Arena (map, enemy) {
   
   
   
-  
+  // adds a list of the enemy abilities to the arena
+  this.addEnemyAbilitiesList = function () {
+    // the body element
+    var body = $('body');
+    // add the ability list to the body
+    body.append(enemy.abilityList);
+    console.log('enemy', enemy);
+  };
   
   
   
@@ -131,28 +137,13 @@ function Arena (map, enemy) {
   
   // add the player class type stats
   this.addClassTypeStatistics = function () {
-    // the element that will contain the three bars
-    var barsElement = $('<div class="bars"><p>' + map.player.classType.characterName + '</p></div>'),
-    // the health bar element
-    barHealth = $('<div class="bar health"></div>'),
-    // the mana bar element
-    barMana = $('<div class="bar mana"></div>'),
-    // the stamina bar element
-    barStamina = $('<div class="bar stamina"></div>');
-    // add the bars container to the statitics element
-    self.element.append(barsElement);
-    // add the health bar element
-    barsElement.append(barHealth);
-    // add the mana bar element
-    barsElement.append(barMana);
-    // add the stamina bar element
-    barsElement.append(barStamina);
-    // set the width and title of the health bar
-    barHealth.css({'width' : map.player.classType.baseHealth + 'px'}).html('<p>' + map.player.classType.baseHealth + '</p>');
-    // set the width and title of the mana bar
-    barMana.css({'width' : map.player.classType.baseMana + 'px'}).html('<p>' + map.player.classType.baseMana + '</p>');
-    // set the width and title of the health bar
-    barStamina.css({'width' : map.player.classType.baseStamina + 'px'}).html('<p>' + map.player.classType.baseStamina + '</p>');
+    // build the statistics for this class type
+    self.element.append(map.player.classType.buildStatistics(true));
+  };
+
+  // add the enemy statistics
+  this.addEnemyStatistics = function () {
+    self.element.append(enemy.buildStatistics(true));
   };
   
   

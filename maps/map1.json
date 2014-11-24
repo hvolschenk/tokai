@@ -61,15 +61,15 @@
   "enemy" : [
     {
       "position" : {"top" : 8, "left" : 7},
-      "template" : 1
+      "name"     : "Shadowling"
     },
     {
       "position" : {"top" : 2, "left" : 0},
-      "template" : 1
+      "name"     : "Shadowling"
     },
     {
       "position" : {"top" : 3, "left" : 3},
-      "template" : 1
+      "name"     : "Shadowling"
     }
   ],
   "item" : [

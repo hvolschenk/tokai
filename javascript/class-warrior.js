@@ -1,4 +1,8 @@
 function ClassWarrior () {
+
+  // extend this object with the base object
+  BaseClass.call(this);
+
   // the character name
   this.characterName = '';
   // this class''s name
@@ -46,4 +50,5 @@ function ClassWarrior () {
   this.staminaTwoName = 'Bleed strike';
   // the description of the second stamina ability
   this.staminaTwoDescription = 'Enemy takes additional bleed damage for two rounds.';
+
 }

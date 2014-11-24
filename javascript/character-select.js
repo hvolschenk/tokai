@@ -149,34 +149,14 @@ function CharacterSelect () {
 
   // loads a class type description, statistics section
   this.loadClassDescriptionStatistics = function () {
-    // the element that will contain the three bars
-    var barsElement = $('<div class="bars"></div>'),
-    // the health bar element
-    barHealth = $('<div class="bar health"></div>'),
-    // the mana bar element
-    barMana = $('<div class="bar mana"></div>'),
-    // the stamina bar element
-    barStamina = $('<div class="bar stamina"></div>'),
     // the play button
-    playButton = $('<a class="playButton">Play</a>');
+    var playButton = $('<a class="playButton">Play</a>');
+    // add the play button to the statistics element
+    self.statisticsElement.append(playButton);
     // add the statistics element to the page
     self.container.append(self.statisticsElement);
     // add the bars container to the statitics element
-    self.statisticsElement.append(barsElement);
-    // add the health bar element
-    barsElement.append(barHealth);
-    // add the mana bar element
-    barsElement.append(barMana);
-    // add the stamina bar element
-    barsElement.append(barStamina);
-    // set the width and title of the health bar
-    barHealth.css({'width' : self[self.selectedClassType].baseHealth + 'px'}).html('<p>' + self[self.selectedClassType].baseHealth + '</p>');
-    // set the width and title of the mana bar
-    barMana.css({'width' : self[self.selectedClassType].baseMana + 'px'}).html('<p>' + self[self.selectedClassType].baseMana + '</p>');
-    // set the width and title of the health bar
-    barStamina.css({'width' : self[self.selectedClassType].baseStamina + 'px'}).html('<p>' + self[self.selectedClassType].baseStamina + '</p>');
-    // add the play button to the statistics element
-    self.statisticsElement.append(playButton);
+    self.statisticsElement.append(self[self.selectedClassType].buildStatistics(false));
   };
   
   // adds the class thumbnails to the page

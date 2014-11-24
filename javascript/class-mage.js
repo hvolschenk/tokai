@@ -1,4 +1,8 @@
 function ClassMage () {
+
+  // extend this object with the base object
+  BaseClass.call(this);
+
   // the character name
   this.characterName = '';
   // this class''s name
@@ -46,4 +50,5 @@ function ClassMage () {
   this.staminaTwoName = 'Nuke';
   // the description of the second stamina ability
   this.staminaTwoDescription = 'Damage an enemy for 50% of your current health.';
+
 }

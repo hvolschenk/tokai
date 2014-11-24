@@ -1,4 +1,8 @@
 function ClassRogue () {
+
+  // extend this object with the base object
+  BaseClass.call(this);
+
   // the character name
   this.characterName = '';
   // this class''s name
@@ -46,4 +50,5 @@ function ClassRogue () {
   this.staminaTwoName = 'Mine now';
   // the description of the second stamina ability
   this.staminaTwoDescription = 'Steal 20 health from the Enemy.';
+
 }
