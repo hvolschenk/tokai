@@ -1,0 +1,155 @@
+{
+  "tree" : [
+    {
+      "position" : {"top" : 0, "left" : 0}
+    },
+    {
+      "position" : {"top" : 0, "left" : 1}
+    },
+    {
+      "position" : {"top" : 0, "left" : 2}
+    },
+    {
+      "position" : {"top" : 0, "left" : 3}
+    },
+    {
+      "position" : {"top" : 0, "left" : 4}
+    },
+    {
+      "position" : {"top" : 0, "left" : 5}
+    },
+    {
+      "position" : {"top" : 0, "left" : 6}
+    },
+    {
+      "position" : {"top" : 0, "left" : 7}
+    },
+    {
+      "position" : {"top" : 0, "left" : 8}
+    },
+    {
+      "position" : {"top" : 0, "left" : 9}
+    },
+    {
+      "position" : {"top" : 1, "left" : 9}
+    },
+    {
+      "position" : {"top" : 2, "left" : 9}
+    },
+    {
+      "position" : {"top" : 3, "left" : 0}
+    },
+    {
+      "position" : {"top" : 3, "left" : 1}
+    },
+    {
+      "position" : {"top" : 3, "left" : 2}
+    },
+    {
+      "position" : {"top" : 3, "left" : 3}
+    },
+    {
+      "position" : {"top" : 3, "left" : 4}
+    },
+    {
+      "position" : {"top" : 3, "left" : 5}
+    },
+    {
+      "position" : {"top" : 3, "left" : 6}
+    }
+  ],
+  "enemy" : [
+    {
+      "position" : {"top" : 8, "left" : 7},
+      "template" : 1
+    },
+    {
+      "position" : {"top" : 2, "left" : 0},
+      "template" : 1
+    },
+    {
+      "position" : {"top" : 3, "left" : 3},
+      "template" : 1
+    }
+  ],
+  "item" : [
+    {
+      "name" : "Axe",
+      "position" : {"top" : 6, "left" : 7},
+      "damage" : 1
+    }
+  ],
+  "player" : {
+    "position" : {"top" : 1, "left" : 0}
+  },
+  "rock" : [
+    {
+      "position" : {"top" : 3, "left" : 7}
+    },
+    {
+      "position" : {"top" : 4, "left" : 8}
+    },
+    {
+      "position" : {"top" : 5, "left" : 8}
+    },
+    {
+      "position" : {"top" : 6, "left" : 8}
+    },
+    {
+      "position" : {"top" : 5, "left" : 7}
+    },
+    {
+      "position" : {"top" : 5, "left" : 6}
+    },
+    {
+      "position" : {"top" : 6, "left" : 6}
+    },
+    {
+      "position" : {"top" : 7, "left" : 6}
+    },
+    {
+      "position" : {"top" : 8, "left" : 6}
+    },
+    {
+      "position" : {"top" : 9, "left" : 6}
+    }
+  ],
+  "water" : [
+    {
+      "position" : {"top" : 4, "left" : 0}
+    },
+    {
+      "position" : {"top" : 4, "left" : 2}
+    },
+    {
+      "position" : {"top" : 4, "left" : 3}
+    },
+    {
+      "position" : {"top" : 4, "left" : 4}
+    },
+    {
+      "position" : {"top" : 4, "left" : 5}
+    },
+    {
+      "position" : {"top" : 4, "left" : 6}
+    },
+    {
+      "position" : {"top" : 4, "left" : 7}
+    },
+    {
+      "position" : {"top" : 5, "left" : 0}
+    },
+    {
+      "position" : {"top" : 5, "left" : 2}
+    },
+    {
+      "position" : {"top" : 5, "left" : 3}
+    },
+    {
+      "position" : {"top" : 5, "left" : 4}
+    },
+    {
+      "position" : {"top" : 5, "left" : 5}
+    }
+  ]
+}

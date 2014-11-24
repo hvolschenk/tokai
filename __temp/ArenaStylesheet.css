@@ -15,7 +15,7 @@
       top: 8px;
       right: 55px;
       position: absolute;
-      background-image: url(/images/inv.jpg);
+      background-image: url(images/inv.jpg);
     }
 
     .Listkeys {
@@ -29,7 +29,7 @@
     }
 
     .playerHolder {
-      background-image: url(/images/Characters/Rogue-back.png);
+      background-image: url(images/Characters/Rogue-back.png);
       background-repeat: no-repeat;
       background-size: 150px;
       position: absolute;
@@ -40,7 +40,7 @@
       
     }
     .playerHolderDouble {
-      background-image: url(/images/Characters/Rogue-back.png);
+      background-image: url(images/Characters/Rogue-back.png);
       background-repeat: no-repeat;
       background-size: 150px;
       position: absolute;
@@ -52,7 +52,7 @@
       display: none;
     }
     .enemyHolder {
-      background-image: url(/images/char1.png);
+      background-image: url(images/char1.png);
       background-repeat: no-repeat;
       background-size: 93px;
       position: absolute;
@@ -125,7 +125,7 @@
       }
       #playerArmor {
         display: block;
-        background-image: url(/images/fullShield.png);
+        background-image: url(images/fullShield.png);
         width: 35px;
         background-size: 36px;
         height: 43px;
@@ -176,7 +176,7 @@
       }
       #enemyArmor {
         display: block;
-        background-image: url(/images/fullShield.png);
+        background-image: url(images/fullShield.png);
         width: 35px;
         background-size: 36px;
         height: 43px;

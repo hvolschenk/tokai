@@ -52,13 +52,15 @@ function CharacterSelect () {
     // the character name field label
     var characterNameFieldLabel = $('<label for="characterNameField" class="characterNameFieldLabel">Character Name</label>'),
     // the character name input field
-    characterNameField = $('<input type="text" id="characterNameField" name="characterName" />');
-    // append the name field holder to the container
-    self.container.append(self.characterNameFieldHolder);
+    characterNameField = $('<input type="text" id="characterNameField" name="characterName" maxlength="16" />');
+    // set the name in the name field
+    characterNameField.val(self.characterName);
     // add the label to the character name field holder
     self.characterNameFieldHolder.append(characterNameFieldLabel);
     // add the input field to the chatacter name field holder
     self.characterNameFieldHolder.append(characterNameField);
+    // append the name field holder to the container
+    self.container.append(self.characterNameFieldHolder);
   };
 
   // adds the character element to the container
@@ -85,12 +87,12 @@ function CharacterSelect () {
     var nextArrow = self.characterElement.find('.next'),
     // the paragraph element
     paragraph = self.characterElement.find('p');
+    // add the selected class to the character element
+    self.characterElement.addClass('selected');
     // remove the next arrow from the page
     nextArrow.fadeOut(0, function () {nextArrow.remove();});
     // remove the class name from the page
     paragraph.fadeOut(0, function () {paragraph.remove();});
-    // add the selected class to the character element
-    self.characterElement.addClass('selected');
     // hide the class type selection list
     self.characterSelectList.hide();
     // add the lore section
@@ -101,6 +103,8 @@ function CharacterSelect () {
     self.loadClassDescriptionList();
     // add the statistics section
     self.loadClassDescriptionStatistics();
+    // add the name as a paragraph in the name area
+    self.characterNameFieldHolder.empty().html('<p>' + self.characterName + '</p>');
   };
 
   // loads a class type description, lore section
@@ -217,16 +221,30 @@ function CharacterSelect () {
 
   // confirms a class type by clicking the next arrow
   this.confirmClassType = function () {
-    // load the description for this class type
-    self.loadClassDescription();
+    // the text field that holds the name
+    var textField = self.characterNameFieldHolder.find('input').first(),
+    // the name that the user filled in
+    name = textField.val();
+    // check that the user has filled in a name
+    if (name !== undefined && name !== '') {
+      // set the character name
+      self.characterName = name;
+      // load the description for this class type
+      self.loadClassDescription(); 
+    } else {
+      // add an error class to the text field
+      textField.addClass('error').val('Player One');
+      // set the character name
+      self.characterName = 'Player One';
+    }
   };
 
   // select a new class type by clicking the previous arrow
   this.selectNewClassType = function () {
-    // empty out and hide the statistics element
-    self.statisticsElement.empty().detach();
     // empty out the character element and remove the selected class
     self.characterElement.empty().removeClass('selected');
+    // empty out and hide the statistics element
+    self.statisticsElement.empty().detach();
     // empty out the character name field holder
     self.characterNameFieldHolder.empty();
     // empty out and show the class type selection list
@@ -267,6 +285,8 @@ function CharacterSelect () {
     var map = new Map();
     // remove the container element
     self.container.detach();
+    // add the player name to the current class
+    self[self.selectedClassType].characterName = self.characterName;
     // initialize the map
     map.initialize(self[self.selectedClassType]);
   };

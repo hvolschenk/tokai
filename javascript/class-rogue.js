@@ -1,4 +1,6 @@
 function ClassRogue () {
+  // the character name
+  this.characterName = '';
   // this class''s name
   this.name = 'Rogue';
   // the images for this class

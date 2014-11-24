@@ -1,4 +1,6 @@
 function ClassMage () {
+  // the character name
+  this.characterName = '';
   // this class''s name
   this.name = 'Mage';
   // the images for this class

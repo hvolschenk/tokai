@@ -9,8 +9,6 @@ function Enemy (map) {
   BaseObject.call(this, map);
   // give this object a type
   this.type = 'enemy';
-  // the base enemy image
-  this.image = '/images/enemy.png';
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in
@@ -21,7 +19,13 @@ function Enemy (map) {
   
   // prepares the enemy for battle
   this.prepareForBattle = function () {
-    // HENDRIK - set the correct bg image once we have one
+    console.log(self.element.css('top'));
+    // set the top and left offset of the element
+    self.element.css({
+      top : '0px',
+      left : '540px'
+    });
+    console.log(self.element.css('top'));
   }
   
   // set the self variable equal to this class

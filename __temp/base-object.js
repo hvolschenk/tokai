@@ -45,13 +45,6 @@ function BaseObject (map) {
       width : self.width + 'px',
       height : self.height + 'px'
     }).addClass(this.type);
-    // does this object have an image
-    if (self.image) {
-      // build a new image
-      var image = $('<img src="' + self.image + '" />');
-      // add the image to the element
-      self.element.empty().append(image);
-    }
     // append the new html to the map element
     mapElement.append(self.element);
   };

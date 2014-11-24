@@ -23,15 +23,10 @@ function Player (map) {
   this.inventory = new Inventory(map);
   // holds the player html element
   this.playerElement = $('<div class="player"></div>');
-  // holds the class type
-  this.classType = {};
 
   // initializes the player object and loads the local variables
   // @param object player The player to load
-  // @param Object classType The class type that was selected during character select
-  this.initialize = function (player, classType) {
-    console.log(player);
-    console.log(classType);
+  this.initialize = function (player) {
     // set the left offset value
     self.left = player.position.left * self.playerWidth;
     // set the top offset value
@@ -40,9 +35,6 @@ function Player (map) {
     self.right = self.left + self.playerWidth;
     // set the new bottom value
     self.bottom = self.top + self.playerHeight;
-    // set up the class type
-    self.classType = classType;
-    console.log(self);
   }
 
   // adds the player to the html element specified
@@ -56,21 +48,20 @@ function Player (map) {
 
   // updates the element''s styling
   this.updateElement = function () {
-    console.log(self);
     self.playerElement.css({
       left : self.left + 'px',
       top  : self.top + 'px',
       width : self.playerWidth + 'px',
-      height : self.playerHeight + 'px',
-      'background-image' : 'url(' + self.classType.images.front + ')'
+      height : self.playerHeight + 'px'
     });
   }
   
   // prepares the player for battle
   this.prepareForBattle = function () {
-    // load the backside image for the player class type
+    // set the top and left offset of the element
     self.playerElement.css({
-      'background-image' : 'url(' + self.classType.images.back + ')'
+      top : '540px',
+      left : '0px'
     });
   }
 
