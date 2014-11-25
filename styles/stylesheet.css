@@ -65,7 +65,6 @@ a {
     position : static;
 }
 .rock {
-    background-color : gray;
     position : absolute;
 }
 .water {
