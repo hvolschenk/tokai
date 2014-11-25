@@ -29,13 +29,15 @@ function Arena (map, enemy) {
     // prepare the player for battle
     map.player.prepareForBattle();
     // add the ability list to the page
-    self.addAbilitiesList();
+    self.addClassTypeAbilityList();
     // add the enemy ability list to the page
-    self.addEnemyAbilitiesList();
+    self.addEnemyAbilityList();
     // add the player statistics to the arena
     self.addClassTypeStatistics();
     // add the enemy statistics to the arena
     self.addEnemyStatistics();
+    // add the events to the page
+    self.setupEvents();
   };
 
   // set-up all the events for the arena
@@ -45,113 +47,162 @@ function Arena (map, enemy) {
     $(document).on('keyup', function (e) {
       switch (event.keyCode) {
         case 65:
-          // a
+          // A
+          // cast an auto-attack
+          self.cast('autoAttack');
           break;
         case 81:
-          // q
+          // Q
+          // cast the first mana ability
+          self.cast('manaOne');
           break;
         case 87:
-          // w
+          // W
+          // cast the second mana ability
+          self.cast('manaTwo');
           break;
         case 69:
-          // e
+          // E
+          // cast the first stamina ability
+          self.cast('staminaOne');
           break;
         case 82:
-          // r
+          // R
+          // cast the second stamina ability
+          self.cast('staminaTwo');
           break;
       };
     });
   };
   
-  // add the abilities list
-  this.addAbilitiesList = function () {
-    // the body element
-    var body = $('body'),
-    // a list of basic attacks
-    basicAttacks = $('<ul class="basicAttacks"></ul>'),
-    // a list of magic abilities
-    magicAbilities = $('<ul class="magicAbilities"></ul>'),
-    // a list of stamina abilities
-    staminaAbilities = $('<ul class="staminaAbilities"></ul>');
-    // add the ability list to the page
-    body.append(self.abilityList);
-    // add the three lists to the ability list element
-    self.abilityList.append('<p class="name">' + map.player.classType.characterName + '</p>', '<p>Basic Attacks</p>', basicAttacks, '<p>Magic abilities</p>', magicAbilities, '<p>Stamina Abilities</p>', staminaAbilities);
-    // add the auto attacks list items
-    self.addBasicAttackList(basicAttacks);
-    // add the magic abilities list items
-    self.addMagicAbilitiesList(magicAbilities);
-    // add the stamina abilities list items
-    self.addStaminaAbilitiesList(staminaAbilities);
-  };
-  
-  // add the basic attacks list
-  // @param htmlObject list The unordered list to add the elements into
-  this.addBasicAttackList = function (list) {
-    // build the list item for auto-attacks
-    var autoAttackListItem = $('<li>A - Auto-attack:<br /><span>' + map.player.classType.autoAttackDescription + '</span></li>');
-    // add this list item to the list
-    list.append(autoAttackListItem);
-  };
-  
-  // add the magic abilities list items
-  // @param htmlObject list The unordered list to add the elements into
-  this.addMagicAbilitiesList = function (list) {
-    // the list item for the first magic ability
-    var magicAbilityOneListItem = $('<li>Q - ' + map.player.classType.manaOneName + ' (' + map.player.classType.manaOneCost + ' Mana)<br /><span>' + map.player.classType.manaOneDescription + '</span></li>'),
-    // the list item for the first magic ability
-    magicAbilityTwoListItem = $('<li>W - ' + map.player.classType.manaTwoName + ' (' + map.player.classType.manaTwoCost + ' Mana)<br /><span>' + map.player.classType.manaTwoDescription + '</span></li>');
-    // add the first magic ability to the list
-    list.append(magicAbilityOneListItem);
-    // add the second magic ability to the list
-    list.append(magicAbilityTwoListItem);
+  // removes all events from this page
+  this.removeEvents = function () {
+    // remove all document events
+    $(document).off();
   };
 
-  // add the stamina abilities list items
-  // @param htmlObject list The unordered list to add the elements into
-  this.addStaminaAbilitiesList = function (list) {
-    // the list item for the first stamina ability
-    var staminaAbilityOneListItem = $('<li>E - ' + map.player.classType.staminaOneName + ' (' + map.player.classType.staminaOneCost + ' Stamina)<br /><span>' + map.player.classType.staminaOneDescription + '</span></li>'),
-    // the list item for the first stamina ability
-    staminaAbilityTwoListItem = $('<li>R - ' + map.player.classType.staminaTwoName + ' (' + map.player.classType.staminaTwoCost + ' Stamina)<br /><span>' + map.player.classType.staminaTwoDescription + '</span></li>');
-    // add the first stamina ability to the list
-    list.append(staminaAbilityOneListItem);
-    // add the second stamina ability to the list
-    list.append(staminaAbilityTwoListItem);
+  // add the class type ability list
+  this.addClassTypeAbilityList = function () {
+    // build the ability list
+    map.player.classType.buildAbilityList();
+    // add the ability list to the page
+    $('body').append(map.player.classType.abilityList);
   };
-  
-  
-  
-  // adds a list of the enemy abilities to the arena
-  this.addEnemyAbilitiesList = function () {
+
+  this.addEnemyAbilityList = function () {
     // the body element
     var body = $('body');
     // add the ability list to the body
     body.append(enemy.abilityList);
-    console.log('enemy', enemy);
   };
-  
-  
-  
-  
-  
+
   // add the player class type stats
   this.addClassTypeStatistics = function () {
+    // build the class type statistics list
+    map.player.classType.buildStatistics(true);
     // build the statistics for this class type
-    self.element.append(map.player.classType.buildStatistics(true));
+    self.element.append(map.player.classType.statisticsList);
   };
 
   // add the enemy statistics
   this.addEnemyStatistics = function () {
-    self.element.append(enemy.buildStatistics(true));
+    // build the enemy statistics list
+    enemy.buildStatistics(true);
+    // append the enemy statistics list to the arena
+    self.element.append(enemy.statisticsList);
+  };
+
+  // cast an ability
+  // @param String ability The name of the ability to cast
+  this.cast = function (ability) {
+    // whether to cast the ability
+    var castAbility = false,
+    // the ability with the first letter uppercase
+    uppercaseAbility = ability.charAt(0).toUpperCase() + ability.slice(1);;
+    // check which type of ability this is
+    switch (ability) {
+      // auto-attacks
+      case 'autoAttack':
+        // this costs nothing and can always run
+        castAbility = true
+        break;
+      case 'manaOne':
+      case 'manaTwo':
+        // this ability costs mana, compare cost to current mana
+        if (map.player.classType[ability + 'Cost'] > map.player.classType.baseMana) {
+          // this costs too much, show an error
+          
+        } else {
+          // this ability can be casted
+          castAbility = true;
+        }
+        break;
+      case 'staminaOne':
+      case 'staminaTwo':
+        // this ability costs stamina, compare cost to current stamina
+        if (map.player.classType[ability + 'Cost'] > map.player.classType.baseStamina) {
+          // this costs too much, show an error
+          
+        } else {
+          // this ability can be casted
+          castAbility = true;
+        }
+        break;
+    };
+    // may this ability be casted
+    if (castAbility === true) {
+      // turn off document events
+      self.removeEvents();
+
+
+
+      // build the element that shows the current ability being cast
+      map.player.classType.buildAbilityCastElement(ability);
+      // append the new ability cast element to the page
+      self.element.append(map.player.classType.abilityCastElement);
+
+      // build the auto-attack box
+//      map.player.classType['build' + uppercaseAbility + 'Cast']();
+      // add the auto-attack cast box to the arena
+//      self.element.append(map.player.classType.abilityBox);
+      // perform the auto-attack
+      map.player.classType['perform' + uppercaseAbility](enemy);
+      // remove the auto-attack box from the arena
+      map.player.classType.removeAbilityCastBox(self.setupEvents);
+    }
+    // check if the fight is over
+    self.checkForFightEnd();
   };
   
+  // check for a win or loss
+  this.checkForFightEnd = function () {
+    // check if either enemy or your health 0 or smaller
+    if (enemy.baseHealth <= 0 || map.player.classType.baseHealth <= 0) {
+      // detach the player from the arena
+      map.player.playerElement.detach();
+      // remove the arena
+      self.element.remove();
+      // remove the class type ability list
+      map.player.classType.abilityList.remove();
+      // remove the enemy ability list
+      enemy.abilityList.remove();
+      // remove the arena events
+      self.removeEvents();
+      // remove the item from the map''s array
+      map.objects.splice(map.objects.indexOf(enemy), 1);
+      // show the map element
+      map.mapElement.show();
+      // add the player to the arena
+      map.player.addElement(map.mapElement);
+      // show the status text area
+      map.statusTextElement.show();
+      // show the inventory
+      map.player.inventory.inventoryElement.show();
+      // add the map events
+      map.setupEvents();
+    }
+  };
   
-  
-  
-  
-  
-
   // set the self variable equal to this class
   self = this;
 

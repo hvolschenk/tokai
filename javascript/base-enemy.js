@@ -11,6 +11,8 @@ function BaseEnemy (map) {
   this.type = 'enemy';
   // the list that holds the enemy abilities
   this.abilityList = $('<div class="abilityList enemyAbilityList"></div>');
+  // the list that holds the enemy statistics
+  this.statisticsList = $('<div class="bars enemyBars"></div>');
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in
@@ -30,10 +32,8 @@ function BaseEnemy (map) {
   // @param Boolean showName Whether to add in the enemy name
   // @return jQuery htmlObject The statistics bar
   this.buildStatistics = function (showName) {
-    // the element that will contain the three bars
-    var barsElement = $('<div class="bars enemyBars"></div>'),
     // the health bar element
-    barHealth = $('<div class="bar health"></div>'),
+    var barHealth = $('<div class="bar health"></div>'),
     // the mana bar element
     barMana = $('<div class="bar mana"></div>'),
     // the stamina bar element
@@ -41,22 +41,20 @@ function BaseEnemy (map) {
     // see whether the name must be shown
     if (showName === true) {
       // append the name to the element
-      barsElement.append('<p>' + self.name + '</p>');
+      self.statisticsList.append('<p>' + self.name + '</p>');
     }
     // add the health bar element
-    barsElement.append(barHealth);
+    self.statisticsList.append(barHealth);
     // add the mana bar element
-    barsElement.append(barMana);
+    self.statisticsList.append(barMana);
     // add the stamina bar element
-    barsElement.append(barStamina);
+    self.statisticsList.append(barStamina);
     // set the width and title of the health bar
     barHealth.css({'width' : self.baseHealth + 'px'}).html('<p>' + self.baseHealth + '</p>');
     // set the width and title of the mana bar
     barMana.css({'width' : self.baseMana + 'px'}).html('<p>' + self.baseMana + '</p>');
     // set the width and title of the health bar
     barStamina.css({'width' : self.baseStamina + 'px'}).html('<p>' + self.baseStamina + '</p>');
-    // return the element that was built up
-    return barsElement;
   };
 
   // add the abilities list
@@ -102,6 +100,19 @@ function BaseEnemy (map) {
     var staminaAbilityOneListItem = $('<li>E - ' + self.staminaOneName + ' (' + self.staminaOneCost + ' Stamina)<br /><span>' + self.staminaOneDescription + '</span></li>');
     // add the first stamina ability to the list
     list.append(staminaAbilityOneListItem);
+  };
+  
+  // take damage from the player
+  // @param Integer damageAmount The amount of damage dealt
+  this.takeDamage = function (damageAmount) {
+    // the health bar to update
+    var healthBar = self.statisticsList.find('.health');
+    // update the enemy base health
+    self.baseHealth -= damageAmount;
+    // update the enemy health bar
+    healthBar.css({
+      width : self.baseHealth + 'px'
+    }).html('<p>' + self.baseHealth + '</p>');
   };
 
   // set the self variable equal to this class

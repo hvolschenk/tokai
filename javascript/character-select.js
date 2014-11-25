@@ -118,7 +118,7 @@ function CharacterSelect () {
   // loads a class type description, abilities section
   this.loadClassDescriptionAbilities = function () {
     // a description of the class type auto attack
-    var autoAttack = 'Auto-attack:<br /><span>' + self[self.selectedClassType].autoAttackDescription + '</span><br /><br />',
+    var autoAttack = 'Auto-attack (' + self[self.selectedClassType].baseAttackDamage + '):<br /><span>' + self[self.selectedClassType].autoAttackDescription + '</span><br /><br />',
     // a description of the class type mana ability one
     manaOne = self[self.selectedClassType].manaOneName + ' (' + self[self.selectedClassType].manaOneCost + ' Mana)<br /><span>' + self[self.selectedClassType].manaOneDescription + '</span><br /><br />',
     // a description of the class type mana ability two
@@ -155,8 +155,10 @@ function CharacterSelect () {
     self.statisticsElement.append(playButton);
     // add the statistics element to the page
     self.container.append(self.statisticsElement);
+    // build the class type statistics list
+    self[self.selectedClassType].buildStatistics(false)
     // add the bars container to the statitics element
-    self.statisticsElement.append(self[self.selectedClassType].buildStatistics(false));
+    self.statisticsElement.append(self[self.selectedClassType].statisticsList);
   };
   
   // adds the class thumbnails to the page

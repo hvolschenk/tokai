@@ -27,7 +27,6 @@ function Map () {
   // initializes the map and items on the map
   // @param Object classType The class type that was selected during character select
   this.initialize = function (classType) {
-    console.log(classType);
     // load the first map
     self.loadMap(1, classType);
     // add the map element to the page
@@ -125,7 +124,6 @@ function Map () {
           // no enemy type was set, load the base enemy object
           enemy = new BaseEnemy(self);
         }
-        console.log(enemy);
         // initialize the enemy
         enemy.initialize(this);
         // add the element to the page
@@ -140,7 +138,6 @@ function Map () {
   // @param JSON player The player that must be loaded
   // @param Object classType The class type that was selected during character select
   this.loadPlayer = function (player, classType) {
-    console.log('loadplayer', classType);
     // create a new Player object
     playerObject = new Player(self);
     // initialize the Player
