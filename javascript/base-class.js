@@ -17,7 +17,7 @@ function BaseClass () {
   // the list that holds the enemy abilities
   this.abilityList = $('<div class="abilityList classTypeAbilityList"></div>');
   // the statistics list
-  this.statisticsList = $('<div class="bars classTypeBars"></div>');
+  this.statisticsList = $('<div class="bars classTypeBars active"></div>');
   // the bubble that shows the ability currently being cast
   this.abilityCastElement = $('<div class="abilityCast abilityCastClassType"></div>');
   
