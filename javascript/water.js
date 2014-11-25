@@ -10,7 +10,7 @@ function Water (map) {
   // give this object a type
   this.type = 'water';
   // set the background-image for this object
-  this.image = '/images/water.png';
+  this.image = '/images/environment/water.png';
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in

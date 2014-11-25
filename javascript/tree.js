@@ -10,7 +10,7 @@ function Tree (map) {
   // give this object a type
   this.type = 'tree';
   // a background-image for a tree object
-  this.image = '/images/tree.png';
+  this.image = '/images/environment/tree-new.png';
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in

@@ -12,6 +12,7 @@ a {
     margin : 10px 0 0;
 }
 .map, .arena {
+    background-image : url(/images/environment/grass-bg.jpg); 
     border : 1px solid #000;
     margin : 10px auto 0;
     position : relative;

@@ -9,6 +9,8 @@ function Rock (map) {
   BaseObject.call(this, map);
   // give this object a type
   this.type = 'rock';
+  // set the background-image for this object
+  this.image = '/images/environment/rocks-1.png';
   
   // add a clash handler for this type
   // @param string direction The direction the player was moving before the clash
