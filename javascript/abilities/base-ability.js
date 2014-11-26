@@ -60,7 +60,7 @@ function BaseAbility (classType) {
     classType.gainResource('stamina', self.staminaGain);
 
     // re-build the class type statistics
-    classType.buildStatistics();
+    classType.buildStatistics(true);
   };
 
   // check if the ability is allowed to be casted
