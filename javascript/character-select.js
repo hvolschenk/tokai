@@ -1,6 +1,7 @@
 function CharacterSelect () {
+
   // this current class
-  var self;
+  var self = this;
   
   // the character''s name
   this.characterName = '';
@@ -15,13 +16,15 @@ function CharacterSelect () {
   // the character selection list
   this.characterSelectList = $('<ul class="characterSelectList"></ul>');
   // the statistics element
-  this.statisticsElement = $('<div class="statistics"></div>'),
+  this.statisticsElement = $('<div class="statistics"></div>');
+  // a new map object
+  this.map = new Map();
   // a instance of the warrior class
-  this.classWarrior = new ClassWarrior();
+  this.classWarrior = new ClassWarrior(self.map);
   // a instance of the mage class
-  this.classMage = new ClassMage();
+  this.classMage = new ClassMage(self.map);
   // a instance of the rogue class
-  this.classRogue = new ClassRogue();
+  this.classRogue = new ClassRogue(self.map);
   // the selected class type
   this.selectedClassType = 'classWarrior';
   
@@ -117,34 +120,26 @@ function CharacterSelect () {
 
   // loads a class type description, abilities section
   this.loadClassDescriptionAbilities = function () {
-    // a description of the class type auto attack
-    var autoAttack = 'Auto-attack (' + self[self.selectedClassType].baseAttackDamage + '):<br /><span>' + self[self.selectedClassType].autoAttackDescription + '</span><br /><br />',
-    // a description of the class type mana ability one
-    manaOne = self[self.selectedClassType].manaOneName + ' (' + self[self.selectedClassType].manaOneCost + ' Mana)<br /><span>' + self[self.selectedClassType].manaOneDescription + '</span><br /><br />',
-    // a description of the class type mana ability two
-    manaTwo = self[self.selectedClassType].manaTwoName + ' (' + self[self.selectedClassType].manaTwoCost + ' Mana)<br /><span>' + self[self.selectedClassType].manaTwoDescription + '</span><br /><br />',
-    // a description of the class type stamina ability one
-    staminaOne = self[self.selectedClassType].staminaOneName + ' (' + self[self.selectedClassType].staminaOneCost + ' Stamina)<br /><span>' + self[self.selectedClassType].staminaOneDescription + '</span><br /><br />',
-    // a description of the class type stamina ability two
-    staminaTwo = self[self.selectedClassType].staminaTwoName + ' (' + self[self.selectedClassType].staminaTwoCost + ' Stamina)<br /><span>' + self[self.selectedClassType].staminaTwoDescription + '</span><br /><br />';
-    // add the class abillities to the character elemtn
-    self.characterElement.append('<p class="abilities">' + autoAttack + manaOne + manaTwo + staminaOne + staminaTwo + '</p>');
+    // update the clas type abilty list element
+    self[self.selectedClassType].buildAbilityList();
+    // add the ability list element to the character element
+    self.characterElement.append(self[self.selectedClassType].abilityList);
   };
 
   // loads a class type description, list section
   this.loadClassDescriptionList = function () {
     // the unordered list to add to the character element
     var list = $('<ul></ul>'),
-    // the "lore" list item to add to the list
-    listItemLore = $('<li><a class="showLore">Lore</a></li>'),
     // the "abilities" list item to add to the list
-    listItemAbilities = $('<li><a class="showAbilities">Abilities</a></li>');
+    listItemAbilities = $('<li><a class="showAbilities">Abilities</a></li>'),
+    // the "lore" list item to add to the list
+    listItemLore = $('<li><a class="showLore">Lore</a></li>');
     // add the list item to the character element
     self.characterElement.append(list);
-    // add the "lore" list item to the list
-    list.append(listItemLore);
     // add the "abilities" list item to the list
     list.append(listItemAbilities);
+    // add the "lore" list item to the list
+    list.append(listItemLore);
   };
 
   // loads a class type description, statistics section
@@ -223,6 +218,8 @@ function CharacterSelect () {
 
   // select a new class type by clicking the previous arrow
   this.selectNewClassType = function () {
+    // show the abilities and hide the lore
+    self.showAbilities();
     // empty out the character element and remove the selected class
     self.characterElement.empty().removeClass('selected');
     // empty out and hide the statistics element
@@ -242,7 +239,7 @@ function CharacterSelect () {
     // the lore paragraph
     var lore = self.characterElement.find('.lore'),
     // the abilities paragraph
-    abilities = self.characterElement.find('.abilities');
+    abilities = self.characterElement.find('.abilityList');
     // hide the lore paragraph
     lore.hide();
     // show the abilities paragraph
@@ -254,7 +251,7 @@ function CharacterSelect () {
     // the lore paragraph
     var lore = self.characterElement.find('.lore'),
     // the abilities paragraph
-    abilities = self.characterElement.find('.abilities');
+    abilities = self.characterElement.find('.abilityList');
     // hide the abilities paragraph
     abilities.hide();
     // show the lore paragraph
@@ -263,14 +260,12 @@ function CharacterSelect () {
 
   // starts the game with the selected character
   this.play = function () {
-    // a new map object
-    var map = new Map();
     // remove the container element
     self.container.detach();
     // add the player name to the current class
     self[self.selectedClassType].characterName = self.characterName;
     // initialize the map
-    map.initialize(self[self.selectedClassType]);
+    self.map.initialize(self[self.selectedClassType]);
   };
 
   // adds the events for the character slection screen
@@ -295,6 +290,4 @@ function CharacterSelect () {
     $(document).off();
   };
   
-  // set the self variable equal to this class
-  self = this;
 }

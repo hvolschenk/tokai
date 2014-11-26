@@ -3,7 +3,7 @@
 function BaseObject (map) {
   
   // this class
-  var self;
+  var self = this;
 
   // the width (in pixels) of an element
   this.width = 60;
@@ -45,15 +45,33 @@ function BaseObject (map) {
       width : self.width + 'px',
       height : self.height + 'px'
     }).addClass(this.type);
+    // append the new html to the map element
+    mapElement.append(self.element);
+    // add the element image
+    self.addImageToElement();
+  };
+
+  // adds the image to the element
+  this.addImageToElement = function () {
+    // the source of the image
+    var source,
+    // the image itself
+    image;
     // does this object have an image
     if (self.image) {
+      // does this object have an array of images
+      if (typeof(self.image) === 'Array') {
+        // get a random image
+        source = self.image[Math.floor((Math.random() * self.image.length-1) + 1)];
+      } else {
+        // set the source of the image as the image
+        source = self.image;
+      }
       // build a new image
-      var image = $('<img src="' + self.image + '" />');
+      image = $('<img src="' + source + '" />');
       // add the image to the element
       self.element.empty().append(image);
     }
-    // append the new html to the map element
-    mapElement.append(self.element);
   };
   
   // removes an element
@@ -63,8 +81,5 @@ function BaseObject (map) {
     // remove this tree from the map''s list of trees
     map.objects.splice(map.objects.indexOf(self), 1);
   };
-
-  // set the self variable equal to this class
-  self = this;
 
 }

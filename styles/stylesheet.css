@@ -20,6 +20,20 @@ a {
 .arena {
     background-image : url(/images/arena-background.jpg);
 }
+.arena .abilityDescription {
+    background-color : #474747;
+    border : 1px solid #f1f1f1;
+    border-radius : 4px;
+    width : 300px;
+    padding : 10px;
+    color : #f1f1f1;
+    position : absolute;
+    top : 265px;
+    left : 240px;
+}
+.arena .keyboardKey {
+    color : #474747;
+}
 .tree {
     position : absolute;
     top : 60px;
@@ -44,14 +58,21 @@ a {
     width : 100%;
     height : 100%;
 }
-.player {
+.warrior, .mage, .rogue {
     position : absolute;
     top : 0;
     left : 0;
-    background-image : url(/images/player.png);
     background-size : auto 100%;
     background-position : center;
     background-repeat : no-repeat;
+}
+.warrior img, .mage img, .rogue img {
+    width : auto;
+    height : 120%;
+    margin : 0 auto;
+    display : block;
+    position : relative;
+    bottom : 20%;
 }
 .inventory {
     margin : 0 auto;
@@ -180,11 +201,14 @@ a {
     box-shadow : none;
     width : 245px;
 }
-.character.selected p.lore {
+.character.selected .lore {
     text-align : justify;
-}
-.character.selected p.abilities {
     display : none;
+}
+.character.selected .abilityList {
+    margin : 0;
+    left : 90px;
+    border : none;
 }
 .character.selected p.lore span {
     display : block;
@@ -245,19 +269,27 @@ a {
     color : #f1f1f1;
     margin : 5px 0 0;
     border : 1px solid #f1f1f1;
+    position : relative;
+    width : 300px;
+}
+.bar div {
+    position : absolute;
+    height : 100%;
 }
 .bar p {
     font-size : 12px;
     padding : 5px 0 0;
+    position : relative;
+    z-index : 2;
 }
-.bar.health {
+.health div {
     margin : 0;
     background-color : #990000;
 }
-.bar.mana {
+.mana div {
     background-color : #699EDB;
 }
-.bar.stamina {
+.stamina div {
     background-color: #4AC615;
 }
 .playButton {
@@ -288,8 +320,11 @@ a {
 }
 .abilityList p {
     font-weight : bold;
-    text-decoration : underline;
     margin : 10px 0 5px;
+}
+.abilityList p.classTypeName span {
+    display : block;
+    font-size : 12px;
 }
 .abilityList p:first-child {
     margin-top : 0;
@@ -328,7 +363,7 @@ ul.staminaAbilities {
     bottom : 250px;
     left : 240px;
 }
-.arena .player {
+.arena .warrior, .arena .mage, .arena .rogue {
     width : 150px !important;
     height : 300px !important;
     background-size : 150px auto;
@@ -384,8 +419,24 @@ ul.staminaAbilities {
     padding : 10px 0 0 0;
     position : relative;
 }
+.abilityDescription .health {
+    margin : 0;
+    color : #990000;
+    background-color : transparent;
+}
+.abilityDescription .mana {
+    color : #699EDB;
+    background-color : transparent;
+}
+.abilityDescription .stamina {
+    color: #4AC615;
+    background-color : transparent;
+}
 .abilityDescription p span {
     font-weight : normal;
+}
+.abilityDescription p span.description {
+    font-size : 12px;
 }
 .abilityDescription p {
     text-decoration : none;
@@ -397,10 +448,19 @@ ul.staminaAbilities {
     top : 0px;
     right : 0px;
     color : #f1f1f1;
-    background-color : #699EDB;
     width : 25px;
     height : 25px;
     font-size : 12px;
     padding : 5px 0 0 5px;
     border : 1px solid #474747;
+}
+
+
+
+.character.selected .abilityList p {
+    margin : 10px 0 0;
+    width : 230px;
+}
+.character.selected .abilityList .abilityDescription {
+    clear : both;
 }

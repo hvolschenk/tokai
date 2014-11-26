@@ -3,7 +3,7 @@
 function Inventory (map) {
   
   // this class
-  var self;
+  var self = this;
   
   // the width of the inventory area
   this.inventoryWidth = 600;
@@ -45,8 +45,5 @@ function Inventory (map) {
       this.addElement(self.inventoryElement);
     });
   };
-  
-  // set the local reference of this class
-  self = this;
   
 }

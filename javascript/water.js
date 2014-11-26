@@ -3,7 +3,7 @@
 function Water (map) {
   
   // holds this object for itself
-  var self;
+  var self = this;
   
   // extend this object with the base object
   BaseObject.call(this, map);
@@ -18,8 +18,5 @@ function Water (map) {
     // write some output so the user knows water is impassable
     map.statusTextElement.text('Damn, my swimming trunks are at home, if only I could remember where home is.');
   };
-  
-  // set the self variable equal to this class
-  self = this;
 
 }

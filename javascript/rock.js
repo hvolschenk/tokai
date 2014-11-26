@@ -3,7 +3,7 @@
 function Rock (map) {
   
   // holds this object for itself
-  var self;
+  var self = this;
   
   // extend this object with the base object
   BaseObject.call(this, map);
@@ -17,8 +17,5 @@ function Rock (map) {
   this.clashHandler = function (direction) {
     map.statusTextElement.text('Ouch, my toe! better look out for those rocks.');
   }
-  
-  // set the self variable equal to this class
-  self = this;
   
 }

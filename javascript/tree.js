@@ -3,7 +3,7 @@
 function Tree (map) {
 
   // holds this object for itself
-  var self;
+  var self = this;
   
   // extend this object with the base object
   BaseObject.call(this, map);
@@ -28,8 +28,5 @@ function Tree (map) {
       }
     });
   };
-
-  // set the self variable equal to this class
-  self = this;
 
 }

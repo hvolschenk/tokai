@@ -2,7 +2,7 @@
 function Map () {
   
   // this current class
-  var self,
+  var self = this,
   // the default status text
   defaultStatusText = 'Move around and explore with the arrow keys.';
   
@@ -64,14 +64,14 @@ function Map () {
       dataType : 'json',
       url      : 'maps/map' + map + '.json',
       success  : function (data) {
-        // load the player onto the map
-        self.loadPlayer(data.player, classType);
         // load all enemies
         self.loadEnemies(data.enemy);
-        // load the inventory element onto the map
-        self.loadInventory();
         // load all objects
         self.loadObjects(data);
+        // load the player onto the map
+        self.loadPlayer(data.player, classType);
+        // load the inventory element onto the map
+        self.loadInventory();
       },
       error    : function (jqXHR, textStatus, errorThrown) {
         console.log('error', jqXHR, textStatus, errorThrown);
@@ -138,14 +138,12 @@ function Map () {
   // @param JSON player The player that must be loaded
   // @param Object classType The class type that was selected during character select
   this.loadPlayer = function (player, classType) {
-    // create a new Player object
-    playerObject = new Player(self);
-    // initialize the Player
-    playerObject.initialize(player, classType);
-    // add the player object to the page
-    playerObject.addElement(self.mapElement);
     // add this player to the class variables
-    self.player = playerObject;
+    self.player = classType;
+    // initialize the Player
+    self.player.initialize(player);
+    // add the player object to the page
+    self.player.addElement(self.mapElement);
   };
 
   // loads the inventory onto the map
@@ -350,8 +348,5 @@ function Map () {
     // build the arena element
     arena.addElement(body);
   };
-
-  // set the self variable equal to this class
-  self = this;
 
 }

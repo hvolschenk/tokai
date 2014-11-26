@@ -4,7 +4,7 @@
 function Arena (map, enemy) {
   
   // holds this object for itself
-  var self;
+  var self = this;
   
   // extend this object with the base object
   BaseObject.call(this, map);
@@ -45,34 +45,45 @@ function Arena (map, enemy) {
     // bind the keyup event
     // @param events e The keyup event that triggered the function
     $(document).on('keyup', function (e) {
-      switch (event.keyCode) {
-        case 65:
-          // A
-          // cast an auto-attack
-          self.cast('autoAttack');
-          break;
-        case 81:
-          // Q
-          // cast the first mana ability
-          self.cast('manaOne');
-          break;
-        case 87:
-          // W
-          // cast the second mana ability
-          self.cast('manaTwo');
-          break;
-        case 69:
-          // E
-          // cast the first stamina ability
-          self.cast('staminaOne');
-          break;
-        case 82:
-          // R
-          // cast the second stamina ability
-          self.cast('staminaTwo');
-          break;
-      };
+      // the key that was pressed
+      var key = String.fromCharCode(e.keyCode);
+      // check if any abilities are linked to the class type
+      if (map.player.abilities) {
+        // loop through all abilities linked to this class type
+        $.each(map.player.abilities, function () {
+          // a clone of the ability description
+          var descriptionClone;
+          // see if the current pressed key is the ability key
+          if (this.key === key) {
+            // see if the ability is allowed to be casted
+            if (this.allowedToCast() === true) {
+              // remove events from this page
+              self.removeEvents();
+              // clone the description
+              descriptionClone = this.abilityDescriptionElement.clone();
+              // add the ability description to the arena
+              self.element.append(descriptionClone);
+              // cast the ability
+              this.cast(enemy);
+              // finish the current ability
+              self.finishCurrentAbility(descriptionClone);
+            }
+          }
+        });
+      }
     });
+  };
+  
+  // show the current ability
+  // @param htmlElement descriptionElementClone The secription of the ability
+  this.finishCurrentAbility = function (descriptionElementClone) {
+    // set a timeout for 2 second
+    window.setTimeout(function () {
+      // remove the element
+      descriptionElementClone.remove();
+      // re enable all events
+      self.setupEvents();
+    }, 2000);
   };
   
   // removes all events from this page
@@ -84,24 +95,24 @@ function Arena (map, enemy) {
   // add the class type ability list
   this.addClassTypeAbilityList = function () {
     // build the ability list
-    map.player.classType.buildAbilityList();
+    map.player.buildAbilityList();
     // add the ability list to the page
-    $('body').append(map.player.classType.abilityList);
+    $('body').append(map.player.abilityList);
   };
 
   this.addEnemyAbilityList = function () {
-    // the body element
-    var body = $('body');
-    // add the ability list to the body
-    body.append(enemy.abilityList);
+    // build the ability list
+    enemy.buildAbilityList();
+    // add the ability list to the page
+    $('body').append(enemy.abilityList);
   };
 
   // add the player class type stats
   this.addClassTypeStatistics = function () {
     // build the class type statistics list
-    map.player.classType.buildStatistics(true);
+    map.player.buildStatistics(true);
     // build the statistics for this class type
-    self.element.append(map.player.classType.statisticsList);
+    self.element.append(map.player.statisticsList);
   };
 
   // add the enemy statistics
@@ -111,79 +122,17 @@ function Arena (map, enemy) {
     // append the enemy statistics list to the arena
     self.element.append(enemy.statisticsList);
   };
-
-  // cast an ability
-  // @param String ability The name of the ability to cast
-  this.cast = function (ability) {
-    // whether to cast the ability
-    var castAbility = false,
-    // the ability with the first letter uppercase
-    uppercaseAbility = ability.charAt(0).toUpperCase() + ability.slice(1);;
-    // check which type of ability this is
-    switch (ability) {
-      // auto-attacks
-      case 'autoAttack':
-        // this costs nothing and can always run
-        castAbility = true
-        break;
-      case 'manaOne':
-      case 'manaTwo':
-        // this ability costs mana, compare cost to current mana
-        if (map.player.classType[ability + 'Cost'] > map.player.classType.baseMana) {
-          // this costs too much, show an error
-          
-        } else {
-          // this ability can be casted
-          castAbility = true;
-        }
-        break;
-      case 'staminaOne':
-      case 'staminaTwo':
-        // this ability costs stamina, compare cost to current stamina
-        if (map.player.classType[ability + 'Cost'] > map.player.classType.baseStamina) {
-          // this costs too much, show an error
-          
-        } else {
-          // this ability can be casted
-          castAbility = true;
-        }
-        break;
-    };
-    // may this ability be casted
-    if (castAbility === true) {
-      // turn off document events
-      self.removeEvents();
-
-
-
-      // build the element that shows the current ability being cast
-      map.player.classType.buildAbilityCastElement(ability);
-      // append the new ability cast element to the page
-      self.element.append(map.player.classType.abilityCastElement);
-
-      // build the auto-attack box
-//      map.player.classType['build' + uppercaseAbility + 'Cast']();
-      // add the auto-attack cast box to the arena
-//      self.element.append(map.player.classType.abilityBox);
-      // perform the auto-attack
-      map.player.classType['perform' + uppercaseAbility](enemy);
-      // remove the auto-attack box from the arena
-      map.player.classType.removeAbilityCastBox(self.setupEvents);
-    }
-    // check if the fight is over
-    self.checkForFightEnd();
-  };
   
   // check for a win or loss
   this.checkForFightEnd = function () {
     // check if either enemy or your health 0 or smaller
-    if (enemy.baseHealth <= 0 || map.player.classType.baseHealth <= 0) {
+    if (enemy.healthBase <= 0 || map.player.healthBase <= 0) {
       // detach the player from the arena
-      map.player.playerElement.detach();
+      map.player.element.detach();
       // remove the arena
       self.element.remove();
       // remove the class type ability list
-      map.player.classType.abilityList.remove();
+      map.player.abilityList.remove();
       // remove the enemy ability list
       enemy.abilityList.remove();
       // remove the arena events
@@ -202,8 +151,5 @@ function Arena (map, enemy) {
       map.setupEvents();
     }
   };
-  
-  // set the self variable equal to this class
-  self = this;
 
 }

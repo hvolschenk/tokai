@@ -1,7 +1,7 @@
 function Player (map) {
 
   // this class
-  var self;
+  var self = this;
   
   // the width of a player element
   this.playerWidth = 60;
@@ -22,7 +22,7 @@ function Player (map) {
   // The player''s inventory
   this.inventory = new Inventory(map);
   // holds the player html element
-  this.playerElement = $('<div class="player"></div>');
+//  this.playerElement = $('<div class="player"></div>');
   // holds the class type
   this.classType = {};
 
@@ -48,25 +48,25 @@ function Player (map) {
     // add the new CSS to the player element
     self.updateElement();
     // append the new html to the map element
-    mapElement.append(self.playerElement);
+    mapElement.append(self.element);
   }
 
   // updates the element''s styling
   this.updateElement = function () {
-    self.playerElement.css({
+    self.element.css({
       left : self.left + 'px',
       top  : self.top + 'px',
       width : self.playerWidth + 'px',
       height : self.playerHeight + 'px',
-      'background-image' : 'url(' + self.classType.images.front + ')'
+      'background-image' : 'url(' + self.images.front + ')'
     });
   }
   
   // prepares the player for battle
   this.prepareForBattle = function () {
     // load the backside image for the player class type
-    self.playerElement.css({
-      'background-image' : 'url(' + self.classType.images.back + ')'
+    self.element.css({
+      'background-image' : 'url(' + self.images.back + ')'
     });
   }
 
@@ -102,8 +102,5 @@ function Player (map) {
     // update the element with the new CSS
     self.updateElement();
   }
-
-  // set the local reference of this class
-  self = this;
 
 }
