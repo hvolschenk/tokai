@@ -1,6 +1,6 @@
 // Defines an inventory item
 // @param Object map The map object
-function Item (map) {
+function BaseItem (map) {
   
   // holds this object for itself
   var self = this;

@@ -64,6 +64,8 @@ function Map () {
       dataType : 'json',
       url      : 'maps/map' + map + '.json',
       success  : function (data) {
+        // load all items
+        self.loadItems(data.item);
         // load all enemies
         self.loadEnemies(data.enemy);
         // load all objects
@@ -83,7 +85,7 @@ function Map () {
   // @param json data The data derived from the map file
   this.loadObjects = function (data) {
     // a list of all types to load
-    var objectTypes = ["Rock", "Tree", "Item", "Water"];
+    var objectTypes = ["Path", "Rock", "Tree", "Water"];
     // go through each object type
     $.each(objectTypes, function () {
       // see if any objects of this type was found
@@ -130,6 +132,36 @@ function Map () {
         enemy.addElement(self.mapElement);
         // add this enemy to the list of page objects
         self.objects.push(enemy);
+      });
+    }
+  };
+
+  // loads all items onto the map
+  // @param json data All enemies to load onto the map
+  this.loadItems = function (data) {
+    // see if any enemies are in the list
+    if (data.length > 0) {
+      // go through each item
+      $.each(data, function () {
+        // the item object
+        var item;
+        // see if an item type was set
+        if (this.name) {
+          // see if an object exists for this item type
+          if (typeof(window['Item' + this.name]) === 'function') {
+            // this type has a class, load it
+            item = new window['Item' + this.name](self);
+          }
+        } else {
+          // no item type was set, load the base item object
+          item = new BaseItem(self);
+        }
+        // initialize the item
+        item.initialize(this);
+        // add the element to the page
+        item.addElement(self.mapElement);
+        // add this item to the list of page objects
+        self.objects.push(item);
       });
     }
   };
@@ -298,28 +330,31 @@ function Map () {
       if (direction !== null) {
         // rotate the player in the direction
         self.player.rotate(direction);
-        // see if there is a triggered event for this direction
-        if (self.triggeredEvent.direction === direction && typeof self.triggeredEvent.event === 'function') {
-          // call the triggered event
-          self.triggeredEvent.event();
-          // reset the triggered event
-          self.addTriggeredEvent(null, null);
-        } else {
-          // reset the triggered event
-          self.addTriggeredEvent(null, null);
-          // test whether the player clashes
-          clashResult = self.detectClash(direction);
-          // see if the user is moving into anything
-          if (clashResult === false) {
-            // move the player in the desired direction
-            self.player.movePlayer(direction);
-            // reset the text in the status
-            self.statusTextElement.text(defaultStatusText);
+        // if the shift key was held in we just want to rotate
+        if (event.shiftKey !== true) {
+          // see if there is a triggered event for this direction
+          if (self.triggeredEvent.direction === direction && typeof self.triggeredEvent.event === 'function') {
+            // call the triggered event
+            self.triggeredEvent.event();
+            // reset the triggered event
+            self.addTriggeredEvent(null, null);
           } else {
-            // see if there is an clash handling method for this type
-            if (clashResult.clashHandler) {
-              // call the clash handler method
-              clashResult.clashHandler(direction);
+            // reset the triggered event
+            self.addTriggeredEvent(null, null);
+            // test whether the player clashes
+            clashResult = self.detectClash(direction);
+            // see if the user is moving into anything
+            if (clashResult === false) {
+              // move the player in the desired direction
+              self.player.movePlayer(direction);
+              // reset the text in the status
+              self.statusTextElement.text(defaultStatusText);
+            } else {
+              // see if there is an clash handling method for this type
+              if (clashResult.clashHandler) {
+                // call the clash handler method
+                clashResult.clashHandler(direction);
+              }
             }
           }
         }

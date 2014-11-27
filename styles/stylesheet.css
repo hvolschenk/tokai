@@ -38,10 +38,8 @@ a {
 .arena .keyboardKey {
     color : #474747;
 }
-.tree {
+.tree, .rock, .water, .path {
     position : absolute;
-    top : 60px;
-    left : 60px;
 }
 .tree img {
     width : auto;
@@ -88,12 +86,6 @@ a {
 }
 .inventory .item {
     position : static;
-}
-.rock {
-    position : absolute;
-}
-.water {
-    position : absolute;
 }
 .arena {
     border : 1px solid blue;

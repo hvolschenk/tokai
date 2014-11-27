@@ -17,9 +17,9 @@ function ClassWarrior (map) {
   // the main image for this class
   this.image = [
     '/images/characters/warrior-back.png',
-    '/images/characters/warrior-right.png',
+    '/images/characters/warrior-back.png',
     '/images/characters/warrior-front.png',
-    '/images/characters/warrior-left.png'
+    '/images/characters/warrior-front.png'
   ];
   // the base attack damage for this class
   this.damageBase = 30;

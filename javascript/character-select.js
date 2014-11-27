@@ -289,5 +289,26 @@ function CharacterSelect () {
     // remove all event from document
     $(document).off();
   };
+
+  // pre-loads the images
+  this.preloadImages = function () {
+    var img_to_load = [ '/img/1.jpg', '/img/2.jpg' ];
+    var loaded_images = 0;
+    for (var i=0; i<img_to_load.length; i++) {
+      var img = document.createElement('img');
+      img.src = img_to_load[i];
+      img.style.display = 'hidden'; // don't display preloaded images
+      img.onload = function () {
+        loaded_images ++;
+        if (loaded_images == img_to_load.length) {
+          alert('done loading images');
+        }
+        else {
+          alert((100*loaded_images/img_to_load.length) + '% loaded');
+        }
+      }
+      document.body.appendChild(img);
+    }
+  };
   
 }

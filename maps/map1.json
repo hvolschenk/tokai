@@ -1,4 +1,54 @@
 {
+  "path" : [
+    {
+      "position" : {"top" : 1, "left" : 0},
+      "image" : 5
+    },
+    {
+      "position" : {"top" : 1, "left" : 1},
+      "image" : 12
+    },
+    {
+      "position" : {"top" : 2, "left" : 1},
+      "image" : 0
+    },
+    {
+      "position" : {"top" : 3, "left" : 1},
+      "image" : 0
+    },
+    {
+      "position" : {"top" : 4, "left" : 1},
+      "image" : 0
+    },
+    {
+      "position" : {"top" : 5, "left" : 1},
+      "image" : 0
+    },
+    {
+      "position" : {"top" : 1, "left" : 2},
+      "image" : 1
+    },
+    {
+      "position" : {"top" : 1, "left" : 3},
+      "image" : 6
+    },
+    {
+      "position" : {"top" : 2, "left" : 3},
+      "image" : 8
+    },
+    {
+      "position" : {"top" : 2, "left" : 4},
+      "image" : 1
+    },
+    {
+      "position" : {"top" : 2, "left" : 5},
+      "image" : 1
+    },
+    {
+      "position" : {"top" : 2, "left" : 6},
+      "image" : 1
+    }
+  ],
   "tree" : [
     {
       "position" : {"top" : 0, "left" : 0}
