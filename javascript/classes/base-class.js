@@ -36,8 +36,6 @@ function BaseClass (map) {
       case 'left':
         // set the new left value
         self.left = self.left - self.playerMoveSize;
-        // set the current image of the player
-        self.currentImage = 3;
         // set the new left attribute for this object
         self.position.left -= 1;
         // break out of the switch
@@ -45,8 +43,6 @@ function BaseClass (map) {
       case 'up':
         // set the new top value
         self.top = self.top - self.playerMoveSize;
-        // set the current image of the player
-        self.currentImage = 0;
         // set the new top attribute for the object
         self.position.top -= 1;
         // break out of the switch
@@ -54,8 +50,6 @@ function BaseClass (map) {
       case 'right':
         // set the new left value
         self.left = self.left + self.playerMoveSize;
-        // set the current image of the player
-        self.currentImage = 1;
         // set the new top attribute for the object
         self.position.left += 1;
         // break out of the switch
@@ -63,8 +57,6 @@ function BaseClass (map) {
       case 'down':
         // set the new top value
         self.top = self.top + self.playerMoveSize;
-        // set the current image of the player
-        self.currentImage = 2;
         // set the new top attribute for the object
         self.position.top += 1;
         // break out of the switch
@@ -79,5 +71,24 @@ function BaseClass (map) {
     // update the element with the new CSS
     self.updateElement();
   }
+
+  // rotate the player in a certain direction
+  // @param String direction The direction the player needs to turn in
+  this.rotate = function (direction) {
+    // an object containing the image numbers corresponding to the direction
+    var directions = {
+      up : 0,
+      right : 1,
+      down : 2,
+      left : 3
+    };
+    // see if we found a number
+    if (directions[direction] % 1 === 0) {
+      // set the image to the corresponding number
+      self.currentImage = directions[direction];
+      // update the element
+      self.addImageToElement();
+    }
+  };
 
 }

@@ -14,6 +14,8 @@ function Tree (map) {
     '/images/environment/tree-new.png',
     '/images/environment/tree-old.png'
   ];
+  // an image for when this object is dead
+  this.imageDead = '/images/environment/tree-dead.png';
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in
@@ -23,7 +25,7 @@ function Tree (map) {
       // see if this item is the "Axe"
       if (this.name === "Axe") {
         // set up a triggered event for the current direction to chop down the tree
-        map.addTriggeredEvent(direction, self.removeElement);
+        map.addTriggeredEvent(direction, self.kill);
         // set the status text
         map.statusTextElement.text('Press "' + direction + '" again to chop down this tree with your Axe.');
         // we have found what we are looking for and now quit the loop

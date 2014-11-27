@@ -28,6 +28,10 @@ function BaseObject (map) {
   };
   // the current image
   this.currentImage = null;
+  // whether you can clash into this object
+  this.clashable = true;
+  // whether this object is dead
+  this.dead = false;
 
   // initializes the element object and loads the local variables
   // @param object object The object to load
@@ -78,8 +82,16 @@ function BaseObject (map) {
     var source,
     // the image itself
     image;
+    // check if the object is dead
+    if (self.dead === true) {
+      // see if this object has a dead image
+      if (self.imageDead) {
+        // set the source to the dead image
+        source = self.imageDead;
+      }
+    }
     // does this object have an image
-    if (self.image) {
+    if (self.image && source === undefined) {
       // does this object have an array of images
       if (typeof(self.image) === 'string') {
         // set the source of the image as the image
@@ -94,6 +106,9 @@ function BaseObject (map) {
           source = self.image[Math.floor((Math.random() * self.image.length-1) + 1)];
         }
       }
+    }
+    // can we add the image
+    if (source !== undefined) {
       // build a new image
       image = $('<img src="' + source + '" />');
       // add the image to the element
@@ -107,6 +122,16 @@ function BaseObject (map) {
     self.element.remove();
     // remove this tree from the map''s list of trees
     map.objects.splice(map.objects.indexOf(self), 1);
+  };
+
+  // when you kill an object
+  this.kill = function () {
+    // cannot clash with the tree anymore
+    self.clashable = false;
+    // kill the tree
+    self.dead = true;
+    // re-add the image element
+    self.addImageToElement();
   };
 
 }

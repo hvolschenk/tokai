@@ -166,44 +166,47 @@ function Map () {
       $.each(objectTypes, function () {
         // go through each of this type''s items
         $.each(self[this], function () {
-          // see which direction we are moving in
-          switch (direction) {
-            case 'left':
-              // see if this item is to the direct left of the player
-              if (self.player.left - self.player.playerMoveSize >= this.left &&
-                  self.player.left - self.player.playerMoveSize < this.right &&
-                  self.player.bottom > this.top && self.player.top < this.bottom) {
-                // clash detected
-                clash = this;
-              }
-              break;
-            case 'up':
-              // see if this item is to the direct left of the player
-              if (self.player.top - self.player.playerMoveSize >= this.top &&
-                  self.player.top - self.player.playerMoveSize < this.bottom &&
-                  self.player.right > this.left && self.player.left < this.right) {
-                // clash detected
-                clash = this;
-              }
-              break;
-            case 'right':
-              // see if this item is to the direct left of the player
-              if (self.player.right + self.player.playerMoveSize > this.left &&
-                  self.player.left + self.player.playerMoveSize < this.right &&
-                  self.player.bottom > this.top && self.player.top < this.bottom) {
-                // clash detected
-                clash = this;
-              }
-              break;
-            case 'down':
-              // see if this item is to the direct left of the player
-              if (self.player.bottom + self.player.playerMoveSize > this.top &&
-                  self.player.top + self.player.playerMoveSize < this.bottom &&
-                  self.player.right > this.left && self.player.left < this.right) {
-                // clash detected
-                clash = this;
-              }
-              break;
+          // see if you can clash into this object
+          if (this.clashable === true) {
+            // see which direction we are moving in
+            switch (direction) {
+              case 'left':
+                // see if this item is to the direct left of the player
+                if (self.player.left - self.player.playerMoveSize >= this.left &&
+                    self.player.left - self.player.playerMoveSize < this.right &&
+                    self.player.bottom > this.top && self.player.top < this.bottom) {
+                  // clash detected
+                  clash = this;
+                }
+                break;
+              case 'up':
+                // see if this item is to the direct left of the player
+                if (self.player.top - self.player.playerMoveSize >= this.top &&
+                    self.player.top - self.player.playerMoveSize < this.bottom &&
+                    self.player.right > this.left && self.player.left < this.right) {
+                  // clash detected
+                  clash = this;
+                }
+                break;
+              case 'right':
+                // see if this item is to the direct left of the player
+                if (self.player.right + self.player.playerMoveSize > this.left &&
+                    self.player.left + self.player.playerMoveSize < this.right &&
+                    self.player.bottom > this.top && self.player.top < this.bottom) {
+                  // clash detected
+                  clash = this;
+                }
+                break;
+              case 'down':
+                // see if this item is to the direct left of the player
+                if (self.player.bottom + self.player.playerMoveSize > this.top &&
+                    self.player.top + self.player.playerMoveSize < this.bottom &&
+                    self.player.right > this.left && self.player.left < this.right) {
+                  // clash detected
+                  clash = this;
+                }
+                break;
+            }
           }
         });
       });
@@ -293,6 +296,8 @@ function Map () {
       }
       // see if a direction key was pressed
       if (direction !== null) {
+        // rotate the player in the direction
+        self.player.rotate(direction);
         // see if there is a triggered event for this direction
         if (self.triggeredEvent.direction === direction && typeof self.triggeredEvent.event === 'function') {
           // call the triggered event

@@ -185,6 +185,8 @@ function Arena (map, enemy) {
       map.player.resetResources();
       // detach the player from the arena
       map.player.element.detach();
+      // detach the enemy element from the arena
+      enemy.element.detach();
       // remove the arena
       self.element.remove();
       // remove the class type ability list
@@ -193,10 +195,12 @@ function Arena (map, enemy) {
       enemy.abilityList.remove();
       // remove the arena events
       self.removeEvents();
-      // remove the item from the map''s array
-      map.objects.splice(map.objects.indexOf(enemy), 1);
+      // kill the enemy
+      enemy.kill();
       // show the map element
       map.mapElement.show();
+      // add the enemy to the arena
+      enemy.addElement(map.mapElement);
       // add the player to the arena
       map.player.addElement(map.mapElement);
       // show the status text area

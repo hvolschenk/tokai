@@ -8,6 +8,8 @@ function EnemyShadowling (map) {
   
   // the enemy Shadowling image
   this.image = '/images/enemy.png';
+  // the enemy dead image
+  this.imageDead = '/images/enemy-dead.png';
   // set the enemy name
   this.name = 'Shadowling';
   // the base attack damage for this class

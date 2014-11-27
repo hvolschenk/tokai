@@ -28,7 +28,8 @@ function Item (map) {
   };
   
   // adds a clash handler method
-  this.clashHandler = function () {
+  // @param string direction The direction the player is moving in
+  this.clashHandler = function (direction) {
     // update the status text
     map.statusTextElement.text('You have picked up the ' + self.name + ' (' + self.damage + ' damage).');
     // add this item to the Player''s inventory
@@ -39,6 +40,8 @@ function Item (map) {
     map.objects.splice(map.objects.indexOf(self), 1);
     // rebuild the inventory
     map.player.inventory.buildInventory();
+    // move the player up once more
+    map.player.movePlayer(direction);
   }
   
 }
