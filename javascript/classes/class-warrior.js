@@ -14,11 +14,6 @@ function ClassWarrior (map) {
   this.name = 'Warrior';
   // the class type
   this.type = 'warrior';
-  // the images for this class
-  this.images = {
-    front : '/images/characters/warrior-front.png',
-    back  : '/images/characters/warrior-back.png'
-  };
   // the main image for this class
   this.image = [
     '/images/characters/warrior-back.png',

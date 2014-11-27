@@ -14,11 +14,6 @@ function ClassRogue (map) {
   this.name = 'Rogue';
   // the class type
   this.type = 'rogue';
-  // the images for this class
-  this.images = {
-    front : '/images/characters/rogue-front.png',
-    back  : '/images/characters/rogue-back.png'
-  };
   // the main image for this class
   this.image = [
     '/images/characters/rogue-back.png',

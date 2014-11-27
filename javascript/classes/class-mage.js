@@ -14,11 +14,6 @@ function ClassMage (map) {
   this.name = 'Mage';
   // the class type
   this.type = 'mage';
-  // the images for this class
-  this.images = {
-    front : '/images/characters/mage-front.png',
-    back  : '/images/characters/mage-back.png'
-  };
   // the main image for this class
   this.image = [
     '/images/characters/mage-back.png',

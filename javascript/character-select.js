@@ -77,7 +77,7 @@ function CharacterSelect () {
   // loads a class type
   this.loadClassType = function () {
     // set the background-image of the character element
-    self.characterElement.css({'background-image' : 'url(' + self[self.selectedClassType].images.front + ')'});
+    self.characterElement.css({'background-image' : 'url(' + self[self.selectedClassType].image[2] + ')'});
     // add the class type name to the element
     self.characterElement.html('<p>' + self[self.selectedClassType].name + '</p>');
     // add the next arrow to the character element
@@ -182,7 +182,7 @@ function CharacterSelect () {
     // add the correct id to the thumbnail
     classThumbnail.attr('id', 'class' + classType.name);
     // add the correct background-image to the thumbnail
-    classThumbnail.css({'background-image' : 'url(' + classType.images.front + ')'});
+    classThumbnail.css({'background-image' : 'url(' + classType.image[2] + ')'});
   };
 
   // selects a class type by clicking on it

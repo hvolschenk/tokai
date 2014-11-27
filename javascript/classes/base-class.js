@@ -29,14 +29,6 @@ function BaseClass (map) {
   // The player''s inventory
   this.inventory = new Inventory(map);
 
-  // prepares the player for battle
-  this.prepareForBattle = function () {
-    // load the backside image for the player class type
-//    self.element.css({
-//      'background-image' : 'url(' + self.images.back + ')'
-//    });
-  }
-
   // moves the player in a direction
   this.movePlayer = function (direction) {
     // check which direction we are moving

@@ -22,13 +22,6 @@ function BaseEnemy (map) {
     map.loadArena(self);
   }
   
-  // prepares the enemy for battle
-  this.prepareForBattle = function () {
-    // HENDRIK - set the correct bg image once we have one
-    // built the abilities list component
-    // self.buildAbilitiesList();
-  }
-  
   // choose which ability to cast
   this.chooseAbilityToCast = function () {
     // a list of abilities that the enemy can cast

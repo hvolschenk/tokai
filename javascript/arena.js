@@ -24,10 +24,6 @@ function Arena (map, enemy) {
     enemy.addElement(self.element);
     // add the player to the arena
     map.player.addElement(self.element);
-    // prepare the enemy for battle
-    enemy.prepareForBattle();
-    // prepare the player for battle
-    map.player.prepareForBattle();
     // add the ability list to the page
     self.addClassTypeAbilityList();
     // add the enemy ability list to the page
