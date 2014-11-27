@@ -20,7 +20,12 @@ function ClassMage (map) {
     back  : '/images/characters/mage-back.png'
   };
   // the main image for this class
-  this.image = '/images/characters/mage-front.png';
+  this.image = [
+    '/images/characters/mage-back.png',
+    '/images/characters/mage-right.png',
+    '/images/characters/mage-front.png',
+    '/images/characters/mage-left.png'
+  ];
   // the base attack damage for this class
   this.damageBase = 20;
   // the base health for this class type

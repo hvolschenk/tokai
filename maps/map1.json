@@ -46,7 +46,8 @@
       "position" : {"top" : 3, "left" : 2}
     },
     {
-      "position" : {"top" : 3, "left" : 3}
+      "position" : {"top" : 3, "left" : 3},
+      "image" : 0
     },
     {
       "position" : {"top" : 3, "left" : 4}
@@ -80,7 +81,8 @@
     }
   ],
   "player" : {
-    "position" : {"top" : 1, "left" : 0}
+    "position" : {"top" : 1, "left" : 0},
+    "image" : 2
   },
   "rock" : [
     {

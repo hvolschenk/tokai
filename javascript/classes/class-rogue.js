@@ -20,7 +20,12 @@ function ClassRogue (map) {
     back  : '/images/characters/rogue-back.png'
   };
   // the main image for this class
-  this.image = '/images/characters/rogue-front.png';
+  this.image = [
+    '/images/characters/rogue-back.png',
+    '/images/characters/rogue-right.png',
+    '/images/characters/rogue-front.png',
+    '/images/characters/rogue-left.png'
+  ];
   // the base attack damage for this class
   this.damageBase = 20;
   // the base health for this class type

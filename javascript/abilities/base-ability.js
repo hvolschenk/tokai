@@ -34,6 +34,8 @@ function BaseAbility (classType) {
     }
     // add the description
     name.append('<br />', description);
+    // add the correct class to the ability
+    self.abilityDescriptionElement.addClass(classType.type + 'AbilityDescription');
   };
   
   // cast the ability
@@ -45,22 +47,22 @@ function BaseAbility (classType) {
     classType.loseResource('mana', self.manaCost);
     // remove the stamina cost from the class type stamina
     classType.loseResource('stamina', self.staminaCost);
-
-
     // do health damage to the enemy
+    enemy.loseResource('health', self.healthDamage);
     // do mana damage to the enemy
+    enemy.loseResource('mana', self.manaDamage);
     // do stamina damage to the enemy
-    
-
+    enemy.loseResource('stamina', self.staminaDamage);
     // gain health
     classType.gainResource('health', self.healthGain);
     // gain mana
     classType.gainResource('mana', self.manaGain);
     // gain stamina
     classType.gainResource('stamina', self.staminaGain);
-
     // re-build the class type statistics
     classType.buildStatistics(true);
+    // re-build the enemy statistics
+    enemy.buildStatistics(true);
   };
 
   // check if the ability is allowed to be casted

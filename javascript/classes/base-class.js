@@ -8,75 +8,33 @@ function BaseClass (map) {
   // extend the fighter class with this class
   Fighter.call(this, map);
 
-
-
-  // HENDRIK
+  // the width of the player
   this.width = 60;
+  // the height of the player
   this.height = 60;
+  // the type of object
   this.type = 'player';
-
-
-
-  // the width of a player element
-  this.playerWidth = 60;
-  // the height of an player element
-  this.playerHeight = 60;
   // holds the left offset of the player
   this.left = 0;
   // holds the top offset of the player
   this.top = 0;
   // holds the right offset of the player
-  this.right = this.left + this.playerWidth;
+  this.right = this.left + this.width;
   // holds the bottom offset of the player
-  this.bottom = this.top + this.playerHeight;
+  this.bottom = this.top + this.height;
   // the amount of pixels to move
   this.playerMoveSize = 60;
   // holds the player''s template number
   this.template = 1;
   // The player''s inventory
   this.inventory = new Inventory(map);
-  // holds the player html element
-//  this.playerElement = $('<div class="player"></div>');
 
-  // initializes the player object and loads the local variables
-  // @param object player The player to load
-  this.initialize = function (player) {
-    // set the left offset value
-    self.left = player.position.left * self.playerWidth;
-    // set the top offset value
-    self.top = player.position.top * self.playerHeight;
-    // set the new right value
-    self.right = self.left + self.playerWidth;
-    // set the new bottom value
-    self.bottom = self.top + self.playerHeight;
-  }
-/*
-  // adds the player to the html element specified
-  // @param htmlElement mapElement The html element that is the map
-  this.addElement = function (mapElement) {
-    // add the new CSS to the player element
-    self.updateElement();
-    // append the new html to the map element
-    mapElement.append(self.playerElement);
-  }
-*/
-
-  // updates the element''s styling
-  this.updateElement = function () {
-    self.element.css({
-      left : self.left + 'px',
-      top  : self.top + 'px',
-      width : self.playerWidth + 'px',
-      height : self.playerHeight + 'px'
-    });
-  }
-  
   // prepares the player for battle
   this.prepareForBattle = function () {
     // load the backside image for the player class type
-    self.element.css({
-      'background-image' : 'url(' + self.images.back + ')'
-    });
+//    self.element.css({
+//      'background-image' : 'url(' + self.images.back + ')'
+//    });
   }
 
   // moves the player in a direction
@@ -86,28 +44,46 @@ function BaseClass (map) {
       case 'left':
         // set the new left value
         self.left = self.left - self.playerMoveSize;
+        // set the current image of the player
+        self.currentImage = 3;
+        // set the new left attribute for this object
+        self.position.left -= 1;
         // break out of the switch
         break;
       case 'up':
         // set the new top value
         self.top = self.top - self.playerMoveSize;
+        // set the current image of the player
+        self.currentImage = 0;
+        // set the new top attribute for the object
+        self.position.top -= 1;
         // break out of the switch
         break;
       case 'right':
         // set the new left value
         self.left = self.left + self.playerMoveSize;
+        // set the current image of the player
+        self.currentImage = 1;
+        // set the new top attribute for the object
+        self.position.left += 1;
         // break out of the switch
         break;
       case 'down':
         // set the new top value
         self.top = self.top + self.playerMoveSize;
+        // set the current image of the player
+        self.currentImage = 2;
+        // set the new top attribute for the object
+        self.position.top += 1;
         // break out of the switch
         break;
     }
+    // add the image element to the object
+    self.addImageToElement();
     // set the new right value
-    self.right = self.left + self.playerWidth;
+    self.right = self.left + self.width;
     // set the new bottom value
-    self.bottom = self.top + self.playerHeight;
+    self.bottom = self.top + self.height;
     // update the element with the new CSS
     self.updateElement();
   }

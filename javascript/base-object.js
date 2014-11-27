@@ -21,34 +21,55 @@ function BaseObject (map) {
   this.element = $('<div></div>');
   // holds the element type
   this.type = 'base';
+  // the position of the object
+  this.position = {
+    top : 0,
+    left : 0
+  };
+  // the current image
+  this.currentImage = null;
 
   // initializes the element object and loads the local variables
   // @param object object The object to load
   this.initialize = function (object) {
+    // set the object position
+    self.position = object.position;
     // set the left offset value
-    self.left = object.position.left * self.width;
+    self.left = self.position.left * self.width;
     // set the top offset value
-    self.top = object.position.top * self.height;
+    self.top = self.position.top * self.height;
     // set the right offset value
     self.right = self.left + self.width;
     // set the bottom offset value
     self.bottom = self.top + self.height;
+    // check if an image was set
+    if (object.image || object.image === 0) {
+      // set this as the default image
+      self.currentImage = object.image;
+    }
   };
 
   // adds the Object to the html element specified
   // @param htmlElement mapElement The html element that is the map
   this.addElement = function (mapElement) {
-    // add the new CSS to the tree element
-    self.element.css({
-      left : self.left + 'px',
-      top : self.top + 'px',
-      width : self.width + 'px',
-      height : self.height + 'px'
-    }).addClass(this.type);
+    // add the new CSS to the element
+    self.updateElement();
     // append the new html to the map element
     mapElement.append(self.element);
     // add the element image
     self.addImageToElement();
+  };
+  
+  // updates the html element
+  this.updateElement = function () {
+    // add the new CSS to the element
+    self.element.css({
+      left : self.left + 'px',
+      top : self.top + 'px',
+      width : self.width + 'px',
+      height : self.height + 'px',
+      'z-index' : self.position.top
+    }).addClass(self.type);
   };
 
   // adds the image to the element
@@ -60,12 +81,18 @@ function BaseObject (map) {
     // does this object have an image
     if (self.image) {
       // does this object have an array of images
-      if (typeof(self.image) === 'Array') {
-        // get a random image
-        source = self.image[Math.floor((Math.random() * self.image.length-1) + 1)];
-      } else {
+      if (typeof(self.image) === 'string') {
         // set the source of the image as the image
         source = self.image;
+      } else {
+        // see if a default image is set
+        if (self.currentImage !== null) {
+          // load the image that was set
+          source = self.image[self.currentImage];
+        } else {
+          // get a random image
+          source = self.image[Math.floor((Math.random() * self.image.length-1) + 1)];
+        }
       }
       // build a new image
       image = $('<img src="' + source + '" />');

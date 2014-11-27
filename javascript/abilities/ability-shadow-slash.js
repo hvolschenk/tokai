@@ -17,7 +17,8 @@ function AbilityShadowSlash (classType) {
   this.staminaCost = 0;
   // the health damage this ability does
   this.healthDamage = (function () {
-    return self.damageBase * 3;
+    // base damage times 3
+    return classType.damageBase * 3;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;

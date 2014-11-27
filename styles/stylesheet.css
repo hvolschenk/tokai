@@ -31,6 +31,10 @@ a {
     top : 265px;
     left : 240px;
 }
+.arena .abilityDescription.enemyAbilityDescription {
+    top : 165px;
+    left : 40px;
+}
 .arena .keyboardKey {
     color : #474747;
 }

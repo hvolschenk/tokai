@@ -113,11 +113,33 @@ function Fighter (map) {
   // @param String recource The recource to lose (health | mana | stamina)
   // @param Integer amount The amount to lose
   this.loseResource = function (resource, amount) {
+    // the amount that will be left over
+    var remainingAmount = self[resource + 'Current'] - amount;
+    // set the amount equal to 0 if it goes less
+    remainingAmount = (remainingAmount < 0) ? 0 : remainingAmount;
     // check if the resource amount is more than 0
     if (amount > 0) {
       // increase the resource
-      self[resource + 'Current'] -= amount;
+      self[resource + 'Current'] = remainingAmount;
     }
+  };
+  
+  // sets a resource to a given amount
+  // @param String recource The recource to set (health | mana | stamina)
+  // @param Integer amount The amount to set it to
+  this.setResource = function (resource, amount) {
+    // set the resource to the new amount
+    self[resource + 'Current'] = amount;
+  };
+  
+  // Reset resources back to their base values
+  this.resetResources = function () {
+    // reset the health resource
+    self.setResource('health', self.healthBase);
+    // reset the mana resource
+    self.setResource('mana', self.manaBase);
+    // reset the stamina resource
+    self.setResource('stamina', self.staminaBase);
   };
 
 }

@@ -38,6 +38,24 @@ function Arena (map, enemy) {
     self.addEnemyStatistics();
     // add the events to the page
     self.setupEvents();
+    // start the player turn
+    self.startFriendlyTurn();
+  };
+  
+  // start the player turn
+  this.startFriendlyTurn = function () {
+    // highlight the friendly statistics element
+    map.player.statisticsList.addClass('active');
+    // un-highlight the enemy statistics element
+    enemy.statisticsList.removeClass('active');
+  };
+  
+  // start the enemy turn
+  this.startEnemyTurn = function () {
+    // un-highlight the enemy statistics element
+    enemy.statisticsList.addClass('active');
+    // highlight the friendly statistics element
+    map.player.statisticsList.removeClass('active');
   };
 
   // set-up all the events for the arena
@@ -47,43 +65,83 @@ function Arena (map, enemy) {
     $(document).on('keyup', function (e) {
       // the key that was pressed
       var key = String.fromCharCode(e.keyCode);
-      // check if any abilities are linked to the class type
-      if (map.player.abilities) {
-        // loop through all abilities linked to this class type
-        $.each(map.player.abilities, function () {
-          // a clone of the ability description
-          var descriptionClone;
-          // see if the current pressed key is the ability key
-          if (this.key === key) {
-            // see if the ability is allowed to be casted
-            if (this.allowedToCast() === true) {
-              // remove events from this page
-              self.removeEvents();
-              // clone the description
-              descriptionClone = this.abilityDescriptionElement.clone();
-              // add the ability description to the arena
-              self.element.append(descriptionClone);
-              // cast the ability
-              this.cast(enemy);
-              // finish the current ability
-              self.finishCurrentAbility(descriptionClone);
-            }
-          }
-        });
-      }
+      // cast the ability
+      self.castFriendlyAbility(key);
     });
   };
   
+  // cast a firendly ability
+  // @param string key The key that was pressed
+  this.castFriendlyAbility = function (key) {
+    // check if any abilities are linked to the class type
+    if (map.player.abilities) {
+      // loop through all abilities linked to this class type
+      $.each(map.player.abilities, function () {
+        // a clone of the ability description
+        var descriptionClone;
+        // see if the current pressed key is the ability key
+        if (this.key === key) {
+          // see if the ability is allowed to be casted
+          if (this.allowedToCast() === true) {
+            // remove events from this page
+            self.removeEvents();
+            // clone the description
+            descriptionClone = this.abilityDescriptionElement.clone();
+            // add the ability description to the arena
+            self.element.append(descriptionClone);
+            // cast the ability
+            this.cast(enemy);
+            // finish the current ability
+            self.finishCurrentAbility(descriptionClone, false, self.castEnemyAbility);
+          }
+        }
+      });
+    }
+  };
+
   // show the current ability
   // @param htmlElement descriptionElementClone The secription of the ability
-  this.finishCurrentAbility = function (descriptionElementClone) {
+  // @param Boolean enableEvents Whether or not to re-enable events on the arena
+  // @param Function complete A function to run when the ability is finished casting
+  this.finishCurrentAbility = function (descriptionElementClone, enableEvents, complete) {
     // set a timeout for 2 second
     window.setTimeout(function () {
       // remove the element
       descriptionElementClone.remove();
-      // re enable all events
-      self.setupEvents();
+      // see if events need to be set up
+      if (enableEvents === true) {
+        // re enable all events
+        self.setupEvents();
+      }
+      // check if the fight is over
+      self.checkForFightEnd();
+      // check if the complete callback is a function
+      if (typeof(complete) === 'function') {
+        // call the complete callback
+        complete();
+      }
     }, 2000);
+  };
+  
+  // cast an enemy ability
+  this.castEnemyAbility = function () {
+    // start the enemy turn
+    self.startEnemyTurn();
+    // find an ability for the enemy to cast
+    var ability = enemy.chooseAbilityToCast(),
+    // a clone of the ability description element
+    descriptionClone;
+    // check if an ability was found
+    if (ability !== false) {
+      // create a clone of the ability description
+      descriptionClone = ability.abilityDescriptionElement.clone();
+      // add the ability description element to the arena
+      self.element.append(descriptionClone);
+      // cast the ability
+      ability.cast(map.player);
+      // finish the current ability
+      self.finishCurrentAbility(descriptionClone, true, self.startFriendlyTurn);
+    }
   };
   
   // removes all events from this page
@@ -126,7 +184,9 @@ function Arena (map, enemy) {
   // check for a win or loss
   this.checkForFightEnd = function () {
     // check if either enemy or your health 0 or smaller
-    if (enemy.healthBase <= 0 || map.player.healthBase <= 0) {
+    if (enemy.healthCurrent <= 0 || map.player.healthCurrent <= 0) {
+      // reset the player resources
+      map.player.resetResources();
       // detach the player from the arena
       map.player.element.detach();
       // remove the arena

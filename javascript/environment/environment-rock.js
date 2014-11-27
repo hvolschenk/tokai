@@ -10,7 +10,10 @@ function Rock (map) {
   // give this object a type
   this.type = 'rock';
   // set the background-image for this object
-  this.image = '/images/environment/rocks-1.png';
+  this.image = [
+    '/images/environment/rocks-1.png',
+    '/images/environment/rocks-2.png'
+  ];
   
   // add a clash handler for this type
   // @param string direction The direction the player was moving before the clash

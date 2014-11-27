@@ -16,11 +16,16 @@ function ClassWarrior (map) {
   this.type = 'warrior';
   // the images for this class
   this.images = {
-    front : '/images/characters/tank-front.png',
-    back  : '/images/characters/tank-back.png'
+    front : '/images/characters/warrior-front.png',
+    back  : '/images/characters/warrior-back.png'
   };
   // the main image for this class
-  this.image = '/images/characters/tank-front.png';
+  this.image = [
+    '/images/characters/warrior-back.png',
+    '/images/characters/warrior-right.png',
+    '/images/characters/warrior-front.png',
+    '/images/characters/warrior-left.png'
+  ];
   // the base attack damage for this class
   this.damageBase = 30;
   // the base health for this class type
