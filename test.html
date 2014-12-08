@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tokai - where the hell am I?</title>
+    <link rel="stylesheet" type="text/css" href="styles/testStyleSheet.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        //console.log('1');
+        $('.armorContainer, .postionsContainer, .weaponPreview, .armorPreview, .postionsPreview').hide();
+        // show the weapons
+        $('.weapon').on('click', function (e) {
+            $('.weaponContainer').show();
+            $('.armorContainer, .postionsContainer, .armorPreview, .postionsPreview').hide();
+        });
+
+        // show the armor
+        $('.armor').on('click', function (e) {
+            $('.armorContainer').show();
+            $('.weaponContainer, .postionsContainer, .weaponPreview, .postionsPreview').hide();
+        });
+
+        // show the postions
+        $('.postions').on('click', function (e) {
+            $('.postionsContainer').show();
+            $('.armorContainer, .weaponContainer, .weaponPreview, .armorPreview').hide();
+        });
+
+        // weapon selection details tab show -----------
+        $('.weaponContainer li').on('click', function (e) {
+            $('.weaponPreview').show();
+        });
+        // show armor selected details tab
+        $('.armorContainer li').on('click', function (e) {
+            $('.armorPreview').show();
+        });
+        // show postion selected details tab
+        $('.postionsContainer li').on('click', function (e) {
+            $('.postionsPreview').show();
+        });
+
+
+      });
+    </script>
+    
+  </head>
+  <body>
+    <div class="store">
+        <span class="inventoryList">
+            <ul>
+                <li>
+                    <span class="weapon">Weapons</span>
+                </li>
+                <li>
+                    <span class="armor">Armor</span>
+                </li>
+                <li>
+                    <span class="postions">Postions</span>
+                </li>
+            </ul>
+        </span>
+        <div class="weaponContainer">
+            <ul>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                </li>
+                 <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                 </li>
+                 <li><img src="images/items/item-axe.png" class="item">
+                    <span class="text">
+                        Battle Axe
+                    </span>
+                    <span class="price">
+                        12G
+                    </span>
+                 </li>
+            </ul>
+        </div>
+        <div class="armorContainer">
+            <ul>
+                <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+                <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+                <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+                <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+                 <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+                <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+                <li><img src="images/blade_armor.png" class="item">
+                    <span class="text">
+                        Stone Rock
+                    </span>
+                    <span class="price">
+                        16G
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="postionsContainer">
+            <ul>
+                <li><img src="images/PotionofHealing.png" class="item">
+                    <span class="text">
+                        Mana Tree
+                    </span>
+                    <span class="price">
+                        5G
+                    </span>
+                </li>
+                <li><img src="images/PotionofHealing.png" class="item">
+                    <span class="text">
+                        Mana Tree
+                    </span>
+                    <span class="price">
+                        5G
+                    </span>
+                </li>
+                <li><img src="images/PotionofHealing.png" class="item">
+                    <span class="text">
+                        Mana Tree
+                    </span>
+                    <span class="price">
+                        5G
+                    </span>
+                </li>
+                <li><img src="images/PotionofHealing.png" class="item">
+                    <span class="text">
+                        Mana Tree
+                    </span>
+                    <span class="price">
+                        5G
+                    </span>
+                </li>
+                <li><img src="images/PotionofHealing.png" class="item">
+                    <span class="text">
+                        Mana Tree
+                    </span>
+                    <span class="price">
+                        5G
+                    </span>
+                </li>
+                <li><img src="images/PotionofHealing.png" class="item">
+                    <span class="text">
+                        Mana Tree
+                    </span>
+                    <span class="price">
+                        5G
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+
+        <!--The preview window-->
+        <div class="preview">
+            <div class="weaponPreview">
+                <img src="images/items/item-axe.png" class="previewWeapon">
+                <span>
+                    <ul>
+                    <li>Battle Axe : 12 Damage
+                    can cut down trees and does exstra base damage on enemys</li>
+                    <li>Price  : 12 Gold</li>
+                    <li>Wight  : 12Kg</li>
+                    <li>Length : 1.2m</li>
+                    </ul>
+                </span>
+            </div>
+            <div class="armorPreview">
+                <img src="images/blade_armor.png" class="previewWeapon">
+                <span>
+                    <ul>
+                    <li>Elven Armor : 20 Armor
+                    Made from elven metal an can take 20 damage from enemy</li>
+                    <li>Price  : 16 Gold</li>
+                    <li>Wight  : 25Kg</li>
+                    <li>Length : custom</li>
+                    </ul>
+                </span>
+            </div>
+            <div class="postionsPreview">
+                <img src="images/PotionofHealing.png" class="previewWeapon">
+                <span>
+                    <ul>
+                    <li>Health Potion : 100 Health
+                    Restore base JHealth with 100 points</li>
+                    <li>Price  : 5 Gold</li>
+                    <li>Wight  : 0.2Kg</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="buy">Buy</div>
+
+    </div>
+  </body>
+</html>
