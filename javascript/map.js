@@ -389,4 +389,17 @@ function Map () {
     arena.addElement(body);
   };
 
+  // loads the arena for fighting
+  // @param object enemy The enemy that you are fighting
+  this.loadStore = function (store) {
+    // create a new store object
+    var store = new Store(self),
+    // the body element
+    body = $('body');
+    // initialize the arena
+    store.initialize();
+    // build the arena element
+    store.addElement(body);
+  };
+
 }

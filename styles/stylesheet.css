@@ -460,3 +460,14 @@ ul.staminaAbilities {
 .character.selected .abilityList .abilityDescription {
     clear : both;
 }
+
+.store {
+    width: 400px;
+    height: 580px;
+    background-color : #f1f1f1;
+    border : 1px solid #000;
+    margin : 10px auto 0;
+    position : absolute;
+    left : 50%;
+    margin : 0px 0px 0px -680px;
+}
