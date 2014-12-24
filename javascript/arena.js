@@ -10,12 +10,16 @@ function Arena (map, enemy) {
   BaseObject.call(this, map);
   // give this object a type
   this.type = 'arena';
+  // the round we are in
+  this.round = 1;
   // the width of the arena
   this.width = 600;
   // the height of the arena
   this.height = 600;
   // the abilities list element
   this.abilityList = $('<div class="abilityList"></div>');
+  // the round indicator
+  this.roundIndicator = $('<div class="roundIndicator"></div>');
   
   // initializes the element object and loads the local variables
   // @param object object The object to load
@@ -32,6 +36,8 @@ function Arena (map, enemy) {
     self.addClassTypeStatistics();
     // add the enemy statistics to the arena
     self.addEnemyStatistics();
+    // add the round indicator to the arena
+    self.addRoundIndicator();
     // add the events to the page
     self.setupEvents();
     // start the player turn
@@ -44,6 +50,11 @@ function Arena (map, enemy) {
     map.player.statisticsList.addClass('active');
     // un-highlight the enemy statistics element
     enemy.statisticsList.removeClass('active');
+    // check if we are past round one
+    if (self.round > 1) {
+      // show the start of the new round();
+      self.updateRoundIndicator();
+    }
   };
   
   // start the enemy turn
@@ -138,6 +149,8 @@ function Arena (map, enemy) {
       // finish the current ability
       self.finishCurrentAbility(descriptionClone, true, self.startFriendlyTurn);
     }
+    // the ability has been cast, increase the round count
+    self.round++;
   };
   
   // removes all events from this page
@@ -175,6 +188,30 @@ function Arena (map, enemy) {
     enemy.buildStatistics(true);
     // append the enemy statistics list to the arena
     self.element.append(enemy.statisticsList);
+  };
+
+  // adds the round indicator element to the arena
+  this.addRoundIndicator = function () {
+    // append the round indicator to the arena
+    self.element.append(self.roundIndicator);
+    // update the round indicator
+    self.updateRoundIndicator();
+  };
+
+  // updates the round indicator
+  this.updateRoundIndicator = function () {
+    // the current round text element
+    var roundText = $('<p></p>'),
+    // the current round span
+    currentRound = $('<span class="currentRound"></span>');
+    // add the "round" text
+    roundText.text('Round ');
+    // add the current round to the round text
+    roundText.append(currentRound);
+    // add the round on the current round span
+    currentRound.text(self.round);
+    // add the current round to the indicator
+    self.roundIndicator.empty().append(roundText);
   };
   
   // check for a win or loss

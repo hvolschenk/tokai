@@ -17,6 +17,8 @@ function CharacterSelect () {
   this.characterSelectList = $('<ul class="characterSelectList"></ul>');
   // the statistics element
   this.statisticsElement = $('<div class="statistics"></div>');
+  // the preloader element
+  this.preloaderElement = $('<div class="preloader"></div>');
   // a new map object
   this.map = new Map();
   // a instance of the warrior class
@@ -40,6 +42,8 @@ function CharacterSelect () {
     self.addClassThumbnails();
     // add the events to this page
     self.addEvents();
+    // preload all images
+    self.preloadImages();
   };
   
   // adds the container element to the page
@@ -292,23 +296,98 @@ function CharacterSelect () {
 
   // pre-loads the images
   this.preloadImages = function () {
-    var img_to_load = [ '/img/1.jpg', '/img/2.jpg' ];
-    var loaded_images = 0;
-    for (var i=0; i<img_to_load.length; i++) {
-      var img = document.createElement('img');
-      img.src = img_to_load[i];
-      img.style.display = 'hidden'; // don't display preloaded images
-      img.onload = function () {
-        loaded_images ++;
-        if (loaded_images == img_to_load.length) {
-          alert('done loading images');
+    // a list of images to preload
+    var images = self.buildPreloadList(),
+    // a count of total images
+    totalImages = images.length,
+    // a count of loaded images
+    loadedImages = 0,
+    // the percentage that have been loaded
+    percentage = 0;
+    // show the preloader element
+    self.showPreloader();
+    // go through all images to preload
+    $.each(images, function () {
+      // an image element
+      var image = $('<img />')
+      // don't display the image
+      .css('display', 'none').addClass('hidden preload')
+      // set the source of the image
+      .attr('src', this)
+      // build an event for when the image has finished loading
+      .load(function () {
+        // increment the amount of images loaded
+        loadedImages++;
+        // get the percentage that the images are loaded
+        percentage = Math.round((loadedImages / totalImages) * 100, 0);
+        // set the percentage on the preloader element
+        self.preloaderElement.find('p').text(percentage + '%');
+        // check if preloading is complete
+        if (percentage === 100) {
+          // hide the preloader
+          self.hidePreloader();
         }
-        else {
-          alert((100*loaded_images/img_to_load.length) + '% loaded');
+      });
+      // add the image to the document
+      $('body').append(image);
+    });
+  };
+
+  // shows the preloader
+  this.showPreloader = function () {
+    // the body element
+    var body = $('body'),
+    // an empty paragraph element
+    paragraph = $('<p></p>');
+    // add the empty paragraph to the preloader element
+    self.preloaderElement.append(paragraph);
+    // add the preloader element to the page
+    body.append(self.preloaderElement);
+  };
+
+  // hides the preloader element
+  this.hidePreloader = function () {
+    // empty and detach the preloader element
+    self.preloaderElement.empty().detach();
+  };
+
+  // builds a list of all images to preload
+  this.buildPreloadList = function () {
+    // a list of objects to check images in for
+    var objectTypes = [
+      'ClassWarrior', 'ClassMage', 'ClassRogue',
+      'EnemyShadowling',
+      'Path', 'Rock', 'Tree',
+      'ItemAxe'
+    ],
+    // a loaded version of each type
+    loadedObjectType,
+    // a list of images to return
+    images = [];
+    // go through each object type
+    $.each(objectTypes, function () {
+      // clear the loaded object type
+      loadedObjectType = undefined;
+      // see if a class exists for this type
+      if (typeof(window[this]) === 'function') {
+        // load the objectType
+        loadedObjectType = new window[this];
+        // see if the type has images
+        if (loadedObjectType.image) {
+          // see if the image is an array
+          if (typeof(loadedObjectType.image) === 'object') {
+            // merge the arrays
+            images = images.concat(loadedObjectType.image);
+          }
+          else {
+            // add this item to the array
+            images.push(loadedObjectType.image);
+          }
         }
       }
-      document.body.appendChild(img);
-    }
+    });
+    // return the list of images
+    return images;
   };
   
 }
