@@ -8,7 +8,7 @@ function ItemAxe (map) {
   // extend this object with the base item
   BaseItem.call(this, map);
   // give this object a type
-  this.type = 'item';
+  this.type = 'weapon';
   // the name of the item
   this.name = "Axe";
   // the description of the item

@@ -60,6 +60,8 @@ function BaseObject (map) {
   this.addElement = function (mapElement) {
     // add the new CSS to the element
     self.updateElement();
+    // add the object class to the element
+    self.element.addClass('object');
     // append the new html to the map element
     mapElement.append(self.element);
     // add the element image

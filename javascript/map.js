@@ -2,10 +2,12 @@
 function Map () {
   
   // this current class
-  var self = this,
+  var self = this;
+
+  // extend the base object with this object
+  BaseObject.call(this, self);
   // the default status text
-  defaultStatusText = 'Move around and explore with the arrow keys.';
-  
+  self.defaultStatusText = 'Move around and explore with the arrow keys.';
   // the width of the map in pixels
   this.mapWidth = 600;
   // the height of the map in pixels
@@ -27,6 +29,8 @@ function Map () {
   this.image = '/images/environment/grass-bg.jpg';
   // the current map that we are on
   this.map = 1;
+  // the key events for this object
+  this.keys;
 
   // initializes the map and items on the map
   // @param Object classType The class type that was selected during character select
@@ -36,7 +40,7 @@ function Map () {
     // add the map element to the page
     self.addElement();
     // set-up the movement events
-    self.setupEvents();
+    self.setupKeyEvents();
   };
 
   // adds the map element to the page
@@ -51,7 +55,7 @@ function Map () {
     // add the map to the body
     body.append(self.mapElement);
     // add the initial text to the status text element
-    self.statusTextElement.text(defaultStatusText);
+    self.statusTextElement.text(self.defaultStatusText);
     // add the status element to the body
     body.append(self.statusTextElement);
   };
@@ -73,6 +77,14 @@ function Map () {
         self.loadObjects(data);
         // load the player onto the map
         self.loadPlayer(data.player, classType);
+        // set the key events for this map
+        self.keys = {
+          37 : self.player.move, // left
+          38 : self.player.move, // up
+          39 : self.player.move, // right
+          40 : self.player.move, // down
+          73 : self.player.inventory.toggle
+        };
       },
       error    : function (jqXHR, textStatus, errorThrown) {
         console.log('error', jqXHR, textStatus, errorThrown);
@@ -180,111 +192,6 @@ function Map () {
     // add the inventory element to the map
     self.player.inventory.addElement(self.mapElement);
   };
-
-  // detects a clash between the player and any object
-  // @param string direction The direction in which the player is trying to move
-  // @return boolean Whether the player clashes or not (true = clash)
-  this.detectClash = function (direction) {
-    // a list of object types to go through
-    var objectTypes = ['objects'],
-    // whether a clash has happened
-    clash = self.detectMapClash(direction);
-    // see if the player hasn''t gone out of bounds
-    if (clash === false) {
-      // go through each object type
-      $.each(objectTypes, function () {
-        // go through each of this type''s items
-        $.each(self[this], function () {
-          // see if you can clash into this object
-          if (this.clashable === true) {
-            // see which direction we are moving in
-            switch (direction) {
-              case 'left':
-                // see if this item is to the direct left of the player
-                if (self.player.left - self.player.playerMoveSize >= this.left &&
-                    self.player.left - self.player.playerMoveSize < this.right &&
-                    self.player.bottom > this.top && self.player.top < this.bottom) {
-                  // clash detected
-                  clash = this;
-                }
-                break;
-              case 'up':
-                // see if this item is to the direct left of the player
-                if (self.player.top - self.player.playerMoveSize >= this.top &&
-                    self.player.top - self.player.playerMoveSize < this.bottom &&
-                    self.player.right > this.left && self.player.left < this.right) {
-                  // clash detected
-                  clash = this;
-                }
-                break;
-              case 'right':
-                // see if this item is to the direct left of the player
-                if (self.player.right + self.player.playerMoveSize > this.left &&
-                    self.player.left + self.player.playerMoveSize < this.right &&
-                    self.player.bottom > this.top && self.player.top < this.bottom) {
-                  // clash detected
-                  clash = this;
-                }
-                break;
-              case 'down':
-                // see if this item is to the direct left of the player
-                if (self.player.bottom + self.player.playerMoveSize > this.top &&
-                    self.player.top + self.player.playerMoveSize < this.bottom &&
-                    self.player.right > this.left && self.player.left < this.right) {
-                  // clash detected
-                  clash = this;
-                }
-                break;
-            }
-          }
-        });
-      });
-    
-    }
-    // return the result
-    return clash;
-  };
-  
-  // detects a clash between the player and the map
-  // @param string direction The direction in which the player is trying to move
-  // @return boolean Whether the player clashes or not (true = clash)
-  this.detectMapClash = function (direction) {
-    // whether the player is clashing into the bounds of the map
-    var clash = false;
-    // see which direction the player is going
-    switch (direction) {
-      case 'left':
-        //see if the player clashes
-        if (self.player.left - self.player.playerMoveSize < 0) {
-          // the player clashes
-          clash = true;
-        }
-        break;
-      case 'up':
-        //see if the player clashes
-        if (self.player.top - self.player.playerMoveSize < 0) {
-          // the player clashes
-          clash = true;
-        }
-        break;
-      case 'right':
-        //see if the player clashes
-        if (self.player.right + self.player.playerMoveSize > self.mapWidth) {
-          // the player clashes
-          clash = true;
-        }
-        break;
-      case 'down':
-        //see if the player clashes
-        if (self.player.bottom + self.player.playerMoveSize > self.mapHeight) {
-          // the player clashes
-          clash = true;
-        }
-        break;
-    }
-    // return the result
-    return clash === false ? clash : self;
-  };
   
   // adds a clash handler method
   this.clashHandler = function () {
@@ -299,77 +206,15 @@ function Map () {
     // set the triggered event''s event
     self.triggeredEvent.event = event;
   };
-  
-  // sets up the keyboard events to move this player
-  this.setupEvents = function () {
-    // when the user presses a key
-    $(document).keydown(function (event) {
-      // the direction the player is trying to move
-      var direction = false,
-      // the clash detection result
-      clashResult = false;
-      //swap based on the keyCode
-      switch (event.keyCode) {
-        case 37:
-          direction = 'left';
-          break;
-        case 38:
-          direction = 'up';
-          break;
-        case 39:
-          direction = 'right';
-          break;
-        case 40:
-          direction = 'down';
-          break;
-        case 73:
-          direction = null;
-          other = 'inventory';
-      }
-      // see if a direction key was pressed
-      if (direction !== null) {
-        // rotate the player in the direction
-        self.player.rotate(direction);
-        // if the shift key was held in we just want to rotate
-        if (event.shiftKey !== true) {
-          // see if there is a triggered event for this direction
-          if (self.triggeredEvent.direction === direction && typeof self.triggeredEvent.event === 'function') {
-            // call the triggered event
-            self.triggeredEvent.event();
-            // reset the triggered event
-            self.addTriggeredEvent(null, null);
-          } else {
-            // reset the triggered event
-            self.addTriggeredEvent(null, null);
-            // test whether the player clashes
-            clashResult = self.detectClash(direction);
-            // see if the user is moving into anything
-            if (clashResult === false) {
-              // move the player in the desired direction
-              self.player.movePlayer(direction);
-              // reset the text in the status
-              self.statusTextElement.text(defaultStatusText);
-            } else {
-              // see if there is an clash handling method for this type
-              if (clashResult.clashHandler) {
-                // call the clash handler method
-                clashResult.clashHandler(direction);
-              }
-            }
-          }
-        }
-      }
-      else {
-        // see if any other action was taken
-        if (other) {
-          // check which other action was taken
-          switch (other) {
-            case 'inventory':
-              // show/hide the inventory
-              self.player.inventory.toggle();
-              break;
-          }
-        }
+
+  // set up the keypress events
+  this.setupKeyEvents = function () {
+    // set up a keydown handler for when keys get pressed
+    $(document).on('keydown', function (event) {
+      // see if a function exists for this key
+      if (self.keys[event.keyCode]) {
+        // execute the function
+        self.keys[event.keyCode](event);
       }
     });
   };
