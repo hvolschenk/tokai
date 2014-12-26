@@ -14,6 +14,13 @@ function BaseEnemy (map) {
   this.abilityList = $('<div class="abilityList enemyAbilityList"></div>');
   // the list that holds the enemy statistics
   this.statisticsList = $('<div class="bars enemyBars"></div>');
+  // the level of this enemy
+  this.level = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // the level is the same as the map
+    return mapNumber;
+  })();
   
   // adds a clash handler method
   // @param string direction The direction the player is moving in

@@ -83,7 +83,9 @@ function BaseObject (map) {
     // the source of the image
     var source,
     // the image itself
-    image;
+    image,
+    // a level indicator
+    levelIndicator = $('<span class="level"></span>');
     // check if the object is dead
     if (self.dead === true) {
       // see if this object has a dead image
@@ -109,12 +111,24 @@ function BaseObject (map) {
         }
       }
     }
-    // can we add the image
-    if (source !== undefined) {
-      // build a new image
-      image = $('<img src="' + source + '" />');
-      // add the image to the element
-      self.element.empty().append(image);
+    // check if a level or source exists
+    if (self.level || source !== undefined) {
+      // empty out the element
+      self.element.empty();
+      // check to see if this object has a "level" attribute
+      if (self.level) {
+        // update the level of the level indicator
+        levelIndicator.text(self.level);
+        // add a level indicator to the element
+        self.element.append(levelIndicator);
+      }
+      // can we add the image
+      if (source !== undefined) {
+        // build a new image
+        image = $('<img src="' + source + '" />');
+        // add the image to the element
+        self.element.append(image);
+      }
     }
   };
   

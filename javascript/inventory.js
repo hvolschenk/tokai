@@ -9,36 +9,50 @@ function Inventory (map) {
   BaseObject.call(this, map);
   
   // the width of the inventory element
-  this.width = 400;
+  this.width = 500;
   // the height of the inventory element
   this.height = 500;
   // the inventory element
   this.element = $('<div class="inventory hidden"></div>');
   // the left offset of the inventory element
-  this.left = 100;
+  this.left = 50;
   // the top offset of the inventory element
   this.top = 50;
   // a list of items in the inventory
   this.items = [];
+  // the equipped armor
+  this.armor;
+  // the equipped weapon
+  this.weapon;
   // the array index of the selected item
   this.selectedItem = 0;
 
   // initializes the inventory
   this.initialize = function () {
     // the header
-    var header = $('<p class="header"></p>');
+    var header = $('<p class="header"></p>'),
+    // an element for when there are no items
+    noItems = $('<p class="noItems"></p>');
     // empty the element
     self.element.empty();
     // add a header to the inventory
     self.element.append(header);
     // add the header text
     header.text('Inventory');
-    // add the items section
-    self.addItems();
-    // add the selected item element
-    self.addSelectedItem();
-    // add events to the inventory
-    self.addEvents();
+    // see if there are any items in inventory
+    if (self.items.length > 0) {
+      // add the items section
+      self.addItems();
+      // add the selected item element
+      self.addSelectedItem();
+      // add events to the inventory
+      self.addEvents();
+    } else {
+      // set the text of the no items element
+      noItems.text('There are no items in your inventory');
+      // add the no items element to the inventory
+      self.element.append(noItems);
+    }
   };
 
   // toggles the inventory
@@ -83,7 +97,9 @@ function Inventory (map) {
     // the selected item element
     var selectedItem = $('<div class="selectedItem"></div>'),
     // the sell button
-    sellButton = $('<a class="button sell"></a>');
+    sellButton = $('<a class="button sell"></a>'),
+    // the equip button
+    equipButton = $('<a class="button equip"></a>');
     // see if there are any items in the inventory
     if (self.items.length > 0) {
       // make sure the selected item falls within the bounds
@@ -91,10 +107,14 @@ function Inventory (map) {
       // add the details of the selected item to the element
       selectedItem.append(self.items[self.selectedItem].descriptionElement);
       // add the sell button text
-      sellButton.text('Sell (' + self.items[self.selectedItem].cost / 2 + ')');
+      sellButton.text('Sell');
+      // add the equip button text
+      equipButton.text('Equip');
+      // add the sell button to the element
+      selectedItem.append(sellButton);
+      // add the equip button to the element
+      selectedItem.append(equipButton);
     }
-    // add the sell button to the element
-    selectedItem.append(sellButton);
     // add the selected item element to the inventory
     self.element.append(selectedItem);
   };

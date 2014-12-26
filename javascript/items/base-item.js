@@ -13,6 +13,13 @@ function BaseItem (map) {
   this.descriptionElement = $('<p class="description"></p>');
   // the cost of any item
   this.cost = 2;
+  // the level of this item
+  this.level = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // the level is the same as the map
+    return mapNumber;
+  })();
   
   // initializes the element object and loads the local variables
   // @param object object The object to load

@@ -28,6 +28,13 @@ function BaseClass (map) {
   this.template = 1;
   // The player''s inventory
   this.inventory = new Inventory(map);
+  // The player's level
+  this.level = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // the level is the same as the map
+    return mapNumber;
+  })();
 
   // moves the player in a direction
   this.movePlayer = function (direction) {

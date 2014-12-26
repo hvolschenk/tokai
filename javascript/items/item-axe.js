@@ -23,6 +23,11 @@ function ItemAxe (map) {
   // an image of the axe
   this.image = "/images/items/item-axe.png";
   // the cost of this item
-  this.cost = 10;
+  this.cost = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // the level times 3 cost
+    return mapNumber * 3;
+  })();
   
 }

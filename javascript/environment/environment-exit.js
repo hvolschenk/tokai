@@ -29,6 +29,8 @@ function Exit (map) {
     map.removeEvents();
     // initialize the new map
     map.initialize(map.player);
+    // level up the player
+    map.player.level++;
   }
 
 }
