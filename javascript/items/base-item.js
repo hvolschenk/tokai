@@ -9,6 +9,10 @@ function BaseItem (map) {
   BaseObject.call(this, map);
   // give this object a type
   this.type = 'item';
+  // a description element
+  this.descriptionElement = $('<p class="description"></p>');
+  // the cost of any item
+  this.cost = 2;
   
   // initializes the element object and loads the local variables
   // @param object object The object to load
@@ -23,8 +27,8 @@ function BaseItem (map) {
     self.bottom = self.top + self.height;
     // set the name of the Item
     self.name = object.name;
-    // set the damage of this item
-    self.damage = object.damage;
+    // update the description
+    self.updateDescription();
   };
   
   // adds a clash handler method
@@ -35,13 +39,46 @@ function BaseItem (map) {
     // add this item to the Player''s inventory
     map.player.inventory.addItem(self);
     // remove the item from the map
-    self.element.remove();
+    //self.element.remove();
     // remove the item from the map''s array
     map.objects.splice(map.objects.indexOf(self), 1);
-    // rebuild the inventory
-    map.player.inventory.buildInventory();
     // move the player up once more
     map.player.movePlayer(direction);
-  }
+  };
+
+  // updates the description of the item
+  this.updateDescription = function () {
+    // a list of attributes to check for
+    var attributes = ['Cost', 'Damage', 'Armor', 'Health', 'Mana', 'Stamina'],
+    // a span for the name
+    name = $('<span class="name"></span>'),
+    // a span for the description
+    description = $('<span class="description"></span>');
+    // set the name text
+    name.text(self.name);
+    // add the name text
+    self.descriptionElement.append(name);
+    // see if a description is set for this item
+    if (self.description) {
+      // set the text for the description element
+      description.text(self.description);
+      // add the description element to the element
+      self.descriptionElement.append('<br />', description);
+    }
+    // go through each of the possible attributes
+    $.each(attributes, function () {
+      // an element for the attribute
+      var attributeElement;
+      // see if this attribute exists for this item
+      if (self[this.toLowerCase()]) {
+        // create the attribute element
+        attributeElement = $('<span class="' + this.toLowerCase() + '"></span>');
+        // update the text of the attribute element
+        attributeElement.text(this + ': ' + self[this.toLowerCase()]);
+        // add the attribute to the description
+        self.descriptionElement.append('<br />', attributeElement);
+      }
+    });
+  };
   
 }

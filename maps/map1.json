@@ -126,8 +126,19 @@
   "item" : [
     {
       "name" : "Axe",
-      "position" : {"top" : 6, "left" : 7},
-      "damage" : 1
+      "position" : {"top" : 6, "left" : 7}
+    },
+    {
+      "name" : "Axe",
+      "position" : {"top" : 7, "left" : 7}
+    },
+    {
+      "name" : "Axe",
+      "position" : {"top" : 7, "left" : 8}
+    },
+    {
+      "name" : "Axe",
+      "position" : {"top" : 7, "left" : 9}
     }
   ],
   "player" : {
@@ -202,6 +213,11 @@
     },
     {
       "position" : {"top" : 5, "left" : 5}
+    }
+  ],
+  "exit" : [
+    {
+      "position" : {"top" : 9, "left" : 0}
     }
   ]
 }

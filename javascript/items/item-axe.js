@@ -12,10 +12,17 @@ function ItemAxe (map) {
   // the name of the item
   this.name = "Axe";
   // the description of the item
-  this.description = "Not the best, but it looks like it can chop down some trees.";
+  this.description = "Not the best, but it'll chop a tree down.";
   // the amount of damage that the item does
-  this.damage = 5;
+  this.damage = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // the level times 5 damage
+    return mapNumber * 5;
+  })();
   // an image of the axe
   this.image = "/images/items/item-axe.png";
+  // the cost of this item
+  this.cost = 10;
   
 }

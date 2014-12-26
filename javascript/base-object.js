@@ -36,20 +36,22 @@ function BaseObject (map) {
   // initializes the element object and loads the local variables
   // @param object object The object to load
   this.initialize = function (object) {
-    // set the object position
-    self.position = object.position;
-    // set the left offset value
-    self.left = self.position.left * self.width;
-    // set the top offset value
-    self.top = self.position.top * self.height;
-    // set the right offset value
-    self.right = self.left + self.width;
-    // set the bottom offset value
-    self.bottom = self.top + self.height;
-    // check if an image was set
-    if (object.image || object.image === 0) {
-      // set this as the default image
-      self.currentImage = object.image;
+    if (object) {
+      // set the object position
+      self.position = object.position;
+      // set the left offset value
+      self.left = self.position.left * self.width;
+      // set the top offset value
+      self.top = self.position.top * self.height;
+      // set the right offset value
+      self.right = self.left + self.width;
+      // set the bottom offset value
+      self.bottom = self.top + self.height;
+      // check if an image was set
+      if (object.image || object.image === 0) {
+        // set this as the default image
+        self.currentImage = object.image;
+      }
     }
   };
 

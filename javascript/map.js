@@ -23,12 +23,16 @@ function Map () {
     direction : null,
     event : null
   };
+  // the background image for the map
+  this.image = '/images/environment/grass-bg.jpg';
+  // the current map that we are on
+  this.map = 1;
 
   // initializes the map and items on the map
   // @param Object classType The class type that was selected during character select
   this.initialize = function (classType) {
     // load the first map
-    self.loadMap(1, classType);
+    self.loadMap(classType);
     // add the map element to the page
     self.addElement();
     // set-up the movement events
@@ -53,16 +57,13 @@ function Map () {
   };
 
   // loads a map from file
-  // @param integer map The map number
   // @param Object classType The class type that was selected during character select
-  this.loadMap = function (map, classType) {
-    // set the first map as the default
-    map = map || 1;
+  this.loadMap = function (classType) {
     // read the correct JSON file
     $.ajax({
       type     : 'get',
       dataType : 'json',
-      url      : 'maps/map' + map + '.json',
+      url      : 'maps/map' + this.map + '.json',
       success  : function (data) {
         // load all items
         self.loadItems(data.item);
@@ -72,8 +73,6 @@ function Map () {
         self.loadObjects(data);
         // load the player onto the map
         self.loadPlayer(data.player, classType);
-        // load the inventory element onto the map
-        self.loadInventory();
       },
       error    : function (jqXHR, textStatus, errorThrown) {
         console.log('error', jqXHR, textStatus, errorThrown);
@@ -85,11 +84,11 @@ function Map () {
   // @param json data The data derived from the map file
   this.loadObjects = function (data) {
     // a list of all types to load
-    var objectTypes = ["Path", "Rock", "Tree", "Water"];
+    var objectTypes = ["Path", "Rock", "Tree", "Water", "Exit"];
     // go through each object type
     $.each(objectTypes, function () {
       // see if any objects of this type was found
-      if (data[this.toLowerCase()].length > 0) {
+      if (typeof(data[this.toLowerCase()]) === 'object') {
         var objectType = this;
         // go through each of this type
         $.each(data[this.toLowerCase()], function () {
@@ -176,14 +175,12 @@ function Map () {
     self.player.initialize(player);
     // add the player object to the page
     self.player.addElement(self.mapElement);
+    // initializze the player's inventory
+    self.player.inventory.initialize();
+    // add the inventory element to the map
+    self.player.inventory.addElement(self.mapElement);
   };
 
-  // loads the inventory onto the map
-  this.loadInventory = function () {
-    // add the inventory element to the page
-    self.player.inventory.addElement();
-  };
-  
   // detects a clash between the player and any object
   // @param string direction The direction in which the player is trying to move
   // @return boolean Whether the player clashes or not (true = clash)
@@ -325,6 +322,9 @@ function Map () {
         case 40:
           direction = 'down';
           break;
+        case 73:
+          direction = null;
+          other = 'inventory';
       }
       // see if a direction key was pressed
       if (direction !== null) {
@@ -359,6 +359,18 @@ function Map () {
           }
         }
       }
+      else {
+        // see if any other action was taken
+        if (other) {
+          // check which other action was taken
+          switch (other) {
+            case 'inventory':
+              // show/hide the inventory
+              self.player.inventory.toggle();
+              break;
+          }
+        }
+      }
     });
   };
 
@@ -380,7 +392,7 @@ function Map () {
     // hide the status text area
     self.statusTextElement.hide();
     // hide the inventory
-    self.player.inventory.inventoryElement.hide();
+    self.player.inventory.element.hide();
     // remove all events
     self.removeEvents();
     // initialize the arena

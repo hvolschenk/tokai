@@ -29,6 +29,12 @@ function CharacterSelect () {
   this.classRogue = new ClassRogue(self.map);
   // the selected class type
   this.selectedClassType = 'classWarrior';
+  // the background image for the character select screen
+  this.image = [
+    '/images/back.jpg',
+    '/images/next-arrow.png',
+    '/images/prev-arrow.png'
+  ];
   
   // initializes the charcter selection screen
   this.initialize = function () {
@@ -355,6 +361,7 @@ function CharacterSelect () {
   this.buildPreloadList = function () {
     // a list of objects to check images in for
     var objectTypes = [
+      'Map', 'CharacterSelect',
       'ClassWarrior', 'ClassMage', 'ClassRogue',
       'EnemyShadowling',
       'Path', 'Rock', 'Tree',

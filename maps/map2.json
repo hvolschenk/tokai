@@ -1,0 +1,28 @@
+{
+  "tree" : [
+    {
+      "position" : {"top" : 0, "left" : 0}
+    }
+  ],
+  "enemy" : [
+    {
+      "position" : {"top" : 8, "left" : 7},
+      "name"     : "Shadowling"
+    }
+  ],
+  "item" : [
+    {
+      "name" : "Axe",
+      "position" : {"top" : 6, "left" : 7}
+    }
+  ],
+  "player" : {
+    "position" : {"top" : 1, "left" : 0},
+    "image" : 2
+  },
+  "rock" : [
+    {
+      "position" : {"top" : 3, "left" : 7}
+    }
+  ]
+}

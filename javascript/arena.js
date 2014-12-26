@@ -242,8 +242,6 @@ function Arena (map, enemy) {
       map.player.addElement(map.mapElement);
       // show the status text area
       map.statusTextElement.show();
-      // show the inventory
-      map.player.inventory.inventoryElement.show();
       // add the map events
       map.setupEvents();
     }

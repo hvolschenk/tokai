@@ -6,6 +6,21 @@
 a {
     cursor : pointer;
 }
+.hidden {
+    display : none;
+}
+a.button {
+    padding : 3px 5px;
+    background-color : #474747;
+    border : 1px solid #f1f1f1;
+    color : #f1f1f1;
+    border-radius : 4px;
+}
+a.button:hover {
+    background-color : #f1f1f1;
+    border : 1px solid #474747;
+    color : #474747;
+}
 .status {
     font-size : 16px;
     text-align : center;
@@ -38,7 +53,7 @@ a {
 .arena .keyboardKey {
     color : #474747;
 }
-.tree, .rock, .water, .path {
+.tree, .rock, .water, .path, .exit, .item {
     position : absolute;
 }
 .tree img {
@@ -79,13 +94,56 @@ a {
 .inventory {
     margin : 0 auto;
     border : 1px solid #000;
-}
-.item {
-    background-color : black;
+    z-index : 100 !important;
+    background-color : #474747;
+    border : 1px solid #f1f1f1;
+    border-radius : 4px;
     position : absolute;
 }
-.inventory .item {
+.inventory .header {
+    font-size : 30px;
+    text-align : center;
+    margin : 20px 0;
+    color : #f1f1f1;
+}
+.inventory .items, .inventory .selectedItem {
+    float : left;
+    width : 200px;
+    height : 200px;
+}
+.inventory .items .item {
     position : static;
+    float : left;
+    z-index : 101;
+    margin : 6px 0 0 6px;
+    border-radius : 4px;
+    cursor : pointer;
+}
+.inventory .items .item:hover, .inventory .items .item.selected {
+    background-color : #f1f1f1;
+}
+.inventory .selectedItem {
+    position : relative;
+    padding : 10px;
+    width : 180px;
+    height : 180px;
+}
+.inventory .selectedItem p {
+    color : #f1f1f1;
+    font-size : 12px;
+}
+.inventory .selectedItem p span {
+    display : block;
+}
+.inventory .selectedItem p .name {
+    font-size : 16px;
+}
+.inventory .selectedItem p .description {
+    font-style : italic;
+}
+.inventory .selectedItem .button {
+    position : absolute;
+    bottom : 0;
 }
 .arena {
     border : 1px solid blue;
@@ -311,9 +369,12 @@ a {
     height : 100%;
     background-color : #474747;
     text-align : center;
+    background-image : url(/images/preloader.gif);
+    background-repeat : no-repeat;
+    background-position : center center;
 }
 .preloader p {
-    padding : 400px 0 0;
+    padding : 350px 0 0;
     color : #f1f1f1;
     font-size : 24px;
 }
