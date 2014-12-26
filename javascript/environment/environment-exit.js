@@ -17,6 +17,10 @@ function Exit (map) {
   // adds a clash handler method
   // @param string direction The direction the player is moving in
   this.clashHandler = function (direction) {
+    // a new player for the new map
+    var player,
+    // the type of class that was selected
+    selectedClass = map.player.constructor.name;
     // update the status text
     map.statusTextElement.text('You have found the exit, on to the next map.');
     // update the map number
@@ -27,10 +31,18 @@ function Exit (map) {
     map.mapElement.empty();
     // remove all map events
     map.removeEvents();
+    // create the new player
+    player = new window[selectedClass](map);
+    // set the player's name
+    player.characterName = map.player.characterName;
     // initialize the new map
-    map.initialize(map.player);
+    map.initialize(player);
     // level up the player
     map.player.level++;
+    // rebuild stats for the player
+    map.player.buildStatistics();
+    // build the ability list
+    map.player.buildAbilityList();
   }
 
 }

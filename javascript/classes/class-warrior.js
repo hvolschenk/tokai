@@ -4,7 +4,18 @@ function ClassWarrior (map) {
 
   // a reference to this class
   var self = this;
-  
+
+  // the base attack damage for this class
+  this.damageBase = 30;
+  // the base health for this class type
+  this.healthBase = 300;
+  // the base mana for this class type
+  this.manaBase = 100;
+  // the base stamina for this class type
+  this.staminaBase = 200;
+  // the base amount of armor for this class type
+  this.armorBase = 0;
+
   // extend this object with the base object
   BaseClass.call(this, map);
 
@@ -21,22 +32,6 @@ function ClassWarrior (map) {
     '/images/characters/warrior-front.png',
     '/images/characters/warrior-front.png'
   ];
-  // the base attack damage for this class
-  this.damageBase = 30;
-  // the base health for this class type
-  this.healthBase = 300;
-  // the current health of this class type
-  this.healthCurrent = 300;
-  // the base mana for this class type
-  this.manaBase = 100;
-  // the current mana for this class type
-  this.manaCurrent = 100;
-  // the base stamina for this class type
-  this.staminaBase = 200;
-  // the current stamina for this class type
-  this.staminaCurrent = 200;
-  // the base amount of armor for this class type
-  this.armorBase = 0;
   // the lore story for this class type
   this.lore = ' grew up near the village of Werth, not too far from the capital. He is fairly educated and came from a good family, although he had a taste for getting himself in over his head as a child. His Uncle Norhan told him stories of adventures and such which got him curious about seeking fame and fortune, until that one day the big accident happened.';
   // the abilities that this class has

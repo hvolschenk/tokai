@@ -10,6 +10,41 @@ function Fighter (map) {
 
   // give this object a type
   this.type = 'fighter';
+  // The fighter's level
+  this.level = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // the level is the same as the map
+    return mapNumber;
+  })();
+  // the current health of this class type
+  this.healthCurrent = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // times the health by the level
+    return mapNumber * self.healthBase;
+  })();
+  // the current mana for this class type
+  this.manaCurrent = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // times the mana by the level
+    return mapNumber * self.manaBase;
+  })();
+  // the current stamina for this class type
+  this.staminaCurrent = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // times the stamina by the level
+    return mapNumber * self.staminaBase;
+  })();
+  // the current damage for this type
+  this.damageCurrent = (function () {
+    // the map we are on
+    var mapNumber = map ? map.map : 1;
+    // times the damege by the level
+    return mapNumber * self.damageBase;
+  })();
 
   // the list that holds the enemy abilities
   this.abilityList = $('<div class="abilityList"></div>');
@@ -34,7 +69,10 @@ function Fighter (map) {
     // the percentage of the mana bar
     manaPercentage = (self.manaCurrent / self.manaBase) * 100,
     // the percentage of the stamina bar
-    staminaPercentage = (self.staminaCurrent / self.staminaBase) * 100;
+    staminaPercentage = (self.staminaCurrent / self.staminaBase) * 100,
+    // the name to show
+    name = (self.characterName !== undefined) ? self.characterName : self.name;
+
     // check if the health is above 100
     healthPercentage = (healthPercentage > 100) ? 100 : healthPercentage;
     // check if the mana is above 100
@@ -46,7 +84,7 @@ function Fighter (map) {
     // see whether the name must be shown
     if (showName === true) {
       // append the name to the element
-      self.statisticsList.append('<p>' + self.name + '</p>');
+      self.statisticsList.append('<p>' + name + '</p>');
     }
     // add the empty div to the health bar
     barHealth.append(emptyDiv.css({'width' : healthPercentage + '%'}).clone());
@@ -75,11 +113,13 @@ function Fighter (map) {
     // the class type name
     var classTypeName = $('<p class="classTypeName"></p>'),
     // the base damage
-    damageBase = $('<span></span>');
+    damageBase = $('<span></span>'),
+    // the name to show
+    name = (self.characterName !== undefined) ? self.characterName : self.name;
     // add the name
-    classTypeName.html(self.name);
+    classTypeName.html(name);
     // add the base damage
-    damageBase.html('Base damage: ' + self.damageBase);
+    damageBase.html('Base damage: ' + self.damageCurrent);
     // append the damage to the name
     classTypeName.append(damageBase);
     // append the name to the list
