@@ -178,12 +178,12 @@ function Inventory (map) {
       }
       // add the item to the inventory's correct variable
       self[self.items[self.selectedItem].type] = self.items[self.selectedItem];
+      // remove the selected class of the element
+      self[self.items[self.selectedItem].type].element.removeClass('selected');
       // delete the list entry
       self.items.splice(self.selectedItem, 1);
       // reset the selected item
       self.selectedItem = 0;
-      // remove the selected class of the element
-      self[self.items[self.selectedItem].type].element.removeClass('selected');
       // re initialize the inventory
       self.initialize();
     }

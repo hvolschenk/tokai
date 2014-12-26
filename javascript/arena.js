@@ -243,7 +243,7 @@ function Arena (map, enemy) {
       // show the status text area
       map.statusTextElement.show();
       // add the map events
-      map.setupEvents();
+      map.setupKeyEvents();
     }
   };
 
