@@ -12,7 +12,7 @@ function AbilityHeal (classType) {
   // this ability health cost
   this.healthCost = 0;
   // this ability mana cost
-  this.manaCost = 30;
+  this.manaCost = 70;
   // this ability stamina cost
   this.staminaCost = 0;
   // the health damage this ability does

@@ -14,11 +14,11 @@ function AbilityCriticalStrike (classType) {
   // this ability mana cost
   this.manaCost = 0;
   // this ability stamina cost
-  this.staminaCost = 30;
+  this.staminaCost = 70;
   // the health damage this ability does
   this.healthDamage = (function () {
     // 300% base damage
-    return classType.damageTotal * 3;
+    return classType.damageTotal * 2;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
@@ -33,7 +33,7 @@ function AbilityCriticalStrike (classType) {
   // the name of the ability
   this.name = 'Critical Strike';
   // the description of this ability
-  this.description = 'Your attack critically strikes and does 300% base damage.';
+  this.description = 'Your attack critically strikes and does 200% base damage.';
   // the key assigned to this ability
   this.key = 'E';
   

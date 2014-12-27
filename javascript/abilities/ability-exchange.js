@@ -24,7 +24,7 @@ function AbilityExchange (classType) {
   // the amount of health gained from this ability
   this.healthGain = (function () {
     // 30% of max health
-    return classType.healthTotal * 0.3;
+    return classType.damageTotal * 2;
   })();
   // the amount of mana gained from this ability
   this.manaGain = 0;
@@ -33,7 +33,7 @@ function AbilityExchange (classType) {
   // the name of the ability
   this.name = 'Exchange';
   // the description of this ability
-  this.description = 'Gain 30% of your maximum health back.';
+  this.description = 'Gain 200% of your base damage in health.';
   // the key assigned to this ability
   this.key = 'W';
   

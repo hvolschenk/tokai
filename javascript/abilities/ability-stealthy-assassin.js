@@ -18,7 +18,7 @@ function AbilityStealthyAssassin (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage times two
-    return classType.damageTotal * 2;
+    return classType.damageTotal * 3;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
@@ -33,7 +33,7 @@ function AbilityStealthyAssassin (classType) {
   // the name of the ability
   this.name = 'Stealthy Assassin';
   // the description of this ability
-  this.description = 'Go invisible for one round. Do 200% damage with an auto-attack.';
+  this.description = 'Go invisible and critically strike for 300% damage.';
   // the key assigned to this ability
   this.key = 'Q';
   

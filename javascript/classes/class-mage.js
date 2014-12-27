@@ -6,7 +6,7 @@ function ClassMage (map) {
   var self = this;
 
   // the base attack damage for this class
-  this.damageBase = 20;
+  this.damageBase = 25;
   // the base health for this class type
   this.healthBase = 200;
   // the base mana for this class type

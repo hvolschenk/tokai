@@ -25,18 +25,18 @@ function AbilityBash (classType) {
   // the stamina damage that this ability does
   this.staminaDamage = 0;
   // the amount of health gained from this ability
-  this.healthGain = (function () {
-    // 10% of maximum health
-    return classType.healthTotal * 0.1;
-  })();
+  this.healthGain = 0;
   // the amount of mana gained from this ability
   this.manaGain = 0;
   // the amount of stamina gained from this ability
-  this.staminaGain = 0;
+  this.staminaGain = (function () {
+    // 10% of maximum health
+    return classType.damageTotal;
+  })();
   // the name of the ability
   this.name = 'Bash';
   // the description of this ability
-  this.description = 'You steal 10% of your max health back.';
+  this.description = 'You deal base damage and gain base damage as stamina.';
   // the key assigned to this ability
   this.key = 'A';
   

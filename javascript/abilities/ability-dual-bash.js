@@ -14,7 +14,7 @@ function AbilityDualBash (classType) {
   // this ability mana cost
   this.manaCost = 0;
   // this ability stamina cost
-  this.staminaCost = 30;
+  this.staminaCost = 70;
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage times two
@@ -25,7 +25,10 @@ function AbilityDualBash (classType) {
   // the stamina damage that this ability does
   this.staminaDamage = 0;
   // the amount of health gained from this ability
-  this.healthGain = 0;
+  this.healthGain = (function () {
+    // 10% of maximum health
+    return classType.damageTotal;
+  })();
   // the amount of mana gained from this ability
   this.manaGain = 0;
   // the amount of stamina gained from this ability
@@ -33,7 +36,7 @@ function AbilityDualBash (classType) {
   // the name of the ability
   this.name = 'Dual Bash';
   // the description of this ability
-  this.description = 'Perform a double bash attack but gain no health.';
+  this.description = 'Perform a double bash attack but gain health instead of stamina.';
   // the key assigned to this ability
   this.key = 'E';
   

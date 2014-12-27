@@ -6,11 +6,11 @@ function ClassRogue (map) {
   var self = this;
 
   // the base attack damage for this class
-  this.damageBase = 20;
+  this.damageBase = 30;
   // the base health for this class type
-  this.healthBase = 100;
+  this.healthBase = 200;
   // the base mana for this class type
-  this.manaBase = 200;
+  this.manaBase = 100;
   // the base stamina for this class type
   this.staminaBase = 300;
   // the base amount of armor for this class type

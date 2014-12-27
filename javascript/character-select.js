@@ -339,7 +339,7 @@ function CharacterSelect () {
         }
       });
       // add the image to the document
-      $('body').append(image);
+      //$('body').append(image);
     });
   };
 

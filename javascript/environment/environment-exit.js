@@ -35,6 +35,8 @@ function Exit (map) {
     player = new window[selectedClass](map);
     // set the player's name
     player.characterName = map.player.characterName;
+    // update the inventory of the new player
+    player.inventory = map.player.inventory;
     // initialize the new map
     map.initialize(player);
     // level up the player

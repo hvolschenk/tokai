@@ -17,18 +17,15 @@ function AbilityJuggernaut (classType) {
   this.staminaCost = 0;
   // the health damage this ability does
   this.healthDamage = (function () {
-    // 25% of max health
-    return classType.healthTotal * 0.25;
+    // base damage plus 10% of max health
+    return classType.damageTotal + (classType.healthTotal * 0.1);
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
   // the stamina damage that this ability does
   this.staminaDamage = 0;
   // the amount of health gained from this ability
-  this.healthGain = (function () {
-    // 10% of maximum health
-    return classType.healthTotal * 0.1;
-  })();
+  this.healthGain = 0;
   // the amount of mana gained from this ability
   this.manaGain = 0;
   // the amount of stamina gained from this ability

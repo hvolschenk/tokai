@@ -14,18 +14,18 @@ function AbilityStagger (classType) {
   // this ability mana cost
   this.manaCost = 0;
   // this ability stamina cost
-  this.staminaCost = 30;
+  this.staminaCost = 70;
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage
-    return classType.damageTotal;
+    return classType.damageTotal * 1.5;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
   // the stamina damage that this ability does
   this.staminaDamage = (function () {
     // base damage
-    return classType.damageTotal;
+    return classType.damageTotal * 1.5;
   })();
   // the amount of health gained from this ability
   this.healthGain = 0;
@@ -36,7 +36,7 @@ function AbilityStagger (classType) {
   // the name of the ability
   this.name = 'Stagger';
   // the description of this ability
-  this.description = 'Do base damage to health and stamina.';
+  this.description = 'Do 150% base damage to health and stamina.';
   // the key assigned to this ability
   this.key = 'R';
   

@@ -6,7 +6,7 @@ function ClassWarrior (map) {
   var self = this;
 
   // the base attack damage for this class
-  this.damageBase = 30;
+  this.damageBase = 20;
   // the base health for this class type
   this.healthBase = 300;
   // the base mana for this class type

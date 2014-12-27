@@ -14,7 +14,7 @@ function AbilityLifeLeach (classType) {
   // this ability mana cost
   this.manaCost = 0;
   // this ability stamina cost
-  this.staminaCost = 30;
+  this.staminaCost = 70;
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage
