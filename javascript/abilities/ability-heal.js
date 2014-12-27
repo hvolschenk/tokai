@@ -24,7 +24,7 @@ function AbilityHeal (classType) {
   // the amount of health gained from this ability
   this.healthGain = (function () {
     // 20% of max health
-    return classType.healthBase * 0.2;
+    return classType.healthTotal * 0.2;
   })();
   // the amount of mana gained from this ability
   this.manaGain = 0;

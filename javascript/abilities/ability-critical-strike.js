@@ -18,7 +18,7 @@ function AbilityCriticalStrike (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // 300% base damage
-    return classType.damageBase * 3;
+    return classType.damageTotal * 3;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;

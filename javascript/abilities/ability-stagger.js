@@ -18,14 +18,14 @@ function AbilityStagger (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage
-    return classType.damageBase;
+    return classType.damageTotal;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
   // the stamina damage that this ability does
   this.staminaDamage = (function () {
     // base damage
-    return classType.damageBase;
+    return classType.damageTotal;
   })();
   // the amount of health gained from this ability
   this.healthGain = 0;

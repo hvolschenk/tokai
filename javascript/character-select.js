@@ -78,6 +78,10 @@ function CharacterSelect () {
 
   // adds the character element to the container
   this.addCharacterElement = function () {
+    // initialize the three class types
+    self.classWarrior.initialize();
+    self.classMage.initialize();
+    self.classRogue.initialize();
     // append the character element to the container element
     self.container.append(self.characterElement);
     // load the default class type

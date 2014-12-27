@@ -18,7 +18,7 @@ function AbilityBlast (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage
-    return classType.damageBase;
+    return classType.damageTotal;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
@@ -29,7 +29,7 @@ function AbilityBlast (classType) {
   // the amount of mana gained from this ability
   this.manaGain = (function () {
     // 50% base damage
-    return classType.damageBase * 0.5;
+    return classType.damageTotal * 0.5;
   })();
   // the amount of stamina gained from this ability
   this.staminaGain = 0;

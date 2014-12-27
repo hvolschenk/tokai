@@ -18,7 +18,7 @@ function AbilityHowlingGale (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage times two
-    return classType.damageBase * 2;
+    return classType.damageTotal * 2;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
@@ -26,7 +26,7 @@ function AbilityHowlingGale (classType) {
   this.staminaDamage = 0;
   // the amount of health gained from this ability
   this.healthGain = (function () {
-    return classType.damageBase * 0.5;
+    return classType.damageTotal * 0.5;
   })();
   // the amount of mana gained from this ability
   this.manaGain = 0;

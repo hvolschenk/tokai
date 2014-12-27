@@ -18,7 +18,7 @@ function AbilityLifeLeach (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // base damage
-    return classType.damageBase;
+    return classType.damageTotal;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
@@ -27,7 +27,7 @@ function AbilityLifeLeach (classType) {
   // the amount of health gained from this ability
   this.healthGain = (function () {
     // base damage
-    return classType.damageBase;
+    return classType.damageTotal;
   })();
   // the amount of mana gained from this ability
   this.manaGain = 0;

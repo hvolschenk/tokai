@@ -18,7 +18,7 @@ function AbilityJuggernaut (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // 25% of max health
-    return classType.damageBase + (classType.healthBase * 0.1);
+    return classType.healthTotal * 0.25;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;
@@ -27,7 +27,7 @@ function AbilityJuggernaut (classType) {
   // the amount of health gained from this ability
   this.healthGain = (function () {
     // 10% of maximum health
-    return classType.healthBase * 0.1;
+    return classType.healthTotal * 0.1;
   })();
   // the amount of mana gained from this ability
   this.manaGain = 0;

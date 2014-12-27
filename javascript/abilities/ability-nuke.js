@@ -18,7 +18,7 @@ function AbilityNuke (classType) {
   // the health damage this ability does
   this.healthDamage = (function () {
     // 25% of max health
-    return classType.healthBase * 0.25;
+    return classType.healthTotal * 0.25;
   })();
   // the mana damage that this ability does
   this.manaDamage = 0;

@@ -17,39 +17,49 @@ function Fighter (map) {
     // the level is the same as the map
     return mapNumber;
   })();
-  // the current health of this class type
-  this.healthCurrent = (function () {
-    // the map we are on
-    var mapNumber = map ? map.map : 1;
-    // times the health by the level
-    return mapNumber * self.healthBase;
-  })();
-  // the current mana for this class type
-  this.manaCurrent = (function () {
-    // the map we are on
-    var mapNumber = map ? map.map : 1;
-    // times the mana by the level
-    return mapNumber * self.manaBase;
-  })();
-  // the current stamina for this class type
-  this.staminaCurrent = (function () {
-    // the map we are on
-    var mapNumber = map ? map.map : 1;
-    // times the stamina by the level
-    return mapNumber * self.staminaBase;
-  })();
-  // the current damage for this type
-  this.damageCurrent = (function () {
-    // the map we are on
-    var mapNumber = map ? map.map : 1;
-    // times the damege by the level
-    return mapNumber * self.damageBase;
-  })();
-
   // the list that holds the enemy abilities
   this.abilityList = $('<div class="abilityList"></div>');
   // the list that holds the enemy statistics
   this.statisticsList = $('<div class="bars"></div>');
+
+  // sets up the statistics of this fighter
+  (function () {
+    // a list of statistics to build
+    var statisticsToBuild = ['health', 'mana', 'stamina', 'damage'];
+    // go through each statistic
+    $.each(statisticsToBuild, function () {
+      // the modifier for this statistic
+      var modifier = self[this + 'Modifier'] || 1;
+      // scale the statistic accordingly
+      self[this + 'Current'] = (self.level * modifier) * self[this + 'Base'];
+      self[this + 'Total'] = (self.level * modifier) * self[this + 'Base'];
+    });
+  })();
+
+  // an initialize method for all fighters
+  // @param object object The object to load
+  this.initialize = function (object) {
+    // set up the statistics for this type
+    //self.setupStatistics();
+    // see if an object exists
+    if (object) {
+      // set the object position
+      self.position = object.position;
+      // set the left offset value
+      self.left = self.position.left * self.width;
+      // set the top offset value
+      self.top = self.position.top * self.height;
+      // set the right offset value
+      self.right = self.left + self.width;
+      // set the bottom offset value
+      self.bottom = self.top + self.height;
+      // check if an image was set
+      if (object.image || object.image === 0) {
+        // set this as the default image
+        self.currentImage = object.image;
+      }
+    }
+  };
 
   // a function to show the statistics of a class type
   // @param Boolean showName Whether to add in the character name
@@ -65,11 +75,11 @@ function Fighter (map) {
     // an empty paragraph tag
     emptyParagraph = $('<p></p>'),
     // the percentage of the health bar
-    healthPercentage = (self.healthCurrent / self.healthBase) * 100,
+    healthPercentage = (self.healthCurrent / self.healthTotal) * 100,
     // the percentage of the mana bar
-    manaPercentage = (self.manaCurrent / self.manaBase) * 100,
+    manaPercentage = (self.manaCurrent / self.manaTotal) * 100,
     // the percentage of the stamina bar
-    staminaPercentage = (self.staminaCurrent / self.staminaBase) * 100,
+    staminaPercentage = (self.staminaCurrent / self.staminaTotal) * 100,
     // the name to show
     name = (self.characterName !== undefined) ? self.characterName : self.name;
 
