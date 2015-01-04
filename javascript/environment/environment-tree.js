@@ -1,37 +1,41 @@
-// defines a tree
-// @param object map The map object
-function Tree (map) {
+// the tree class
+// @param object game The game being played
+function EnvironmentTree (game) {
 
-  // holds this object for itself
-  var self = this;
-  
-  // extend this object with the base object
-  BaseObject.call(this, map);
-  // give this object a type
-  this.type = 'tree';
+  // call the parent class
+  BaseEnvironment.call(this, game);
+
   // a background-image for a tree object
   this.image = [
-    '/images/environment/tree-new.png',
-    '/images/environment/tree-old.png'
+    'images/environment/tree/environment-tree-new.png',
+    'images/environment/tree/environment-tree-old.png'
   ];
   // an image for when this object is dead
-  this.imageDead = '/images/environment/tree-dead.png';
-  
-  // adds a clash handler method
-  // @param string direction The direction the player is moving in
-  this.clashHandler = function (direction) {
-    // go through all the player''s inventory items
-    $.each(map.player.inventory.items, function () {
-      // see if this item is the "Axe"
-      if (this.name === "Axe") {
-        // set up a triggered event for the current direction to chop down the tree
-        map.addTriggeredEvent(direction, self.kill);
-        // set the status text
-        map.statusTextElement.text('Press "' + direction + '" again to chop down this tree with your Axe.');
-        // we have found what we are looking for and now quit the loop
-        return false;
-      }
-    });
-  };
+  this.imageDead = 'images/environment/tree/environment-tree-dead.png';
 
-}
+};
+
+// this class inherits from base environment
+EnvironmentTree.inheritsFrom(BaseEnvironment);
+
+// set the type for this class
+EnvironmentTree.prototype.type = 'tree';
+
+// adds a clash handler method
+// @param string direction The direction the player is moving in
+EnvironmentTree.prototype.clashHandler = function (direction) {
+  // a reference to this class
+  var self = this;
+  // go through all the player''s inventory items
+  $.each(this.game.map.player.inventory.items, function () {
+    // see if this item is the "Axe"
+    if (this.name === "Axe") {
+      // kill this tree
+      self.kill();
+      // try and move the player again
+      self.game.map.player.tryMove(direction);
+      // we have found what we are looking for and now quit the loop
+      return false;
+    }
+  });
+};

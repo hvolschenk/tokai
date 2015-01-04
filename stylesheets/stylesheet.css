@@ -1,0 +1,457 @@
+/* GENERIC */
+* {
+	margin : 0;
+  padding : 0;
+  font-family : "Lucida Console", "Monaco", "monospace";
+}
+a {
+  cursor : pointer;
+}
+.hidden {
+  display : none;
+}
+.object {
+  margin : 0 auto;
+  text-align : center;
+}
+.object img {
+  height : 100%;
+}
+.map .object, .arena .object {
+  position : absolute;
+}
+.roundedCorners {
+  border-radius : 4px;
+}
+.grayArea {
+  background-color : #474747;
+  border : 1px solid #f1f1f1;
+  color : #f1f1f1;
+}
+.grayArea.active {
+  box-shadow : 0px 0px 10px #f1f1f1;
+}
+.keyboardKey {
+  box-shadow: inset 6px 4px 20px 10px #e1e1e1;
+  width: 27px;
+  height: 27px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 5px 0 0 5px;
+  float: left;
+  margin: 0 10px 0 0;
+  background-color: #fff;
+  color : #474747;
+}
+.button {
+  padding : 2px 5px;
+  font-size : 13px;
+}
+.object .level {
+  border-radius : 15px;
+  font-size : 10px;
+  width : 15px;
+  height : 12px;
+  position : absolute;
+  top : 5px;
+  left : 5px;
+  text-align : center;
+  padding : 3px 0 0;
+  z-index : inherit;
+}
+/* GAME */
+.preloader {
+  position : absolute;
+  top : 0;
+  left : 0;
+  width : 100%;
+  height : 45%;
+  padding : 55% 0 0;
+  background-color : #474747;
+  text-align : center;
+  background-image : url(../images/preloader.gif);
+  background-repeat : no-repeat;
+  background-position : center center;
+}
+.game {
+  margin : 20px auto 0;
+}
+.game > div {
+  float : left;
+  width : 300px;
+  height : 600px;
+}
+.game > div.gameArea {
+  width : 600px;
+}
+/* CHARACTER SELECT */
+.characterSelect {
+  padding : 10px 0 0;
+}
+.characterSelect .name {
+  margin : 0 20px 10px;
+  padding : 20px;
+}
+.characterSelect .name label {
+  font-size : 22px;
+  color : #9c9c9c;
+  margin : 0 10px 0 20px;
+  position : relative;
+  top : 2px;
+}
+.characterSelect .name input {
+  width : 280px;
+  padding : 5px;
+  color : #9c9c9c;
+  font-size : 16px;
+}
+.characterSelect .name input.error {
+  color : #ff0000;
+}
+.characterSelect .name p {
+  font-size : 28px;
+  text-align : center;
+}
+.characterSelect .player {
+  height : 428px;
+  position : relative;
+}
+.characterSelect .player .object {
+  height : 100%;
+  width : auto;
+}
+.characterSelect .player.confirmed {
+  margin : 0 20px;
+  height : 386px;
+}
+.characterSelect .player.confirmed .lore {
+  display : none;
+  font-size : 14px;
+  padding : 50px 20px 0 120px;
+  text-align : justify;
+}
+.characterSelect .player.confirmed .object.class {
+  float : right;
+}
+.characterSelect .player.confirmed .button {
+  position : absolute;
+  bottom : 10px;
+}
+.characterSelect .player.confirmed .button.showAbilities {
+  left : 110px;
+}
+.characterSelect .player.confirmed .button.showLore {
+  left : 200px;
+}
+.characterSelect .player .level {
+  display : none;
+}
+.characterSelect .player .name {
+  position : absolute;
+  font-size : 48px;
+  padding : 10px;
+  text-shadow : 0px 0px 4px #f1f1f1;
+  top : 200px;
+}
+.characterSelect .player .next, .characterSelect .player .previous {
+  display : block;
+  position : absolute;
+  height : 100px;
+  top : 150px;
+}
+.characterSelect .player .next {
+  right : 10px;
+}
+.characterSelect .player .previous {
+  left : 10px;
+}
+.characterSelect .classes {
+  width : 206px;
+  height : 62px;
+  margin : 0 auto;
+}
+.characterSelect .classes li {
+  list-style-type : none;
+  float : left;
+  margin : 0 0 0 10px;
+}
+.characterSelect .classes li:first-child {
+  margin : 0;
+}
+.characterSelect .classes li .level {
+  display : none;
+}
+.characterSelect .statistics {
+  height : 100px;
+  margin : 10px 20px;
+}
+.characterSelect .statistics .bars {
+  border : none;
+}
+.bars {
+  margin : 10px 10px 10px 20px;
+  float : left;
+}
+.bar {
+  height : 18px;
+  text-align : center;
+  margin : 5px 0 0;
+  position : relative;
+  width : 300px;
+}
+.bar div {
+  position : absolute;
+  height : 100%;
+}
+.bar p {
+  font-size : 12px;
+  padding : 5px 0 0;
+  position : relative;
+  z-index : 2;
+}
+.health div {
+  background-color : #990000;
+}
+.mana div {
+  background-color : #699EDB;
+}
+.stamina div {
+  background-color: #4AC615;
+}
+.playButton {
+  background: #4c4c4d;
+  width : 194px;
+  height : 60px;
+  text-align : center;
+  font-size : 50px;
+  display : block;
+  float : left;
+  margin : 14px 20px 10px 10px;
+  padding : 10px 0 0;
+}
+/* ABILITIES */
+.abilityList {
+  width : 280px;
+  border : 1px solid #000;
+  padding : 10px;
+  text-align : left;
+}
+.characterSelect .player .abilityList {
+  position : absolute;
+  left : 100px;
+  border : none;
+}
+.characterSelect .player .abilityList .classTypeName {
+  display : none;
+}
+.abilityList.opponentAbilityList {
+  margin : 0 0 0 310px;
+}
+.abilityList p {
+  font-weight : bold;
+  margin : 10px 0 5px;
+}
+.abilityList p.classTypeName span {
+  display : block;
+  font-size : 12px;
+}
+.abilityList p:first-child {
+  margin-top : 0;
+}
+.abilityList ul {
+  margin : 0 0 0 10px;
+}
+.abilityList ul li {
+  list-style-type : none;
+  font-size : 14px;
+}
+.abilityList ul li span {
+  font-size : 12px;
+}
+.ability {
+  position : relative;
+  text-align : left;
+}
+.ability .health {
+  margin : 0;
+  color : #990000;
+  background-color : transparent;
+}
+.ability .mana {
+  color : #699EDB;
+  background-color : transparent;
+}
+.ability .stamina {
+  color: #4AC615;
+  background-color : transparent;
+}
+.ability p span {
+  font-weight : normal;
+}
+.ability p span.description {
+  font-size : 12px;
+}
+.ability p {
+  text-decoration : none;
+  font-weight : bold;
+  font-size : 14px;
+}
+.ability .costIndicator {
+  position : absolute;
+  top : 0px;
+  right : 0px;
+  color : #f1f1f1;
+  width : 25px;
+  height : 25px;
+  font-size : 12px;
+  padding : 5px 0 0 5px;
+  border : 1px solid #474747;
+}
+.player.confirmed .abilityList p {
+  margin : 10px 0 0;
+}
+.confirmed.player .abilityList .ability {
+  clear : both;
+}
+/* MAP */
+.map {
+  position : relative;
+}
+.inventory {
+  margin : 0 auto;
+  opacity : 0.95;
+  top : 50px !important;
+  left : 50px !important;
+}
+.inventory .noItems {
+  text-align : center;
+  padding : 170px 0 0;
+}
+.inventory .header {
+  font-size : 30px;
+  text-align : center;
+  margin : 20px 0;
+}
+.inventory .items, .inventory .selectedItem, .inventory .equippedItem {
+  float : left;
+  padding : 10px;
+  width : 180px;
+  height : 180px;
+  border : 1px solid #f1f1f1;
+  border-radius : 4px;
+  margin : 0 0 0 33px;
+}
+.inventory .object {
+  position : relative;
+  float : left;
+  z-index : 101;
+  border-radius : 4px;
+  cursor : pointer;
+  top : 0 !important;
+  left : 0 !important;
+}
+.inventory .items .object:hover, .inventory .object.selected {
+  background-color : #f1f1f1;
+}
+.inventory .selectedItem {
+  position : static;
+}
+.inventory .selectedItem p {
+  color : #f1f1f1;
+  font-size : 12px;
+}
+.inventory .selectedItem p span {
+  display : block;
+}
+.inventory .selectedItem p .name {
+  font-size : 16px;
+}
+.inventory .selectedItem p .description {
+  font-style : italic;
+}
+.inventory .selectedItem .button {
+  position : absolute;
+  bottom : 10px;
+}
+.inventory .selectedItem .button.equip {
+  left : 70px;
+}
+.inventory.equippedItem {
+  position : relative;
+}
+.inventory .equippedItem p {
+  font-size : 20px;
+  color : #f1f1f1;
+  text-align : center;
+}
+.inventory .equippedItem .object {
+  width : 100px !important;
+  height : 100px !important;
+  margin : 20px auto 0;
+  float : none;
+}
+.inventory .equippedItem .object img {
+  width : 100%;
+  height : 100%;
+}
+.arena .abilityDescription {
+  width : 300px;
+  padding : 10px;
+  top : 265px;
+  left : 240px;
+}
+.arena .abilityDescription.opponentAbilityDescription {
+  top : 165px;
+  left : 40px;
+}
+.arena {
+  position : relative;
+}
+.arena > div {
+  position : absolute;
+}
+.arena .object {
+  width : 150px !important;
+  height : 300px !important;
+  background-size : 150px auto;
+  top : 280px !important;
+  left : 55px !important;
+}
+.arena .object.opponent {
+  width : 100px !important;
+  height : 100px !important;
+  top : 60px !important;
+  left : 390px !important;
+  background-size : auto 100%;
+}
+.arena .ability.object {
+  width : 280px !important;
+  height : auto !important;
+  left : 250px !important;
+  padding : 10px;
+  top : 290px !important;
+}
+.arena .ability.object.opponent {
+  top : 160px !important;
+  left : 50px !important;
+}
+.arena .bars {
+  top : 350px;
+  left : 220px;
+  padding : 10px;
+}
+.arena .bars.opponentBars {
+  top : 20px;
+  left : 20px;
+}
+.arena .bars p {
+  margin : 0 0 10px 0;
+}
+.arena .roundIndicator {
+  bottom : 10px;
+  right : 10px;
+  position : absolute;
+  padding : 10px;
+  font-weight: bold;
+  color: #f1f1f1;
+}

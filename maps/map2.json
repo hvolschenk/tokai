@@ -1,28 +1,43 @@
 {
-  "tree" : [
+  "Class" : [
     {
+      "position" : {"top" : 8, "left" : 7},
+      "name"     : "Spider",
+      "currentImage" : 2
+    },
+    {
+      "position" : {"top" : 2, "left" : 0},
+      "name"     : "Spider",
+      "currentImage" : 2
+    },
+    {
+      "position" : {"top" : 3, "left" : 3},
+      "name"     : "Spider",
+      "currentImage" : 2
+    }
+  ],
+  "Environment" : [
+    {
+      "position" : {"top" : 3, "left" : 6},
+      "name" : "Tree"
+    },
+    {
+      "position" : {"top" : 3, "left" : 7},
+      "name" : "Rock"
+    },
+    {
+      "position" : {"top" : 9, "left" : 0},
+      "name" : "Exit"
+    }
+  ],
+  "Item" : [
+    {
+      "name" : "Axe",
       "position" : {"top" : 0, "left" : 0}
     }
   ],
-  "enemy" : [
-    {
-      "position" : {"top" : 8, "left" : 7},
-      "name"     : "Shadowling"
-    }
-  ],
-  "item" : [
-    {
-      "name" : "Axe",
-      "position" : {"top" : 6, "left" : 7}
-    }
-  ],
-  "player" : {
+  "Player" : [{
     "position" : {"top" : 1, "left" : 0},
-    "image" : 2
-  },
-  "rock" : [
-    {
-      "position" : {"top" : 3, "left" : 7}
-    }
-  ]
+    "currentImage" : 2
+  }]
 }

@@ -51,11 +51,8 @@
     {"position" : {"top" : 5, "left" : 1}, "name" : "Water"},
     {"position" : {"top" : 5, "left" : 2}, "name" : "Water"},
     {"position" : {"top" : 5, "left" : 3}, "name" : "Water"},
-    {"position" : {"top" : 5, "left" : 4}, "name" : "Water"},
     {"position" : {"top" : 6, "left" : 2}, "name" : "Water"},
     {"position" : {"top" : 6, "left" : 3}, "name" : "Water"},
-    {"position" : {"top" : 6, "left" : 4}, "name" : "Water"},
-    {"position" : {"top" : 6, "left" : 5}, "name" : "Water"},
     {"position" : {"top" : 7, "left" : 3}, "name" : "Water"},
     {"position" : {"top" : 7, "left" : 4}, "name" : "Water"},
     {"position" : {"top" : 9, "left" : 0}, "name" : "Exit"}

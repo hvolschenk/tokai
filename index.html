@@ -1,70 +1,66 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Tokai - where the hell am I?</title>
-    <link rel="stylesheet" type="text/css" href="styles/stylesheet.css" />
-    
+    <title>Tokai - I think I'm lost</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    
+    <script src="javascript/system/object-inheritance.js"></script>
     <script src="javascript/base-object.js"></script>
-    <script src="javascript/arena.js"></script>
-    <script src="javascript/map.js"></script>
-    <script src="javascript/character-select.js"></script>
-    <script src="javascript/fighter.js"></script>
-    <script src="javascript/inventory.js"></script>
+    <script src="javascript/game.js"></script>
+    <script src="javascript/miscellaneous/inventory.js"></script>
 
-    <!--<script src="javascript/store.js"></script>-->
+    <script src="javascript/class/base-class.js"></script>
+    <script src="javascript/class/class-warrior.js"></script>
+    <script src="javascript/class/class-mage.js"></script>
+    <script src="javascript/class/class-rogue.js"></script>
+    <script src="javascript/class/class-spider.js"></script>
+
+    <script src="javascript/ability/base-ability.js"></script>
+
+    <script src="javascript/ability/ability-auto-attack.js"></script>
+    <script src="javascript/ability/ability-shadow-slash.js"></script>
+    <script src="javascript/ability/ability-howling-gale.js"></script>
     
-    <script src="javascript/environment/environment-rock.js"></script>
+    <script src="javascript/ability/ability-slash.js"></script>
+    <script src="javascript/ability/ability-stealthy-assassin.js"></script>
+    <script src="javascript/ability/ability-exchange.js"></script>
+    <script src="javascript/ability/ability-critical-strike.js"></script>
+    <script src="javascript/ability/ability-life-leach.js"></script>
+    
+    <script src="javascript/ability/ability-blast.js"></script>
+    <script src="javascript/ability/ability-silence.js"></script>
+    <script src="javascript/ability/ability-heal.js"></script>
+    <script src="javascript/ability/ability-syphon.js"></script>
+    <script src="javascript/ability/ability-nuke.js"></script>
+    
+    <script src="javascript/ability/ability-bash.js"></script>
+    <script src="javascript/ability/ability-juggernaut.js"></script>
+    <script src="javascript/ability/ability-endurance.js"></script>
+    <script src="javascript/ability/ability-dual-bash.js"></script>
+    <script src="javascript/ability/ability-stagger.js"></script>
+
+    <script src="javascript/item/base-item.js"></script>
+    <script src="javascript/item/item-axe.js"></script>
+
+    <script src="javascript/environment/base-environment.js"></script>
     <script src="javascript/environment/environment-tree.js"></script>
+    <script src="javascript/environment/environment-rock.js"></script>
     <script src="javascript/environment/environment-water.js"></script>
-    <script src="javascript/environment/environment-path.js"></script>
     <script src="javascript/environment/environment-exit.js"></script>
-    
-    <script src="javascript/enemies/base-enemy.js"></script>
-    <script src="javascript/enemies/enemy-shadowling.js"></script>
-    
-    <script src="javascript/items/base-item.js"></script>
-    <script src="javascript/items/item-axe.js"></script>
-    
-    <script src="javascript/classes/base-class.js"></script>
-    <script src="javascript/classes/class-warrior.js"></script>
-    <script src="javascript/classes/class-mage.js"></script>
-    <script src="javascript/classes/class-rogue.js"></script>
-    
-    <script src="javascript/abilities/base-ability.js"></script>
+    <script src="javascript/environment/environment-path.js"></script>
 
-    <script src="javascript/abilities/ability-auto-attack.js"></script>
-    <script src="javascript/abilities/ability-shadow-slash.js"></script>
-    <script src="javascript/abilities/ability-howling-gale.js"></script>
-    
-    <script src="javascript/abilities/ability-slash.js"></script>
-    <script src="javascript/abilities/ability-stealthy-assassin.js"></script>
-    <script src="javascript/abilities/ability-exchange.js"></script>
-    <script src="javascript/abilities/ability-critical-strike.js"></script>
-    <script src="javascript/abilities/ability-life-leach.js"></script>
-    
-    <script src="javascript/abilities/ability-blast.js"></script>
-    <script src="javascript/abilities/ability-silence.js"></script>
-    <script src="javascript/abilities/ability-heal.js"></script>
-    <script src="javascript/abilities/ability-syphon.js"></script>
-    <script src="javascript/abilities/ability-nuke.js"></script>
-    
-    <script src="javascript/abilities/ability-bash.js"></script>
-    <script src="javascript/abilities/ability-juggernaut.js"></script>
-    <script src="javascript/abilities/ability-endurance.js"></script>
-    <script src="javascript/abilities/ability-dual-bash.js"></script>
-    <script src="javascript/abilities/ability-stagger.js"></script>
-    
+    <script src="javascript/area/character-select.js"></script>
+    <script src="javascript/area/map.js"></script>
+    <script src="javascript/area/arena.js"></script>
+
     <script>
-      $(document).ready(function() {
-        // create a new character selection object
-        var characterSelect = new CharacterSelect();
-        // initialize the character selection screen
-        characterSelect.initialize();
+      $(document).ready(function(){
+        var game = new Game();
+        game.initialize();
+        game.startCharacterSelect();
       });
     </script>
-    
   </head>
-  <body></body>
+  <body>
+    
+  </body>
 </html>
