@@ -37,6 +37,8 @@ function AbilityStagger (game, classType) {
   this.description = 'Do 200% base damage to health and stamina.';
   // the key assigned to this ability
   this.key = 82;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

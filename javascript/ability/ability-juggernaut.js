@@ -34,6 +34,8 @@ function AbilityJuggernaut (game, classType) {
   this.description = 'Base damage plus 20% of max health in damage.';
   // the key assigned to this ability
   this.key = 81;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

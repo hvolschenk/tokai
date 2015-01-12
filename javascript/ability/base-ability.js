@@ -12,6 +12,11 @@ function BaseAbility (game, classType) {
   this.classType = classType;
   // do not show the level indicator on abilities
   this.showLevel = false;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 1;
+  // for how many rounds of cooldown does this ability
+  // have left before it can be cast again
+  this.onCooldown = 0;
 
 };
 
@@ -27,7 +32,7 @@ BaseAbility.prototype.initialize = function () {
   this.initializeLevel();
   // call the parent's initialize
   this.parent.parent.initialize.call(this);
-  // get the costs and damge for this ability
+  // get the costs and damage for this ability
   this.initializeStatistics();
 };
 
@@ -37,6 +42,14 @@ BaseAbility.prototype.addElement = function (parentElement) {
   // call the parent addElement method
   this.parent.parent.addElement.call(this, parentElement);
   // add the inner elements to this one
+  this.addInnerElements();
+};
+
+// update's the element
+BaseAbility.prototype.updateElement = function () {
+  // call the parent updateElement method
+  this.parent.parent.updateElement.call(this);
+  // add the inner elements to thi element
   this.addInnerElements();
 };
 
@@ -79,9 +92,18 @@ BaseAbility.prototype.addInnerElements = function () {
   // an indication of what the ability costs
   costIndicator = $('<span class="cost"></span>'),
   // the description of the ability
-  description = $('<span class="description"></span>');
+  description = $('<span class="description"></span>'),
+  // the cooldown indicator element
+  cooldownIndicator = $('<div class="cooldown roundedCorners grayArea"></div>');
   // set the correct keyboard key
   keyboardKey.html(String.fromCharCode(this.key).toUpperCase());
+  // check whether the ability is on cooldown
+  if (this.isOnCooldown() === true) {
+    // add the cooldown rounds text amount to the element
+    cooldownIndicator.text(this.onCooldown);
+    // add the cooldown indicator to the key
+    keyboardKey.append(cooldownIndicator);
+  }
   // set the name
   name.html(this.name + ':');
   // set the description
@@ -112,6 +134,8 @@ BaseAbility.prototype.tryCast = function () {
 BaseAbility.prototype.cast = function () {
   // the class to append to the ability element
   var abilityClass = this.game.arena.playerTurn === true ? '' : 'opponent';
+  // set the cooldown of this ability
+  this.onCooldown = this.cooldown;
   // update the player/opponent statistics
   this.updateStatistics();
   // re-build the player statistics
@@ -125,8 +149,10 @@ BaseAbility.prototype.cast = function () {
     // remove all events from the arena (so the player cannot cast)
     this.game.arena.removeEvents();
   }
-  // end the player's turn
+  // end the turn
   this.game.arena.endTurn();
+  // update the element
+  this.initialize();
 };
 
 // updates the new health/mana/stamina etc when an ability is casted
@@ -161,14 +187,33 @@ BaseAbility.prototype.allowedToCast = function () {
   var resources = ['health', 'mana', 'stamina'],
   // whether or not the test failed
   allowedToCast = true;
+  // check whether the ability is on cooldown
+  if (this.isOnCooldown() === true) {
+    // fail the test, the ability is still on cooldown
+    allowedToCast = false;
+  }
   // go through each of the resources
   $.each(resources, function () {
     // check if the resource cost of this ability is higher than the owned amount
     if (self.classType[this + 'Current'] - self[this + 'Cost'] < 0) {
-      // fail the test, this ability cannot be casted
+      // fail the test, this ability cannot be cast
       allowedToCast = false;
     }
   });
   // return the result
   return allowedToCast;
+};
+
+// whether the ability is on cooldown or not
+BaseAbility.prototype.isOnCooldown = function () {
+  // check how many rounds of cooldown is left
+  return (this.onCooldown === 0) ? false : true;
+};
+
+// end the round, update cooldowns and apply passives
+BaseAbility.prototype.endRound = function () {
+  // lower the cooldown
+  this.onCooldown = (this.onCooldown > 0) ? this.onCooldown - 1 : 0;
+  // re-initialize the ability
+  this.updateElement();
 };

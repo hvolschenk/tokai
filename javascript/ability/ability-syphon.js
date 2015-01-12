@@ -34,6 +34,8 @@ function AbilitySyphon (game, classType) {
   this.description = 'Gain three times base damage in mana.';
   // the key assigned to this ability
   this.key = 69;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

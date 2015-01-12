@@ -34,6 +34,8 @@ function AbilityExchange (game, classType) {
   this.description = 'Gain 200% of your base damage in health.';
   // the key assigned to this ability
   this.key = 87;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

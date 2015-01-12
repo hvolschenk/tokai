@@ -37,6 +37,8 @@ function AbilityHeal (game, classType) {
   this.description = 'Heal for 200% base damage. Deal base damage.';
   // the key assigned to this ability
   this.key = 87;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

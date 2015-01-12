@@ -36,6 +36,8 @@ function AbilityHowlingGale (game, classType) {
   this.description = 'A gust of wind that does 200% base damage and heals for 50% base damage.';
   // the key assigned to this ability
   this.key = 69;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

@@ -34,6 +34,8 @@ function AbilityShadowSlash (game, classType) {
   this.description = 'One auto attack followed by another of 200% base damage.';
   // the key assigned to this ability
   this.key = 81;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

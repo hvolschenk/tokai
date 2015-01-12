@@ -24,6 +24,8 @@ function ClassRogue (game) {
   this.staminaBase = 300;
   // the base amount of armor for this class type
   this.armorBase = 5;
+  // the health this class receives per level
+  this.healthPerLevel = 100;
   // the lore story for this class type
   this.lore = ' grew up in the streets of the capital, from a young age he had to learn to feed and fend for him self, he leart to be a master in the shadows, never knowing love or compassion until he met a compassionate girl which he fell in love with, until that one day the big accident happened.';
   // the abilities for this class

@@ -34,6 +34,8 @@ function AbilityNuke (game, classType) {
   this.description = 'Damage an opponent for 30% of your total mana.';
   // the key assigned to this ability
   this.key = 82;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

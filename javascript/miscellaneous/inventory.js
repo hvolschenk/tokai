@@ -21,8 +21,17 @@ function Inventory (game) {
   this.events = {
     '73' : this.toggle,
     'click .items .item' : this.selectItem,
-    'click .equip' : this.equipSelected
+    'click .equip' : this.equipSelected,
+    'click .sell' : this.sellSelected
   };
+  // how much money is in the inventory
+  this.money = 0;
+  // the base carrying capacity of the inventory
+  this.weightBase = 20;
+  // the total carrying capacity of the inventory
+  this.weightTotal = 20;
+  // the current used capacity in the inventory
+  this.weightCurrent = 0;
 
 };
 
@@ -49,29 +58,23 @@ Inventory.prototype.updateElement = function () {
 // adds the inner elements to the inventory
 Inventory.prototype.addInnerElements = function () {
   // the header
-  var header = $('<p class="header"></p>'),
-  // an element for when there are no items
-  noItems = $('<p class="noItems"></p>');
+  var header = $('<p class="header"></p>');
   // empty the element
   this.element.empty();
   // add a header to the inventory
   this.element.append(header);
   // add the header text
   header.text('Inventory');
-  // see if there are any items in inventory
-  if (this.items.length > 0) {
-    // add the items section
-    this.addItems();
-    // add the selected item element
-    this.addSelectedItem();
-    // add the equipped items
-    this.addEquippedItems();
-  } else {
-    // set the text of the no items element
-    noItems.text('There are no items in your inventory');
-    // add the no items element to the inventory
-    this.element.append(noItems);
-  }
+  // add the items section
+  this.addItems();
+  // add the selected item element
+  this.addSelectedItem();
+  // add the equipped items
+  this.addEquippedItems();
+  // add the money indicator
+  this.addMoneyIndicator();
+  // add the carry weight indicator
+  this.addCarryWeightIndicator();
 };
 
 // toggles the inventory
@@ -87,6 +90,8 @@ Inventory.prototype.toggle = function () {
 Inventory.prototype.addItem = function (item) {
   // add this item into the array
   this.items.push(item);
+  // add the item's weight to the current carry weight
+  this.weightCurrent += item.weight;
   // re-initialize the inventory
   this.initialize();
 };
@@ -99,18 +104,24 @@ Inventory.prototype.addItems = function () {
   this.element.append(itemsElement),
   // a reference to this class
   self = this;
-  // go through each of the inventory items
-  $.each(this.items, function (index, item) {
-    // add this item to the inventory
-    itemsElement.append(item.element);
-    // add the number to the item
-    item.element.attr('rel', index);
-    // check if this is the selected element
-    if (index === self.selectedItem) {
-      // add a selected class to the element
-      item.element.addClass('selected');
-    }
-  });
+  // check if there are any items
+  if (this.items.length > 0) {
+    // go through each of the inventory items
+    $.each(this.items, function (index, item) {
+      // add this item to the inventory
+      itemsElement.append(item.element);
+      // add the number to the item
+      item.element.attr('rel', index);
+      // check if this is the selected element
+      if (index === self.selectedItem) {
+        // add a selected class to the element
+        item.element.addClass('selected');
+      }
+    });
+  } else {
+    // add the no items text to the list
+    itemsElement.text('No items');
+  }
 };
 
 // adds the element that shows the selected item
@@ -142,42 +153,72 @@ Inventory.prototype.addSelectedItem = function () {
 
 // adds all equipped items
 Inventory.prototype.addEquippedItems = function () {
-  // check whether any weapon has been equipped
-  if (this.weapon !== undefined) {
-    // equip the weapon
-    this.addEquippedItem(this.weapon);
-  }
-  // check whether any armor has been equipped
-  if (this.armor !== undefined) {
-    // equip the armor
-    this.addEquippedItem(this.armor);
-  }
-  // check whether any potion has been equipped
-  if (this.potion !== undefined) {
-    // equip the potion
-    this.addEquippedItem(this.potion);
-  }
+  // equip the weapon
+  this.addEquippedItem('weapon');
+  // equip the armor
+  this.addEquippedItem('armor');
+  // equip the potion
+  this.addEquippedItem('potion');
 };
 
 // add an equipped item slot to the inventory
 // @param object item The item to add
 Inventory.prototype.addEquippedItem = function (item) {
   // build the equipped item element
-  var itemElement = $('<div class="equippedItem"></div>'),
+  var itemElement = $('<div class="equippedItem ' + item + '"></div>'),
   // a name element to hold the equipped item's name
-  nameElement = $('<p>' + item.name + '</p>');
-  // add the name element to the equipped item element
-  itemElement.append(nameElement);
-  // add the item element to the equipped item element
-  itemElement.append(item.element);
+  nameElement = $('<p></p>');
+  // check if an itemis equipped
+  if (this[item]) {
+    // add the text to the name element
+    nameElement.text(item)
+    // add the name element to the equipped item element
+    itemElement.append(nameElement);
+    // add the item element to the equipped item element
+    itemElement.append(this[item].element);
+  }
   // add the equipped item element to the inventory
   this.element.append(itemElement);
 };
 
+// add the money indicator to the inventory
+Inventory.prototype.addMoneyIndicator = function () {
+  // the money indicator element
+  var moneyElement = $('<div class="equippedItem money"></div>'),
+  // the money text
+  moneyText = $('<p></p>');
+  // add the text to the money text element
+  moneyText.text(this.money);
+  // add the text element to the money element
+  moneyElement.append(moneyText);
+  // add the element to the inventory's element
+  this.element.append(moneyElement);
+};
+
+// add the carry weight indicator
+Inventory.prototype.addCarryWeightIndicator = function () {
+  // the carry weight element
+  var carryWeight = $('<p class="carryWeight"></p>'),
+  // the current load
+  current = $('<span class="current"></span>'),
+  // the total capacity
+  capacity = $('<span class="capacity"></span>');
+  // set the current text
+  current.text(this.weightCurrent);
+  // set the total text
+  capacity.text(this.weightTotal);
+  // add the text to the element
+  carryWeight.append(current, ' / ', capacity);
+  // add the element to the inventory
+  this.element.append(carryWeight);
+};
+
 // equips the current selected item
 Inventory.prototype.equipSelected = function () {
+  // a list of acceptible types
+  var itemType = ['weapon', 'armor', 'potion'];
   // see if the coreect type of item is selected
-  if (this.items[this.selectedItem].type === 'weapon' || this.items[this.selectedItem].type === 'armor') {
+  if (itemType.indexOf(this.items[this.selectedItem].type) > -1) {
     // see if there was a previous item in it's place
     if (this[this.items[this.selectedItem].type] !== undefined) {
       // add the item back into the inventory list
@@ -187,13 +228,31 @@ Inventory.prototype.equipSelected = function () {
     this[this.items[this.selectedItem].type] = this.items[this.selectedItem];
     // remove the selected class of the element
     this[this.items[this.selectedItem].type].element.removeClass('selected');
+    // lower the current carry weight
+    this.weightCurrent -= this.items[this.selectedItem].weight;
     // delete the list entry
     this.items.splice(this.selectedItem, 1);
     // reset the selected item
-    this.selectedItem = 0;
+    this.selectedItem = (this.items[this.selectedItem]) ? this.selectedItem : this.selectedItem - 1;
+    this.selectedItem = (this.selectedItem >= 0) ? this.selectedItem : 0;
     // re initialize the inventory
     this.initialize();
   }
+};
+
+// sells the currently selected item
+Inventory.prototype.sellSelected = function () {
+  // add the cost of the item to the class's money
+  this.money += this.items[this.selectedItem].cost;
+  // remove the item from the class's inventory
+  this.items.splice(this.selectedItem, 1);
+  // reset the selected item
+  this.selectedItem = (this.items[this.selectedItem]) ? this.selectedItem : this.selectedItem - 1;
+  this.selectedItem = (this.selectedItem >= 0) ? this.selectedItem : 0;
+  // lower the current carry weight
+  this.weightCurrent -= (this.items.length > 0) ? this.items[this.selectedItem].weight : 0;
+  // re-initialize the inventory
+  this.initialize();
 };
 
 // selects an item by clicking on it

@@ -37,6 +37,8 @@ function AbilityDualBash (game, classType) {
   this.description = 'Bash [A] twice, gain health instead of stamina.';
   // the key assigned to this ability
   this.key = 69;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

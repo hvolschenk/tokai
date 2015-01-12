@@ -37,6 +37,8 @@ function AbilityEndurance (game, classType) {
   this.description = 'Gain stamina equal to the mana cost of this ability.';
   // the key assigned to this ability
   this.key = 87;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

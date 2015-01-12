@@ -34,6 +34,8 @@ function AbilityStealthyAssassin (game, classType) {
   this.description = 'Go invisible and critically strike for 300% damage.';
   // the key assigned to this ability
   this.key = 81;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

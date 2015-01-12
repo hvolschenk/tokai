@@ -87,12 +87,25 @@ Arena.prototype.startFight = function () {
 
 // starts a round, giving the player a turn to cast an ability
 Arena.prototype.startRound = function () {
+  // end the round for each ability
+  this.updateAbilityCooldowns();
   // increment the rounds counter
   this.round++;
   // update the round indicator
   this.updateRoundIndicator();
   // start the player's turn
   this.startPlayerTurn();
+};
+
+// lower the cooldown of all abilities
+Arena.prototype.updateAbilityCooldowns = function () {
+  // combine the player and opponent abilities
+  var allAbilities = this.game.map.player.abilities.concat(this.opponent.abilities);
+  // go through each of the abilities
+  $.each(allAbilities, function (index, ability) {
+    // end the round for the ability
+    ability.endRound();
+  });
 };
 
 // start the player's turn for casting an ability

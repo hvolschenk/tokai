@@ -259,8 +259,6 @@ BaseObject.prototype.setupEvents = function () {
       if (keyEvents[e.which]) {
         // run the event
         $.proxy(keyEvents[e.which], self)();
-        // prevent the default key event from happening
-        e.preventDefault();
       }
     });
   }

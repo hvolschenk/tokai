@@ -37,6 +37,8 @@ function AbilityLifeLeach (game, classType) {
   this.description = 'Steal your base damage in health from the opponent.';
   // the key assigned to this ability
   this.key = 82;
+  // the cooldown (in rounds) of this ability
+  this.cooldown = 3;
   
 };
 

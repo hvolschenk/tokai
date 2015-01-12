@@ -67,17 +67,50 @@ BaseClass.prototype.initializeInventory = function () {
 // initializes current and total health/mana/stamina etc
 BaseClass.prototype.initializeStatistics = function () {
   // a reference to this fighter
-  var self = this;
+  var self = this,
   // a list of statistics to build
-  var statisticsToBuild = ['health', 'mana', 'stamina', 'damage'];
+  statisticsToBuild = ['health', 'mana', 'stamina', 'damage'];
   // go through each statistic
   $.each(statisticsToBuild, function () {
-    // the modifier for this statistic
-    var modifier = self[this + 'Modifier'] || 1;
+    // the stat to gain per level
+    var statPerLevel = self[this + 'PerLevel'] || 0;
     // scale the statistic accordingly
-    self[this + 'Current'] = (self.level * modifier) * self[this + 'Base'];
-    self[this + 'Total'] = (self.level * modifier) * self[this + 'Base'];
+    self[this + 'Current'] = ((self.level - 1) * statPerLevel) + self[this + 'Base'];
+    self[this + 'Total'] = ((self.level - 1) * statPerLevel) + self[this + 'Base'];
   });
+  // apply extra statistics
+  this.initializeInventoryStatistics(statisticsToBuild);
+};
+
+// adds extra statistics that come from inventory items
+// @param array statisticsToBuild A list of statistics to add
+BaseClass.prototype.initializeInventoryStatistics = function (statisticsToBuild) {
+  // a reference to this fighter
+  var self = this,
+  // a list of items to look through
+  items = [];
+  // see if this class has an inventory
+  if (this.inventory) {
+    // see if there is a weapon to add
+    if (this.inventory.weapon) {
+      // add the equipped weapon to the list
+      items.push(this.inventory.weapon);
+    }
+    // see if there is a armor to add
+    if (this.inventory.armor) {
+      // add the equipped armor to the list
+      items.push(this.inventory.armor);
+    }
+    // go through each of the inventory items
+    $.each(items, function (itemIndex, item) {
+      // go through each of the statistics to build
+      $.each(statisticsToBuild, function (statisticIndex, statistic) {
+        // add the statistic of the item to the class
+        self[statistic + 'Current'] += item[statistic];
+        self[statistic + 'Total'] += item[statistic];
+      });
+    });
+  }
 };
 
 // a function to show the statistics of a class type
