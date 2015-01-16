@@ -547,3 +547,86 @@ a {
   font-weight: bold;
   color: #f1f1f1;
 }
+.store .header {
+  font-size : 30px;
+  text-align : center;
+  margin : 20px 0;
+}
+.store .selectedItem {
+  padding : 10px;
+  float : right;
+  width : 256px;
+  height : 180px;
+  border : 1px solid #f1f1f1;
+  border-radius : 4px;
+  margin : 0 11px 0 11px;
+}
+.store .selectedItem a.buy {
+  top : 164px;
+  position : relative;
+}
+.store .items {
+  padding : 10px;
+  float : right;
+  width : 256px;
+  height : 284px;
+  border : 1px solid #f1f1f1;
+  border-radius : 4px;
+  margin : 11px;
+}
+.store .items a.button {
+  margin : 11px;
+}
+.store .listContainer {
+  padding : 10px;
+  width : 256px;
+  float : right;
+  height : 247px;
+  margin : 11px;
+  position : absolute;
+  top : 330px;
+}
+.store .listContainer div.object {
+  position: relative;
+  width : auto !important;
+  height : 30px !important;
+  padding : 5px;
+  text-align : left;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.store .listContainer .object:hover, .listContainer .object.selected {
+  background-color: #f1f1f1;
+}
+.store .listContainer .object .level {
+  left : 67px;
+  top : 11px;
+}
+.store .listContainer .object .weight {
+  display : block;
+  position : absolute;
+  left : 120px;
+  top : 12px;
+  background-image : url(../images/miscellaneous/inventory-weight.png);
+  background-repeat : no-repeat;
+  background-size : 13px;
+  width : 22px;
+  text-align : right;
+}
+.store .listContainer .object .cost {
+  display : block;
+  position : absolute;
+  top : 12px;
+  right : 20px;
+  background-image : url(../images/miscellaneous/inventory-cost.png);
+  background-repeat : no-repeat;
+  background-size : 13px;
+  width : 22px;
+  text-align : right;
+}
+.store .listContainer .object.selected .weight,
+.store .listContainer .object:hover .weight,
+.store .listContainer .object.selected .cost,
+.store .listContainer .object:hover .cost {
+  color : #474747;
+}

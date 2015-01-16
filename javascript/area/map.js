@@ -18,7 +18,7 @@ function Map (game) {
   // the current map that we are on
   this.map = 1;
   // the player's inventory at the start of the game
-  this.inventoryOnStart = [],
+  this.inventoryOnStart = [];
   // the console
   this.console = $('<textarea readonly="readonly" class="console"></textarea>');
   
@@ -34,6 +34,10 @@ Map.prototype.type = 'map';
 Map.prototype.initialize = function () {
   // call the parent initialize function
   this.parent.initialize.call(this);
+  // load the store
+  this.store = new Store(this.game);
+  // initialize store
+  this.store.initialize();
   // load this map
   this.load();
 };

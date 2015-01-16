@@ -78,6 +78,8 @@ Game.prototype.start = function () {
   this.rightMenu.empty();
   // add the map element to the game area
   this.map.addElement(this.gameArea);
+  // add the store to the left menu
+  this.leftMenu.append(this.map.store.element);
   // add the console to the right menu
   this.rightMenu.append(this.map.console);
   // add the welcome text to the console
@@ -109,6 +111,8 @@ Game.prototype.startFight = function (opponent) {
   this.leftMenu.append(this.map.player.abilityListElement);
   // hide the console in the right menu
   this.rightMenu.find('.console').hide();
+  // hide the store in the left menu
+  this.leftMenu.find('.store').hide();
   // add the opponent ability list to the right menu
   this.rightMenu.append(opponent.abilityListElement);
   // start the fight
@@ -137,11 +141,14 @@ Game.prototype.endFight = function () {
     // re-initialize the player to reset health etc
     this.map.player.initialize();
   }
-  // empty the left and right menu
-  this.leftMenu.empty();
+  // remove left menu abilityList from fight
+  this.leftMenu.find('.abilityList').remove();
+  // remove right menu abilityList from fight
   this.rightMenu.find('.abilityList').remove();
   // show the console
   this.rightMenu.find('.console').show();
+  // show the store
+  this.leftMenu.find('.store').show();
   // show the map
   this.map.element.show();
   // set up the player events
