@@ -66,6 +66,8 @@ BaseItem.prototype.clashHandler = function (direction) {
   this.game.map.player.tryMove(direction);
   // update the player's statistics
   this.game.map.player.initialize();
+  // log about this event
+  this.game.map.log(this.name + ' added.');
 };
 
 // updates the html element's CSS properties

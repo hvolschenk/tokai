@@ -334,6 +334,13 @@ a {
 .map {
   position : relative;
 }
+.console {
+  height : 100%;
+  width : 100%;
+  padding : 5%;
+  font-size : 12px;
+  font-family : courier;
+}
 .map .inventory .object .weight {
   display : block;
   position : absolute;

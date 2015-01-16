@@ -2,37 +2,37 @@
   "Class" : [
     {
       "position" : {"top" : 8, "left" : 7},
-      "name"     : "Spider",
+      "type"     : "Spider",
       "currentImage" : 2
     },
     {
       "position" : {"top" : 2, "left" : 0},
-      "name"     : "Spider",
+      "type"     : "Spider",
       "currentImage" : 2
     },
     {
       "position" : {"top" : 3, "left" : 3},
-      "name"     : "Spider",
+      "type"     : "Spider",
       "currentImage" : 2
     }
   ],
   "Environment" : [
     {
       "position" : {"top" : 3, "left" : 6},
-      "name" : "Tree"
+      "type" : "Tree"
     },
     {
       "position" : {"top" : 3, "left" : 7},
-      "name" : "Rock"
+      "type" : "Rock"
     },
     {
       "position" : {"top" : 9, "left" : 0},
-      "name" : "Exit"
+      "type" : "Exit"
     }
   ],
   "Item" : [
     {
-      "name" : "Axe",
+      "type" : "Axe",
       "position" : {"top" : 0, "left" : 0}
     }
   ],

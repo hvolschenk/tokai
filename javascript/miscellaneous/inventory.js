@@ -27,9 +27,9 @@ function Inventory (game) {
   // how much money is in the inventory
   this.money = 0;
   // the base carrying capacity of the inventory
-  this.weightBase = 20;
+  this.weightBase = 10;
   // the total carrying capacity of the inventory
-  this.weightTotal = 20;
+  this.weightTotal = 10;
   // the current used capacity in the inventory
   this.weightCurrent = 0;
 
@@ -216,20 +216,24 @@ Inventory.prototype.addCarryWeightIndicator = function () {
 // equips the current selected item
 Inventory.prototype.equipSelected = function () {
   // a list of acceptible types
-  var itemType = ['weapon', 'armor', 'potion'];
+  var itemType = ['weapon', 'armor', 'potion'],
+  // the actual selected item in the list of items
+  actualItem = this.items[this.selectedItem]
   // see if the coreect type of item is selected
-  if (itemType.indexOf(this.items[this.selectedItem].type) > -1) {
+  if (itemType.indexOf(actualItem.type) > -1) {
     // see if there was a previous item in it's place
-    if (this[this.items[this.selectedItem].type] !== undefined) {
+    if (this[actualItem.type] !== undefined) {
       // add the item back into the inventory list
-      this.items.push(this[this.items[this.selectedItem].type]);
+      this.items.push(this[actualItem.type]);
+      // increase the carry weight
+      this.carryWeight += this[actualItem.type].weight;
     }
     // add the item to the inventory's correct variable
-    this[this.items[this.selectedItem].type] = this.items[this.selectedItem];
+    this[actualItem.type] = actualItem;
     // remove the selected class of the element
-    this[this.items[this.selectedItem].type].element.removeClass('selected');
+    this[actualItem.type].element.removeClass('selected');
     // lower the current carry weight
-    this.weightCurrent -= this.items[this.selectedItem].weight;
+    this.weightCurrent -= actualItem.weight;
     // delete the list entry
     this.items.splice(this.selectedItem, 1);
     // reset the selected item
@@ -244,13 +248,13 @@ Inventory.prototype.equipSelected = function () {
 Inventory.prototype.sellSelected = function () {
   // add the cost of the item to the class's money
   this.money += this.items[this.selectedItem].cost;
+  // lower the current carry weight
+  this.weightCurrent -= this.items[this.selectedItem].weight;
   // remove the item from the class's inventory
   this.items.splice(this.selectedItem, 1);
   // reset the selected item
-  this.selectedItem = (this.items[this.selectedItem]) ? this.selectedItem : this.selectedItem - 1;
+  this.selectedItem = (this.items[this.selectedItem] !== undefined) ? this.selectedItem : this.selectedItem - 1;
   this.selectedItem = (this.selectedItem >= 0) ? this.selectedItem : 0;
-  // lower the current carry weight
-  this.weightCurrent -= (this.items.length > 0) ? this.items[this.selectedItem].weight : 0;
   // re-initialize the inventory
   this.initialize();
 };

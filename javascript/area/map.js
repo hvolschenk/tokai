@@ -18,7 +18,9 @@ function Map (game) {
   // the current map that we are on
   this.map = 1;
   // the player's inventory at the start of the game
-  this.inventoryOnStart = [];
+  this.inventoryOnStart = [],
+  // the console
+  this.console = $('<textarea readonly="readonly" class="console"></textarea>');
   
 };
 
@@ -76,7 +78,7 @@ Map.prototype.loadObjects = function (data) {
     if (key === 'Player') {
       // get the type of character that was loaded
       key = 'Class';
-      value[0].name = self.player.constructor.name.replace('Class', '');
+      value[0].type = self.player.constructor.name.replace('Class', '');
       // a new class is not necessary
       newClass = false;
     }
@@ -99,9 +101,9 @@ Map.prototype.loadObjectType = function (type, data, newObject) {
     // holds a new instance of a type
     var object = null;
     // check if a name is given
-    if (value.name) {
+    if (value.type) {
       // set the class name
-      className = (window[type + value.name]) ? type + value.name : 'Base' + type;
+      className = (window[type + value.type]) ? type + value.type : 'Base' + type;
     } else {
       // set the class name
       className = 'Base' + type;
@@ -123,4 +125,11 @@ Map.prototype.loadObjectType = function (type, data, newObject) {
     // add the object to the map
     object.addElement(self.element);
   });
+};
+
+// log an entry to the console
+// @param {String} logText The text to log
+Map.prototype.log = function (logText) {
+  // add the text to the console
+  this.console.append(logText + '\n\n');
 };
