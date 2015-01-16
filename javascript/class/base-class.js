@@ -41,6 +41,8 @@ BaseClass.prototype.initialize = function () {
   this.initializeLevel();
   // call the parent initialize method
   this.parent.parent.initialize.call(this);
+  // initialize the class's inventory
+  this.initializeInventory();
   // initialize the statistics for this class
   this.initializeStatistics();
   // build the statistics element for this class
@@ -49,8 +51,47 @@ BaseClass.prototype.initialize = function () {
   this.initializeAbilities();
   // build the abilities list
   this.buildAbilities();
-  // initialize the class's inventory
+};
+
+// loads the object from the json file
+// @param {Object} data The data to load
+BaseClass.prototype.load = function (data) {
+  // call the parent load method
+  this.parent.parent.load.call(this, data);
+  // initialize the inventory for this class type
   this.initializeInventory();
+  // load the inventory items for this class type
+  this.loadInventory(data.items);
+};
+
+// loads the class's inventory
+// @param {Array} items A list of items to add to the inventory
+BaseClass.prototype.loadInventory = function (items) {
+  // a reference to this class
+  var self = this;
+  // make sure items were actually added
+  if (items) {
+    // go through the array of items
+    $.each(items, function (index, value) {
+      // create a new instance of this item type
+      var actualItem = new window['Item' + value.type](self.game);
+      // load the item
+      actualItem.load(value);
+      // initialize the new item
+      actualItem.initialize();
+      // add the item to the player's inventory
+      self.inventory.addItem(actualItem);
+      // check if the item must be equipped
+      if (value.equip === true) {
+        // select the last item in the list of items (the newly added one)
+        self.inventory.selectedItem = self.inventory.items.length - 1;
+        // equip the item
+        self.inventory.equipSelected();
+      }
+    });
+    // re-initialize the class type this inventory belongs to (for the new statistics)
+    self.initialize();
+  }
 };
 
 // initializes the inventory
@@ -288,17 +329,23 @@ BaseClass.prototype.moveLeft = function () {
 BaseClass.prototype.tryMove = function (direction) {
   // rotate the player in the direction
   this.rotate(direction);
-  // test whether the player clashes
-  clashResult = this.detectClash(direction);
-  // see if the user is moving into anything
-  if (clashResult === false) {
-    // move the player in the desired direction
-    this.move(direction);
+  // see that the player is not over-encumbered
+  if (this.inventoryFull() === true) {
+    // let the player know his/her inventory is full
+    this.game.map.log('Your inventory is full, you cannot move while over-encumbered.');
   } else {
-    // see if there is an clash handling method for this type
-    if (clashResult.clashHandler) {
-      // call the clash handler method
-      clashResult.clashHandler(direction);
+    // test whether the player clashes
+    clashResult = this.detectClash(direction);
+    // see if the user is moving into anything
+    if (clashResult === false) {
+      // move the player in the desired direction
+      this.move(direction);
+    } else {
+      // see if there is an clash handling method for this type
+      if (clashResult.clashHandler) {
+        // call the clash handler method
+        clashResult.clashHandler(direction);
+      }
     }
   }
 };
@@ -496,4 +543,43 @@ BaseClass.prototype.chooseAbilityToCast = function () {
 BaseClass.prototype.clashHandler = function (direction) {
   // start a fight
   this.game.startFight(this);
+};
+
+// checks whether the player's inventory is full
+BaseClass.prototype.inventoryFull = function () {
+  // return a boolean based on whether the inventory is full or not
+  return (this.game.map.player.inventory.weightCurrent > this.game.map.player.inventory.weightTotal) ? true : false;
+};
+
+// pick up a dead opponent's items
+// @param {BaseClass} opponent The opponent who's items you can take
+BaseClass.prototype.takeOpponentItems = function (opponent) {
+  // a list of equipped item types to look for
+  var itemTypes = ['weapon', 'armor', 'potion'],
+  // a reference to this class
+  self = this,
+  // a list of items that were picked up
+  itemsPickedUp = [];
+  // go through each of the item types
+  $.each(itemTypes, function (index, value) {
+    // see if the opponent has an item of this type equipped
+    if (opponent.inventory[value] !== undefined) {
+      // add the item's name to the list of picked up items
+      itemsPickedUp.push(opponent.inventory[value].name);
+      // add this item to the player's inventory
+      self.inventory.addItem(opponent.inventory[value]);
+    }
+  });
+  // go through each of the opponent's items
+  $.each(opponent.inventory.items, function (index, value) {
+    // add the item's name to the list of picked up items
+    itemsPickedUp.push(value.name);
+    // add this item to the player's inventory
+    self.inventory.addItem(value);
+  });
+  // see if any items were picked up
+  if (itemsPickedUp.length > 0) {
+    // log this list on the map
+    self.game.map.log(opponent.name + ' dropped ' + itemsPickedUp.join(', '));
+  }
 };

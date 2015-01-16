@@ -1,43 +1,67 @@
 {
   "Class" : [
-    {
-      "position" : {"top" : 8, "left" : 7},
-      "type"     : "Spider",
-      "currentImage" : 2
-    },
-    {
-      "position" : {"top" : 2, "left" : 0},
-      "type"     : "Spider",
-      "currentImage" : 2
-    },
-    {
-      "position" : {"top" : 3, "left" : 3},
-      "type"     : "Spider",
-      "currentImage" : 2
-    }
+    {"position" : {"top" : 2, "left" : 9}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "Sword", "equip" : true}], "name" : "Jeremy Kent"},
+    {"position" : {"top" : 3, "left" : 4}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "PotionStamina", "equip" : false}], "name" : "Trevor Kent"},
+    {"position" : {"top" : 4, "left" : 0}, "type" : "Bear", "currentImage" : 2, "name" : "Papa-John Kent"},
+    {"position" : {"top" : 2, "left" : 9}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "Armor", "equip" : true}], "name" : "Billy Kent"}
   ],
   "Environment" : [
-    {
-      "position" : {"top" : 3, "left" : 6},
-      "type" : "Tree"
-    },
-    {
-      "position" : {"top" : 3, "left" : 7},
-      "type" : "Rock"
-    },
-    {
-      "position" : {"top" : 9, "left" : 0},
-      "type" : "Exit"
-    }
+    {"position" : {"top" : 0, "left" : 8}, "type" : "Door"},
+    {"position" : {"top" : 1, "left" : 0}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 1}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 2}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 6}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 7}, "type" : "Tree"},
+    {"position" : {"top" : 2, "left" : 6}, "type" : "Tree"},
+    {"position" : {"top" : 8, "left" : 6}, "type" : "Tree"},
+    {"position" : {"top" : 8, "left" : 7}, "type" : "Tree"},
+    {"position" : {"top" : 9, "left" : 6}, "type" : "Tree"},
+    {"position" : {"top" : 9, "left" : 7}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 2, "left" : 7}, "type" : "Water"},
+    {"position" : {"top" : 2, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 3, "left" : 6}, "type" : "Water"},
+    {"position" : {"top" : 3, "left" : 7}, "type" : "Water"},
+    {"position" : {"top" : 3, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 4, "left" : 6}, "type" : "Water"},
+    {"position" : {"top" : 4, "left" : 7}, "type" : "Water"},
+    {"position" : {"top" : 4, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 5, "left" : 7}, "type" : "Water"},
+    {"position" : {"top" : 5, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 6, "left" : 7}, "type" : "Water"},
+    {"position" : {"top" : 6, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 7, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 8, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 9, "left" : 8}, "type" : "Water"},
+    {"position" : {"top" : 2, "left" : 0}, "type" : "Wall"},
+    {"position" : {"top" : 2, "left" : 1}, "type" : "Wall"},
+    {"position" : {"top" : 2, "left" : 2}, "type" : "Wall"},
+    {"position" : {"top" : 2, "left" : 3}, "type" : "Wall"},
+    {"position" : {"top" : 2, "left" : 4}, "type" : "Wall"},
+    {"position" : {"top" : 5, "left" : 1}, "type" : "Wall"},
+    {"position" : {"top" : 5, "left" : 2}, "type" : "Wall"},
+    {"position" : {"top" : 5, "left" : 3}, "type" : "Wall"},
+    {"position" : {"top" : 8, "left" : 0}, "type" : "Wall"},
+    {"position" : {"top" : 8, "left" : 1}, "type" : "Wall"},
+    {"position" : {"top" : 8, "left" : 2}, "type" : "Wall"},
+    {"position" : {"top" : 8, "left" : 3}, "type" : "Wall"},
+    {"position" : {"top" : 8, "left" : 4}, "type" : "Wall"},
+    {"position" : {"top" : 4, "left" : 5}, "type" : "Rock"},
+    {"position" : {"top" : 5, "left" : 4}, "type" : "Rock"},
+    {"position" : {"top" : 5, "left" : 5}, "type" : "Rock"},
+    {"position" : {"top" : 5, "left" : 6}, "type" : "Rock"},
+    {"position" : {"top" : 6, "left" : 5}, "type" : "Rock"},
+    {"position" : {"top" : 6, "left" : 6}, "type" : "Rock"},
+    {"position" : {"top" : 7, "left" : 6}, "type" : "Rock"},
+    {"position" : {"top" : 7, "left" : 7}, "type" : "Rock"},
+    {"position" : {"top" : 9, "left" : 9}, "type" : "Exit"}
+
   ],
   "Item" : [
-    {
-      "type" : "Axe",
-      "position" : {"top" : 0, "left" : 0}
-    }
+    {"position" : {"top" : 9, "left" : 0}, "type" : "Key"}
   ],
   "Player" : [{
-    "position" : {"top" : 1, "left" : 0},
+    "position" : {"top" : 0, "left" : 0},
     "currentImage" : 2
   }]
 }

@@ -1,6 +1,6 @@
 {
   "Class" : [
-    {"position" : {"top" : 9, "left" : 6}, "type" : "Spider", "currentImage" : 2},
+    {"position" : {"top" : 9, "left" : 6}, "type" : "Spider", "currentImage" : 2, "items" : [{"type" : "Axe", "equip" : true}], "name" : "Oswaldt"},
     {"position" : {"top" : 3, "left" : 0}, "type" : "Spider", "currentImage" : 2}
   ],
   "Environment" : [

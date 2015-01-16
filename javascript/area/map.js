@@ -21,6 +21,8 @@ function Map (game) {
   this.inventoryOnStart = [];
   // the console
   this.console = $('<textarea readonly="readonly" class="console"></textarea>');
+  // the last logged console message (to prevent duplicates)
+  this.lastLogMessage = '';
   
 };
 
@@ -134,6 +136,11 @@ Map.prototype.loadObjectType = function (type, data, newObject) {
 // log an entry to the console
 // @param {String} logText The text to log
 Map.prototype.log = function (logText) {
-  // add the text to the console
-  this.console.append(logText + '\n\n');
+  // make sure this isn't the same message
+  if (logText !== this.lastLogMessage) {
+    // add the text to the console
+    this.console.append(logText + '\n\n');
+    // change the last log message to the new one
+    this.lastLogMessage = logText;
+  }
 };

@@ -138,6 +138,8 @@ Game.prototype.endFight = function () {
     this.arena.opponent.addElement(this.map.element);
     // add the player back to the map
     this.map.player.addElement(this.map.element);
+    // pick up the opponent's dropped items
+    this.map.player.takeOpponentItems(this.arena.opponent);
     // re-initialize the player to reset health etc
     this.map.player.initialize();
   }

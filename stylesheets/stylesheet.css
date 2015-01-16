@@ -319,6 +319,9 @@ a {
 .confirmed.player .abilityList .ability {
   clear : both;
 }
+.confirmed.player .abilityList .ability.potion {
+  display : none;
+}
 .keyboardKey .cooldown {
   width : 100%;
   height : 24px;
