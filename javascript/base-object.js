@@ -201,8 +201,11 @@ BaseObject.prototype.load = function (data) {
   var self = this;
   // go through each key in the data
   $.each(data, function (key, value) {
-    // load this data onto the object
-    self[key] = value;
+    // make sure we do not overwrite the type
+    if (key !== 'type') {
+      // load this data onto the object
+      self[key] = value;
+    }
   });
 };
 

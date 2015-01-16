@@ -218,7 +218,7 @@ Inventory.prototype.equipSelected = function () {
   // a list of acceptible types
   var itemType = ['weapon', 'armor', 'potion'],
   // the actual selected item in the list of items
-  actualItem = this.items[this.selectedItem]
+  actualItem = this.items[this.selectedItem];
   // see if the coreect type of item is selected
   if (itemType.indexOf(actualItem.type) > -1) {
     // see if there was a previous item in it's place
