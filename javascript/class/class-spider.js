@@ -28,6 +28,14 @@ function ClassSpider (game) {
   this.lore = 'A feral wood creature, simplistic in its ways.';
   // the abilities for this class
   this.abilityList = [AbilityAutoAttack, AbilityShadowSlash, AbilityHowlingGale];
+  // the amount of damage the spider gains per level
+  this.damagePerLevel = this.damageBase * 0.2;
+  // the amount of health the spider gains per level
+  this.healthPerLevel = this.healthBase * 0.1;
+  // the amount of mana the spider gains per level
+  this.manaPerLevel = this.manaBase * 0.1;
+  // the amount of stamina the spider gains per level
+  this.staminaPerLevel = this.staminaBase * 0.1;
 
 }
 

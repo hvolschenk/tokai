@@ -37,6 +37,8 @@ Arena.prototype.initialize = function () {
   this.parent.initialize.call(this);
   // update the round indicator
   this.updateRoundIndicator();
+  // update the player abilities indicator to show any equipped items
+  this.game.map.player.buildAbilities();
 };
 
 // overwrites the parent addElement funtion

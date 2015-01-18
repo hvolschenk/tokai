@@ -223,6 +223,14 @@ BaseClass.prototype.initializeAbilities = function () {
     // instantiate the ability and add it to the list
     self.abilities.push(new value(self.game, self));
   });
+  // see if the map is ready yet
+  if (this.game.map) {
+    // see if this class is also the player
+    if (this === this.game.map.player) {
+      // add the potion ability
+      this.abilities.push(new AbilityPotion(this.game, this));
+    }
+  }
 };
 
 // builds the list of abilities
@@ -243,6 +251,8 @@ BaseClass.prototype.buildAbilities = function () {
   classTypeName.append(damageBase);
   // append the name to the list
   this.abilityListElement.empty().append(classTypeName);
+  // add the equipped items to the list
+  this.abilityListElement.append(this.buildEquippedItemThumbnails());
   // see if there are any listed abilities
   if (this.abilities) {
     // go through each ability assigned to this class type
@@ -254,6 +264,42 @@ BaseClass.prototype.buildAbilities = function () {
   }
   // add the right class to the ability list
   this.abilityListElement.addClass(this.type + 'AbilityList');
+};
+
+// Adds the equipped items to the abilities list
+BaseClass.prototype.buildEquippedItemThumbnails = function () {
+  // the thumbnails list holder
+  var thumbnails = $('<div class="equipped thumbnails"></div>'),
+  // the player's inventory
+  inventory = this.inventory,
+  // a list of item types to add
+  itemTypes = ['weapon', 'armor', 'potion'],
+  // a reference to this class
+  self = this;
+  // go through each item type
+  $.each(itemTypes, function (index, value) {
+    // check if the player has any of this item type equipped
+    if (inventory[value] !== undefined) {
+      // add a thumbnail for this equipped item type
+      thumbnails.append(self.buildEquippedItemThumbnail(inventory[value]));
+    }
+  });
+  // return the thumbnails list
+  return thumbnails;
+};
+
+/**
+ * Adds an equipped item to the abilities list
+ *
+ * @param {Object} item The item to build a thumbnail for
+ */
+BaseClass.prototype.buildEquippedItemThumbnail = function (item) {
+  // build a thumbnail element
+  var thumbnail;
+  // set the thumbnail to a clone of the item's element
+  thumbnail = item.element.clone();
+  // return the thumbnail
+  return thumbnail;
 };
 
 // Gain a certain type of resource

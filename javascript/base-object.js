@@ -221,8 +221,20 @@ BaseObject.prototype.kill = function () {
 
 // figures out the level of the object
 BaseObject.prototype.initializeLevel = function () {
-  // the level is based on the map
-  this.level = (this.game.map) ? this.game.map.map : 1;
+  // check if a map is set yet
+  if (this.game.map) {
+    // check if a level has been set
+    if (this.level === undefined) {
+      // the level is the map we are on
+      this.level = this.game.map.map;
+    } else {
+      // if the level is smaller than the map, up it, else leave it
+      this.level = (this.level < this.game.map.map) ? this.game.map.map : this.level;
+    }
+  } else {
+    // we are on the first level
+    this.level = 1;
+  }
 };
 
 // sets up all events for this object

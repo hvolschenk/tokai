@@ -27,7 +27,7 @@ function ClassMage (game) {
   // the lore story for this class type
   this.lore = ' is the daughter of the great wizard "Custos" who was the guardian of all magic and secrets, from a young age Maggie learnt the art of becoming his successor was by reading and learning new abilities, but she has a dark secret that she does not whant her father to know about, until that day the big accident happened.';
   // a list of abilities
-  this.abilityList = [AbilityBlast, AbilitySilence, AbilityHeal, AbilitySyphon, AbilityNuke, AbilityPotion];
+  this.abilityList = [AbilityBlast, AbilitySilence, AbilityHeal, AbilitySyphon, AbilityNuke];
 
 };
 

@@ -264,6 +264,22 @@ a {
 .abilityList p:first-child {
   margin-top : 0;
 }
+.equipped .object {
+  width : 30px !important;
+  height : 30px !important;
+  float : left;
+  margin : 10px;
+  position : relative;
+  top : 0 !important;
+  left : 0 !important;
+}
+.equipped .object .level {
+  top : -5px;
+  left : -5px;
+}
+.equipped .object .cost, .equipped .object .weight {
+  display : none;
+}
 .abilityList ul {
   margin : 0 0 0 10px;
 }
@@ -277,6 +293,7 @@ a {
 .ability {
   position : relative;
   text-align : left;
+  clear : both;
 }
 .ability .health {
   margin : 0;
