@@ -159,6 +159,8 @@ Game.prototype.endFight = function () {
   this.map.player.setupEvents();
   // set up the inventory events
   this.map.player.inventory.setupEvents();
+  // setup the store events
+  this.map.store.setupEvents();
 };
 
 // builds a list of all images to preload
