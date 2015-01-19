@@ -572,7 +572,7 @@ a {
   text-align : center;
   margin : 20px 0;
 }
-.store .selectedItem {
+.store .addDetailContainer {
   padding : 10px;
   float : right;
   width : 256px;
@@ -581,7 +581,7 @@ a {
   border-radius : 4px;
   margin : 0 11px 0 11px;
 }
-.store .selectedItem a.buy {
+.store .addDetailContainer a.buy {
   top : 164px;
   position : relative;
 }
@@ -642,6 +642,17 @@ a {
   background-repeat : no-repeat;
   background-size : 13px;
   width : 22px;
+  text-align : right;
+}
+.store .listContainer .armor .cost {
+  display : block;
+  position : absolute;
+  top : 12px;
+  right : 20px;
+  background-image : url(../images/miscellaneous/inventory-cost.png);
+  background-repeat : no-repeat;
+  background-size : 13px;
+  width : 35px;
   text-align : right;
 }
 .store .listContainer .object.selected .weight,

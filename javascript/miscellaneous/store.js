@@ -8,6 +8,14 @@ function Store (game) {
   this.height = 600;
   // a list of items in the store
   this.items = [];
+  // add some events
+  this.events = {
+    'click .items .weapons' : this.showWeapons,
+    'click .items .armor'   : this.showArmor,
+    'click .items .potions'  : this.ShowPotion
+    //'click .equip' : this.equipSelected,
+    //'click .sell' : this.sellSelected
+  };
 };
 
 // this class extends the base object
@@ -41,7 +49,7 @@ Store.prototype.addInnerElements = function () {
   // add the header text
   header.text('Store');
   // add the selected item element
-  this.addSelectedItem();
+  this.addDetailContainer();
   // add the items section
   this.addButtons();
   // add the listContainer section
@@ -51,17 +59,17 @@ Store.prototype.addInnerElements = function () {
 };
 
 // adds the element that shows the selected item stats
-Store.prototype.addSelectedItem = function () {
+Store.prototype.addDetailContainer = function () {
   // the selected item element
-  var selectedItem = $('<div class="selectedItem"></div>'),
+  var addDetailContainer = $('<div class="addDetailContainer"></div>'),
   // the buy button
   buyButton = $('<a class="button buy grayArea roundedCorners"></a>');
   // add the buy button text
   buyButton.text('Buy');
   // add the buy button to the element
-  selectedItem.append(buyButton);
+  addDetailContainer.append(buyButton);
   // add the selected item element to the inventory
-  this.element.append(selectedItem);
+  this.element.append(addDetailContainer);
 };
 
 // adds the button element
@@ -142,14 +150,11 @@ Store.prototype.loadObjectType = function (type, data) {
   // a reference to this object
   self = this;
   // go through each data as it will be an array
-  console.log('type', type);
-  console.log('data', data);
   $.each(data, function (key, value) {
     // holds a new instance of a type
     var object = null;
     // set the class name
     className = 'Item' + value.type;
-    console.log('1', className);
     // create a new instance of this type
     object = new window[className](self.game);
     // add this object to the map
@@ -160,13 +165,89 @@ Store.prototype.loadObjectType = function (type, data) {
     object.initialize();
     // add the object to the map
     object.addElement(self.element.find('.listContainer'));
+    // hide the armor on load
+    self.element.find('.listContainer .armor').hide();
+    // hide the potion on load
+    self.element.find('.listContainer .potion').hide();
   });
 };
 
+// show the weapons that's for sale
+Store.prototype.showWeapons = function () {
+  // get all the items
+  var element = $(event.target).closest('.object'),
+  // all the items in the list container
+  allItems = element.find('.listContainer'),
+  // weapon items
+  weaponsItems = allItems.find('.weapon'),
+  // armor items
+  armorItems = allItems.find('.armor'),
+  // potion items
+  potionItems = allItems.find('.potion');
 
+  // remove all active button class and to selected item
+  element.find('.items .button').removeClass('active');
+  // add the active class on selected button
+  element.find('.items .weapons').addClass('active');
 
+  // hide the potion items
+  potionItems.hide();
+  // hide the armor items
+  armorItems.hide();
+  // show the weapon items
+  weaponsItems.show();
+};
 
+// show the armor that's for sale
+Store.prototype.showArmor = function () {
+  // get all the items
+  var element = $(event.target).closest('.object'),
+  // all the items in the list container
+  allItems = element.find('.listContainer'),
+  // weapon items
+  weaponsItems = allItems.find('.weapon'),
+  // armor items
+  armorItems = allItems.find('.armor'),
+  // potion items
+  potionItems = allItems.find('.potion');
 
+  // remove all active button class and to selected item
+  element.find('.items .button').removeClass('active');
+  // add the active class on selected button
+  element.find('.items .armor').addClass('active');
 
+  // hide the weapon items
+  weaponsItems.hide();
+  // hide the potion items
+  potionItems.hide();
+  // show the armor items
+  armorItems.show();
+};
+
+// show the potion that's for sale
+Store.prototype.ShowPotion = function () {
+  // get all the items
+  var element = $(event.target).closest('.object'),
+  // all the items in the list container
+  allItems = element.find('.listContainer'),
+  // weapon items
+  weaponsItems = allItems.find('.weapon'),
+  // armor items
+  armorItems = allItems.find('.armor'),
+  // potion items
+  potionItems = allItems.find('.potion');
+
+  // remove all active button class and to selected item
+  element.find('.items .button').removeClass('active');
+  // add the active class on selected button
+  element.find('.items .potions').addClass('active');
+
+  // hide the weapon items
+  weaponsItems.hide();
+  // hide the armor items
+  armorItems.hide();
+  // show the potion items
+  potionItems.show();
+};
 
 

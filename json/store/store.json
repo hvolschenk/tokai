@@ -9,5 +9,27 @@
     {
       "type" : "Axe"
     }
+  ],
+  "armor" : [
+    {
+      "type" : "Armor"
+    },
+    {
+      "type" : "Armor"
+    },
+    {
+      "type" : "Armor"
+    }
+  ],
+  "potion" : [
+    {
+      "type" : "PotionHealth"
+    },
+    {
+      "type" : "PotionMana"
+    },
+    {
+      "type" : "PotionStamina"
+    }
   ]
 }

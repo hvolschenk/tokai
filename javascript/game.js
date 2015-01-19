@@ -88,6 +88,8 @@ Game.prototype.start = function () {
   this.map.player.setupEvents();
   // setup the map events
   this.map.player.inventory.setupEvents();
+  // setup the store events
+  this.map.store.setupEvents();
 };
 
 // start a fight
