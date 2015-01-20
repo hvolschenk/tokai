@@ -12,8 +12,8 @@ function Store (game) {
   this.events = {
     'click .items .weapons' : this.showWeapons,
     'click .items .armor'   : this.showArmor,
-    'click .items .potions'  : this.ShowPotion
-    //'click .equip' : this.equipSelected,
+    'click .items .potions'  : this.ShowPotion,
+    'click .listContainer .item' : this.selectItem,
     //'click .sell' : this.sellSelected
   };
 };
@@ -250,4 +250,17 @@ Store.prototype.ShowPotion = function () {
   potionItems.show();
 };
 
+// select the item in the list container
+Store.prototype.selectItem = function () {
+  // the element that was clicked on
+  var element = $(event.target).closest('.object');
+  // each selected item
+  $.each($('.selected'), function () {
+    // remove the selected class on all selected items
+    $(this).removeClass('selected');
+  });
+  // add the selected class om the current click element
+  element.addClass('selected');
+  
+};
 
