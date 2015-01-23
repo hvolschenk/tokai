@@ -17,7 +17,7 @@ function AbilityEndurance (game, classType) {
   // this ability stamina cost
   this.staminaCostBase = 0;
   // the health damage this ability does
-  this.healthDamageBase = 0;
+  this.healthDamageBase = classType.damageBase * 1.5;
   // the mana damage that this ability does
   this.manaDamageBase = 0;
   // the stamina damage that this ability does
@@ -27,18 +27,17 @@ function AbilityEndurance (game, classType) {
   // the amount of mana gained from this ability
   this.manaGainBase = 0;
   // the amount of stamina gained from this ability
-  this.staminaGainBase = (function () {
-    // gain stamina equal to the cast cost
-    return self.manaCostBase;
-  })();
+  this.staminaGainBase = 0;
   // the name of the ability
   this.name = 'Endurance';
   // the description of this ability
-  this.description = 'Gain stamina equal to the mana cost of this ability.';
+  this.description = 'Deal 150% base damage.';
   // the key assigned to this ability
   this.key = 87;
   // the cooldown (in rounds) of this ability
-  this.cooldown = 3;
+  this.cooldown = 4;
+  // a list of passives for this ability
+  this.passiveList = [PassiveTough];
   
 };
 

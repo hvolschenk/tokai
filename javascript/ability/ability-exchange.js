@@ -22,7 +22,7 @@ function AbilityExchange (game, classType) {
   // the amount of health gained from this ability
   this.healthGainBase = (function () {
     // 30% of max health
-    return classType.damageTotal * 2;
+    return classType.damageCurrent * 2;
   })();
   // the amount of mana gained from this ability
   this.manaGainBase = 0;

@@ -13,6 +13,8 @@ function BaseClass (game) {
   this.statistics = $('<div class="bars roundedCorners grayArea"></div>');
   // the element that holds the abilities
   this.abilityListElement = $('<div class="abilityList"></div>');
+  // the element that holds a list of current passives
+  this.passivesElement = $('<div class="passives"></div>');
   // a list of instantiated abilities
   this.abilities = [];
   // a list of events for this class
@@ -26,6 +28,8 @@ function BaseClass (game) {
   this.invetory;
   // the dead image for this class
   this.imageDead = 'images/class/dead.png';
+  // a list of passives currently affecting this class type
+  this.passives = [];
 
 };
 
@@ -51,6 +55,8 @@ BaseClass.prototype.initialize = function () {
   this.initializeAbilities();
   // build the abilities list
   this.buildAbilities();
+  // build the passives list
+  this.buildPassives();
 };
 
 // loads the object from the json file
@@ -79,8 +85,8 @@ BaseClass.prototype.loadInventory = function (items) {
       actualItem.load(value);
       // initialize the new item
       actualItem.initialize();
-      // add the item to the player's inventory
-      self.inventory.addItem(actualItem);
+      // add the item to the player's inventory, no logging
+      self.inventory.addItem(actualItem, false);
       // check if the item must be equipped
       if (value.equip === true) {
         // select the last item in the list of items (the newly added one)
@@ -157,32 +163,14 @@ BaseClass.prototype.initializeInventoryStatistics = function (statisticsToBuild)
 // a function to show the statistics of a class type
 // @param Boolean showName Whether to add in the character name
 BaseClass.prototype.buildStatistics = function (showName) {
-  // the health bar element
-  var barHealth = $('<div class="bar roundedCorners grayArea health"></div>'),
-  // the mana bar element
-  barMana = $('<div class="bar roundedCorners grayArea mana"></div>'),
-  // the stamina bar element
-  barStamina = $('<div class="bar roundedCorners grayArea stamina"></div>'),
-  // an empty div to append th each bar
-  emptyDiv = $('<div></div>'),
-  // an empty paragraph tag
-  emptyParagraph = $('<p></p>'),
-  // the percentage of the health bar
-  healthPercentage = (this.healthCurrent / this.healthTotal) * 100,
-  // the percentage of the mana bar
-  manaPercentage = (this.manaCurrent / this.manaTotal) * 100,
-  // the percentage of the stamina bar
-  staminaPercentage = (this.staminaCurrent / this.staminaTotal) * 100,
+  // a list of statistics to build
+  var statisticsToBuild = ['health', 'mana', 'stamina'],
   // the name to show
-  name = (this.characterName !== undefined) ? this.characterName : this.name;
+  name = (this.characterName !== undefined) ? this.characterName : this.name,
+  // a reference to this class
+  self = this;
   // check the showname variable
   showName = showName || false;
-  // check if the health is above 100
-  healthPercentage = (healthPercentage > 100) ? 100 : healthPercentage;
-  // check if the mana is above 100
-  manaPercentage = (manaPercentage > 100) ? 100 : manaPercentage;
-  // check if the stamina is above 100
-  staminaPercentage = (staminaPercentage > 100) ? 100 : staminaPercentage;
   // empty the statistics list
   this.statistics.empty();
   // see whether the name must be shown
@@ -190,26 +178,38 @@ BaseClass.prototype.buildStatistics = function (showName) {
     // append the name to the element
     this.statistics.append('<p>' + name + '</p>');
   }
-  // add the empty div to the health bar
-  barHealth.append(emptyDiv.css({'width' : healthPercentage + '%'}).clone());
-  // add the paragraph to the health bar
-  barHealth.append(emptyParagraph.html(this.healthCurrent).clone());
-  // add the empty div to the mana bar
-  barMana.append(emptyDiv.css({'width' : manaPercentage + '%'}).clone());
-  // add the paragraph to the mana bar
-  barMana.append(emptyParagraph.html(this.manaCurrent).clone());
-  // add the empty div to the stamina bar
-  barStamina.append(emptyDiv.css({'width' : staminaPercentage + '%'}).clone());
-  // add the paragraph to the stamina bar
-  barStamina.append(emptyParagraph.html(this.staminaCurrent).clone());
-  // add the health bar element
-  this.statistics.append(barHealth);
-  // add the mana bar element
-  this.statistics.append(barMana);
-  // add the stamina bar element
-  this.statistics.append(barStamina);
+  // go through each of the statistics
+  $.each(statisticsToBuild, function (index, value) {
+    // build a statistic for this type
+    self.buildStatistic(value);
+  });
   // add the right class to the statistics list
   this.statistics.addClass(this.type + 'Bars');
+};
+
+// builds a single statistic
+// @param {String} type the statistic type to build
+BaseClass.prototype.buildStatistic = function (type) {
+  // the statistic bar element
+  var barElement = $('<div class="bar roundedCorners grayArea ' + type + '"></div>'),
+  // an empty div to append to the bar
+  emptyDiv = $('<div></div>'),
+  // an empty paragraph tag
+  emptyParagraph = $('<p></p>'),
+  // the percentage of the bar
+  barPercentage = (this[type + 'Current'] / this[type + 'Total']) * 100;
+  // check if the percentage is above 100
+  barPercentage = (barPercentage > 100) ? 100 : barPercentage;
+  // set up the css of the empty div
+  emptyDiv.css({'width' : barPercentage + '%'});
+  // set the text on the bar
+  emptyParagraph.text(this[type + 'Current']);
+  // add the empty div to the health bar
+  barElement.append(emptyDiv);
+  // add the paragraph to the health bar
+  barElement.append(emptyParagraph);
+  // add the bar element
+  this.statistics.append(barElement);
 };
 
 // initializes the class's abilities
@@ -300,6 +300,43 @@ BaseClass.prototype.buildEquippedItemThumbnail = function (item) {
   thumbnail = item.element.clone();
   // return the thumbnail
   return thumbnail;
+};
+
+/**
+ * Builds the list of passives currently affecting this unit
+ */
+BaseClass.prototype.buildPassives = function () {
+  // a reference to this class
+  var self = this;
+  // empty out the passives element
+  this.passivesElement.empty();
+  // go through each passive currently affecting this class
+  $.each(this.passives, function (index, value) {
+    // add the passive's element to the list of passives
+    self.passivesElement.append(value.element);
+  });
+};
+
+/**
+ * Applies all passives currently affecting the class type
+ */
+BaseClass.prototype.applyPassives = function () {
+  // a reference to this object
+  var self = this;
+  // go through each passive currently assigned to this class type
+  $.each(this.passives, function (index, value) {
+    // apply the passive
+    value.applyPassive();
+    // see if this passive has reached it's end
+    if (value.roundsLeft === 0 && value.rounds > 0) {
+      // remove this passive from the list
+      self.passives.splice(index, 1);
+      // deactivate the passive
+      value.finish();
+      // re-build the passives element
+      self.buildPassives();
+    }
+  });
 };
 
 // Gain a certain type of resource
@@ -431,7 +468,7 @@ BaseClass.prototype.move = function (direction) {
       break;
   }
   // update the element with the new CSS
-  this.initialize();
+  this.updateElement();
 };
 
 // detects a clash between the player and the map
@@ -613,7 +650,7 @@ BaseClass.prototype.takeOpponentItems = function (opponent) {
       // add the item's name to the list of picked up items
       itemsPickedUp.push(opponent.inventory[value].name);
       // add this item to the player's inventory
-      self.inventory.addItem(opponent.inventory[value]);
+      self.inventory.addItem(opponent.inventory[value], false);
     }
   });
   // go through each of the opponent's items
@@ -621,11 +658,11 @@ BaseClass.prototype.takeOpponentItems = function (opponent) {
     // add the item's name to the list of picked up items
     itemsPickedUp.push(value.name);
     // add this item to the player's inventory
-    self.inventory.addItem(value);
+    self.inventory.addItem(value, false);
   });
   // see if any items were picked up
   if (itemsPickedUp.length > 0) {
     // log this list on the map
-    self.game.map.log(opponent.name + ' dropped ' + itemsPickedUp.join(', '));
+    self.game.map.log(opponent.name + ' dropped ' + itemsPickedUp.join(', ') + '.');
   }
 };

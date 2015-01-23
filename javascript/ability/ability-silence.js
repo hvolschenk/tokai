@@ -16,17 +16,17 @@ function AbilitySilence (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // base damage
-    return classType.damageTotal * 1.5;
+    return classType.damageCurrent * 1.5;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = (function () {
     // base damage
-    return classType.damageTotal * 1.5;
+    return classType.damageCurrent * 1.5;
   })();
   // the stamina damage that this ability does
   this.staminaDamageBase = (function () {
     // base damage
-    return classType.damageTotal * 1.5;
+    return classType.damageCurrent * 1.5;
   })();
   // the amount of health gained from this ability
   this.healthGainBase = 0;

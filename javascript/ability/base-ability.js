@@ -14,9 +14,12 @@ function BaseAbility (game, classType) {
   this.showLevel = false;
   // the cooldown (in rounds) of this ability
   this.cooldown = 1;
-  // for how many rounds of cooldown does this ability
   // have left before it can be cast again
   this.onCooldown = 0;
+  // a list of passive classes
+  this.passiveList = [];
+  // a list of instantiated passives
+  this.passives = [];
 
 };
 
@@ -34,6 +37,8 @@ BaseAbility.prototype.initialize = function () {
   this.parent.parent.initialize.call(this);
   // get the costs and damage for this ability
   this.initializeStatistics();
+  // initialize all the passives
+  this.initializePassives();
 };
 
 // overwrites the parent addElement function
@@ -80,6 +85,19 @@ BaseAbility.prototype.initializeStatistics = function () {
     var modifier = self[this + 'Modifier'] || 1;
     // scale the statistic accordingly
     self[this] = modifier * self[this + 'Base'];
+  });
+};
+
+// initialize this ability's passives
+BaseAbility.prototype.initializePassives = function () {
+  // a reference to this class
+  var self = this;
+  // empty out the passives
+  this.passives = [];
+  // go through each passive in the passives list
+  $.each(this.passiveList, function (index, value) {
+    // add this passive to the ability's passives list
+    self.passives.push(new value(self.game, self));
   });
 };
 
@@ -138,6 +156,8 @@ BaseAbility.prototype.cast = function () {
   this.onCooldown = this.cooldown;
   // update the player/opponent statistics
   this.updateStatistics();
+  // apply the ability passives
+  this.applyPassive();
   // re-build the player statistics
   this.game.map.player.buildStatistics(true);
   // re-build the opponent statistics
@@ -177,6 +197,24 @@ BaseAbility.prototype.updateStatistics = function () {
   this.classType.gainResource('mana', this.manaGain);
   // gain stamina
   this.classType.gainResource('stamina', this.staminaGain);
+};
+
+// apply passive abilities to the correct targets
+BaseAbility.prototype.applyPassive = function () {
+  // a reference to this class
+  var self = this;
+  // go through each of this abilty's passives
+  $.each(this.passives, function (index, value) {
+    // see if the passive is applicable (not always on)
+    if (value.alwaysOn === false) {
+      // initialize the passive
+      value.initialize();
+      // add the passive to the caster's list of active passives
+      self.classType.passives.push(value);
+      // rebuild the player's passives list
+      self.classType.buildPassives();
+    }
+  });
 };
 
 // check if the ability is allowed to be casted

@@ -16,7 +16,7 @@ function AbilityAutoAttack (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // do base damage amount of damage
-    return classType.damageTotal;
+    return classType.damageCurrent;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;

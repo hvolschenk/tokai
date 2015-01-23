@@ -16,7 +16,7 @@ function AbilityBash (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // 25% of max health
-    return classType.damageTotal;
+    return classType.damageCurrent;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;
@@ -29,7 +29,7 @@ function AbilityBash (game, classType) {
   // the amount of stamina gained from this ability
   this.staminaGainBase = (function () {
     // 10% of maximum health
-    return classType.damageTotal;
+    return classType.damageCurrent;
   })();
   // the name of the ability
   this.name = 'Bash';

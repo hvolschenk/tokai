@@ -16,7 +16,7 @@ function AbilityStealthyAssassin (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // base damage times two
-    return classType.damageTotal * 3;
+    return classType.damageCurrent * 3;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;

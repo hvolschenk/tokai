@@ -24,7 +24,7 @@ function AbilitySyphon (game, classType) {
   // the amount of mana gained from this ability
   this.manaGainBase = (function () {
     // 50% max stamina
-    return classType.damageTotal * 3;
+    return classType.damageCurrent * 3;
   })();
   // the amount of stamina gained from this ability
   this.staminaGainBase = 0;

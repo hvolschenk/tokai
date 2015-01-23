@@ -16,7 +16,7 @@ function AbilitySlash (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // base damage
-    return classType.damageTotal;
+    return classType.damageCurrent;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;
@@ -29,7 +29,7 @@ function AbilitySlash (game, classType) {
   // the amount of stamina gained from this ability
   this.staminaGainBase = (function () {
     // 50% of base damage
-    return classType.damageTotal * 0.5;
+    return classType.damageCurrent * 0.5;
   })();
   // the name of the ability
   this.name = 'Slash';

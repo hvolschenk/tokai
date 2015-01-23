@@ -16,7 +16,7 @@ function AbilityJuggernaut (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // base damage plus 10% of max health
-    return classType.damageTotal + (classType.healthTotal * 0.2);
+    return classType.damageCurrent + (classType.healthTotal * 0.2);
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;

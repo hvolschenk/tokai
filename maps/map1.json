@@ -1,7 +1,7 @@
 {
   "Class" : [
-    {"position" : {"top" : 9, "left" : 6}, "type" : "Spider", "currentImage" : 2, "items" : [{"type" : "Axe", "equip" : true}], "name" : "Susan Baker"},
-    {"position" : {"top" : 3, "left" : 0}, "type" : "Spider", "currentImage" : 2, "name" : "Matt Porter", "level" : 2}
+    {"position" : {"top" : 9, "left" : 6}, "type" : "Spider", "currentImage" : 2, "items" : [{"type" : "PotionHealth", "equip" : false}], "name" : "Susan Baker"},
+    {"position" : {"top" : 3, "left" : 0}, "type" : "Spider", "currentImage" : 2, "items" : [{"type" : "Armor", "equip" : true}], "name" : "Matt Porter", "level" : 2}
   ],
   "Environment" : [
     {"position" : {"top" : 0, "left" : 0}, "type" : "Tree"},
@@ -61,11 +61,7 @@
     {"position" : {"top" : 9, "left" : 0}, "type" : "Exit"}
   ],
   "Item" : [
-    {"position" : {"top" : 9, "left" : 5}, "type" : "Axe"},
-    {"position" : {"top" : 5, "left" : 6}, "type" : "Armor"},
-    {"position" : {"top" : 5, "left" : 7}, "type" : "PotionHealth"},
-    {"position" : {"top" : 6, "left" : 7}, "type" : "PotionMana"},
-    {"position" : {"top" : 7, "left" : 7}, "type" : "PotionStamina"}
+    {"position" : {"top" : 9, "left" : 5}, "type" : "Axe"}
   ],
   "Player" : [
     {"position" : {"top" : 4, "left" : 4}, "currentImage" : 2}

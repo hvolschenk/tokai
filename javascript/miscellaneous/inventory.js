@@ -87,11 +87,19 @@ Inventory.prototype.toggle = function () {
 
 // a method to add an item to your inventory
 // @param Object item The item to add
-Inventory.prototype.addItem = function (item) {
+// @param boolean log Whether to log about this or not
+Inventory.prototype.addItem = function (item, log) {
+  // logging is enabled by default
+  log = (log === false) ? false : true;
   // add this item into the array
   this.items.push(item);
   // add the item's weight to the current carry weight
   this.weightCurrent += item.weight;
+  // check if we can log about this or not
+  if (log === true) {
+    // log about this event
+    this.game.map.log(item.name + ' added.');
+  }
   // re-initialize the inventory
   this.initialize();
 };
@@ -129,23 +137,31 @@ Inventory.prototype.addSelectedItem = function () {
   // the selected item element
   var selectedItem = $('<div class="selectedItem"></div>'),
   // the sell button
-  sellButton = $('<a class="button sell"></a>'),
+  sellButton = $('<a class="button sell grayArea roundedCorners"></a>'),
   // the equip button
-  equipButton = $('<a class="button equip"></a>');
+  equipButton = $('<a class="button equip grayArea roundedCorners"></a>'),
+  // a list of item types that are equip-able
+  equipItemTypes = ['weapon', 'armor', 'potion'];
   // see if there are any items in the inventory
   if (this.items.length > 0) {
     // make sure the selected item falls within the bounds
     this.selectedItem = (this.selectedItem > this.items.length) ? 0 : this.selectedItem;
     // add the details of the selected item to the element
     selectedItem.append(this.items[this.selectedItem].descriptionElement);
-    // add the sell button text
-    sellButton.text('Sell');
-    // add the equip button text
-    equipButton.text('Equip');
-    // add the sell button to the element
-    selectedItem.append(sellButton);
-    // add the equip button to the element
-    selectedItem.append(equipButton);
+    // quest items are not for sale
+    if (this.items[this.selectedItem].type !== 'quest') {
+      // add the sell button text
+      sellButton.text('Sell');
+      // add the sell button to the element
+      selectedItem.append(sellButton);
+    }
+    // see if this item is equip-able
+    if (equipItemTypes.indexOf(this.items[this.selectedItem].type) > -1) {
+      // add the equip button text
+      equipButton.text('Equip');
+      // add the equip button to the element
+      selectedItem.append(equipButton);
+    }
   }
   // add the selected item element to the inventory
   this.element.append(selectedItem);
@@ -223,17 +239,17 @@ Inventory.prototype.equipSelected = function () {
   if (itemType.indexOf(actualItem.type) > -1) {
     // see if there was a previous item in it's place
     if (this[actualItem.type] !== undefined) {
+      // increase the carry weight
+      this.weightCurrent += this[actualItem.type].weight;
       // add the item back into the inventory list
       this.items.push(this[actualItem.type]);
-      // increase the carry weight
-      this.carryWeight += this[actualItem.type].weight;
     }
+    // lower the current carry weight
+    this.weightCurrent -= actualItem.weight;
     // add the item to the inventory's correct variable
     this[actualItem.type] = actualItem;
     // remove the selected class of the element
     this[actualItem.type].element.removeClass('selected');
-    // lower the current carry weight
-    this.weightCurrent -= actualItem.weight;
     // delete the list entry
     this.items.splice(this.selectedItem, 1);
     // reset the selected item

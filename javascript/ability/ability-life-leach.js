@@ -16,7 +16,7 @@ function AbilityLifeLeach (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // base damage
-    return classType.damageTotal;
+    return classType.damageCurrent * 0.5;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;
@@ -25,7 +25,7 @@ function AbilityLifeLeach (game, classType) {
   // the amount of health gained from this ability
   this.healthGainBase = (function () {
     // base damage
-    return classType.damageTotal;
+    return classType.damageCurrent * 0.5;
   })();
   // the amount of mana gained from this ability
   this.manaGainBase = 0;
@@ -34,11 +34,13 @@ function AbilityLifeLeach (game, classType) {
   // the name of the ability
   this.name = 'Life Leach';
   // the description of this ability
-  this.description = 'Steal your base damage in health from the opponent.';
+  this.description = 'Steal 50% base damage in health from the opponent.';
   // the key assigned to this ability
   this.key = 82;
   // the cooldown (in rounds) of this ability
   this.cooldown = 3;
+  // a list of passives for this ability
+  this.passiveList = [PassiveHunger];
   
 };
 

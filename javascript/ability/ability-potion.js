@@ -62,6 +62,8 @@ AbilityPotion.prototype.cast = function () {
   });
   // remove the potion
   this.game.map.player.inventory.potion = undefined;
+  // rebuild the player's ability list
+  this.game.map.player.buildAbilities();
   // call the parent cast method
   this.parent.cast.call(this);
 };

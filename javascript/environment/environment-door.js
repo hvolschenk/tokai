@@ -31,6 +31,8 @@ EnvironmentDoor.prototype.clashHandler = function (direction) {
   $.each(items, function (index, value) {
     // see if this item is the "Axe"
     if (value.name === "Key") {
+      // lower the weight of the inventory
+      self.game.map.player.inventory.weightCurrent -= value.weight;
       // kill (open) the door
       self.kill();
       // remove the key from the inventory

@@ -3,7 +3,7 @@
     {"position" : {"top" : 2, "left" : 9}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "Sword", "equip" : true}], "name" : "Jeremy Kent"},
     {"position" : {"top" : 3, "left" : 4}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "PotionStamina", "equip" : false}], "name" : "Trevor Kent"},
     {"position" : {"top" : 4, "left" : 0}, "type" : "Bear", "currentImage" : 2, "name" : "Papa-John Kent"},
-    {"position" : {"top" : 2, "left" : 9}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "Armor", "equip" : true}], "name" : "Billy Kent"}
+    {"position" : {"top" : 9, "left" : 1}, "type" : "Bear", "currentImage" : 2, "items" : [{"type" : "Armor", "equip" : true}], "name" : "Billy Kent"}
   ],
   "Environment" : [
     {"position" : {"top" : 0, "left" : 8}, "type" : "Door"},

@@ -136,10 +136,32 @@ Map.prototype.loadObjectType = function (type, data, newObject) {
 // log an entry to the console
 // @param {String} logText The text to log
 Map.prototype.log = function (logText) {
-  // make sure this isn't the same message
+  // the length of the log message
+  var length = logText.length,
+  // the index of the current character
+  currentCharacter = 0,
+  // a reference to this class
+  self = this,
+  // the timed function
+  timedFunction;
+  // make sure this is not the previous message
   if (logText !== this.lastLogMessage) {
-    // add the text to the console
-    this.console.append(logText + '\n\n');
+    // set an interval to add one letter at a time
+    timedFunction = setInterval(function () {
+      // the letter to add
+      var letter = logText[currentCharacter];
+      // add the letter to the console
+      self.console.append(letter);
+      // increment the character counter
+      currentCharacter++;
+      // check if the current character is past the length of the text
+      if (currentCharacter > length) {
+        // add a linebreak to the console
+        self.console.append('\n\n');
+        // stop the timed function from running
+        clearInterval(timedFunction);
+      }
+    }, 50);
     // change the last log message to the new one
     this.lastLogMessage = logText;
   }

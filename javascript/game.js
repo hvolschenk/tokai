@@ -11,7 +11,7 @@ function Game () {
   // holds the width of this element
   this.width = 1200;
   // holds the height of this element
-  this.height = 700;
+  this.height = 600;
   // holds the left hand side menu
   this.leftMenu = $('<div class="leftMenu"></div>');
   // holds the center game area
@@ -240,8 +240,6 @@ Game.prototype.preloadImages = function () {
         self.element.show();
       }
     });
-    // add the image to the document
-    //$('body').append(image);
   });
 };
 

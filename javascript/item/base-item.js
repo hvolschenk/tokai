@@ -64,8 +64,6 @@ BaseItem.prototype.clashHandler = function (direction) {
   this.game.map.objects.splice(this.game.map.objects.indexOf(this), 1);
   // update the player's statistics
   this.game.map.player.initialize();
-  // log about this event
-  this.game.map.log(this.name + ' added.');
   // move the player up once more
   this.game.map.player.tryMove(direction);
 };

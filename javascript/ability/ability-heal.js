@@ -16,7 +16,7 @@ function AbilityHeal (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // current base damage
-    return classType.damageTotal;
+    return classType.damageCurrent;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;
@@ -25,7 +25,7 @@ function AbilityHeal (game, classType) {
   // the amount of health gained from this ability
   this.healthGainBase = (function () {
     // 20% of max health
-    return classType.damageTotal * 2;
+    return classType.damageCurrent * 2;
   })();
   // the amount of mana gained from this ability
   this.manaGainBase = 0;

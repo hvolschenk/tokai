@@ -61,6 +61,8 @@ Arena.prototype.addInnerElements = function () {
   this.game.map.player.addElement(this.element);
   // add the player statistics to the arena
   this.element.append(this.game.map.player.statistics.addClass('playerBars'));
+  // add the player's passives list to the arena
+  this.element.append(this.game.map.player.passivesElement);
   // add the round indicator to the arena
   this.element.append(this.roundIndicator);
 };
@@ -89,6 +91,10 @@ Arena.prototype.startFight = function () {
 
 // starts a round, giving the player a turn to cast an ability
 Arena.prototype.startRound = function () {
+  // apply passives on the player
+  this.game.map.player.applyPassives();
+  // apply passives on the opponent
+  this.opponent.applyPassives();
   // end the round for each ability
   this.updateAbilityCooldowns();
   // increment the rounds counter

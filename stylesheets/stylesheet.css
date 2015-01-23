@@ -75,9 +75,15 @@ a {
   height : 100%;
   background-color : #474747;
   text-align : center;
+  z-index : 2;
+}
+.preloader p {
   background-image : url(../images/preloader.gif);
   background-repeat : no-repeat;
-  background-position : center center;
+  background-position : center 30px;
+  margin : 150px 0 0;
+  height : 120px;
+  color : #f1f1f1;
 }
 .game {
   margin : 20px auto 0;
@@ -480,9 +486,10 @@ a {
 .inventory .selectedItem .button {
   position : absolute;
   bottom : 10px;
+  left : 105px;
 }
 .inventory .selectedItem .button.equip {
-  left : 50px;
+  left : 45px;
 }
 .inventory.equippedItem {
   position : relative;
@@ -505,6 +512,11 @@ a {
 .inventory .equippedItem .object img {
   width : 100%;
   height : 100%;
+}
+.arena .passives {
+  top : 488px;
+  left : 241px;
+  width : 322px;
 }
 .arena .abilityDescription {
   width : 300px;
@@ -535,6 +547,26 @@ a {
   top : 60px !important;
   left : 390px !important;
   background-size : auto 100%;
+}
+.arena .passives .object {
+  position : static;
+  width : 310px !important;
+  height : auto !important;
+  padding : 5px;
+}
+.arena .passives .object .rounds {
+  float: left;
+  background-color : #333;
+  padding : 5px;
+  border-radius : 15px;
+  width : 15px;
+  height : 15px;
+  margin : 4px 0 0 5px;
+  border : 1px solid #222;
+}
+.arena .passives .object p.description {
+  font-size : 12px;
+  padding : 5px 0 0;
 }
 .arena .ability.object {
   width : 280px !important;

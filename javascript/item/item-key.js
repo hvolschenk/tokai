@@ -22,4 +22,4 @@ function ItemKey (game) {
 ItemKey.inheritsFrom(BaseItem);
 
 // the type of this class
-ItemKey.prototype.type = 'item';
+ItemKey.prototype.type = 'quest';

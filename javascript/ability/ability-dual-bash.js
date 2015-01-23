@@ -16,7 +16,7 @@ function AbilityDualBash (game, classType) {
   // the health damage this ability does
   this.healthDamageBase = (function () {
     // base damage times two
-    return classType.damageTotal * 2;
+    return classType.damageCurrent * 2;
   })();
   // the mana damage that this ability does
   this.manaDamageBase = 0;
@@ -25,7 +25,7 @@ function AbilityDualBash (game, classType) {
   // the amount of health gained from this ability
   this.healthGainBase = (function () {
     // 10% of maximum health
-    return classType.damageTotal;
+    return classType.damageCurrent;
   })();
   // the amount of mana gained from this ability
   this.manaGainBase = 0;
