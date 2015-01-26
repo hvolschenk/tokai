@@ -170,7 +170,7 @@ Game.prototype.buildPreloadList = function () {
     'Map', 'CharacterSelect', 'Arena',
     'ClassWarrior', 'ClassMage', 'ClassRogue', 'ClassSpider',
     'EnvironmentPath', 'EnvironmentRock', 'EnvironmentTree', 'EnvironmentExit', 'EnvironmentWater',
-    'ItemAxe'
+    'ItemAxe', 'ItemBattleAxe'
   ],
   // a loaded version of each type
   loadedObjectType,

@@ -131,7 +131,7 @@ Store.prototype.loadObjects = function (data) {
   // a reference to this object
   var self = this;
   // empty out the objects before loading them
-  this.objects = [];
+  this.items = [];
   // go through each type found in the data
   $.each(data, function (key, value) {
     // whether or not to load a new class
@@ -158,11 +158,13 @@ Store.prototype.loadObjectType = function (type, data) {
     // create a new instance of this type
     object = new window[className](self.game);
     // add this object to the map
-    self.objects.push(object);
+    self.items.push(object);
     // load this object from data
     object.load(value);
     // initialize the object
     object.initialize();
+    // add the index of the item to the element
+    object.element.attr('rel', key);
     // add the object to the map
     object.addElement(self.element.find('.listContainer'));
     // hide the armor on load
@@ -170,6 +172,8 @@ Store.prototype.loadObjectType = function (type, data) {
     // hide the potion on load
     self.element.find('.listContainer .potion').hide();
   });
+
+  console.log('1', self);
 };
 
 // show the weapons that's for sale
@@ -261,6 +265,25 @@ Store.prototype.selectItem = function () {
   });
   // add the selected class om the current click element
   element.addClass('selected');
-  
+  // run the details
+  this.itemDetail(element.attr('rel'));
 };
+
+// show the item detail in the detail window
+Store.prototype.itemDetail = function (index) {
+  var insertItemDetail = this.element.find('.addDetailContainer'),
+  itemName = $('<p>' + this.items[index].name + '</p>'),
+  itemDescription = $('<p>' + this.items[index].description + '</p>'),
+  itemInfo = $('<p>' + this.items[index].damage + '</p>');
+  insertItemDetail.empty().append(itemName);
+  insertItemDetail.append(itemDescription);
+  insertItemDetail.append(itemInfo);
+
+  console.log('detail', index);
+  console.log('this', this);
+  console.log('hendrik', this.items[index]);
+};
+
+
+
 
