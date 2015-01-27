@@ -252,7 +252,6 @@ Store.prototype.selectItem = function () {
 
 // show the item detail in the detail window
 Store.prototype.itemDetail = function (index) {
-  console.log(index);
   var insertItemDetail = this.element.find('.addDetailContainer'),
   itemName = $('<p>' + this.items[index].name + '</p>'),
   itemDescription = $('<p>' + this.items[index].description + '</p>'),
