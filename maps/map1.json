@@ -3,6 +3,9 @@
     {"position" : {"top" : 9, "left" : 6}, "type" : "Spider", "currentImage" : 2, "items" : [{"type" : "PotionHealth", "equip" : false}], "name" : "Susan Baker"},
     {"position" : {"top" : 3, "left" : 0}, "type" : "Spider", "currentImage" : 2, "items" : [{"type" : "Armor", "equip" : true}], "name" : "Matt Porter", "level" : 2}
   ],
+  "Npc" : [
+    {"position" : {"top" : 4, "left" : 6}, "type" : "JoshHartman"}
+  ],
   "Environment" : [
     {"position" : {"top" : 0, "left" : 0}, "type" : "Tree"},
     {"position" : {"top" : 0, "left" : 1}, "type" : "Tree"},

@@ -17,6 +17,8 @@ function BaseClass (game) {
   this.passivesElement = $('<div class="passives"></div>');
   // a list of instantiated abilities
   this.abilities = [];
+  // a list of quests this player is busy with
+  this.quests = [];
   // a list of events for this class
   this.events = {
     '37' : this.moveLeft,
@@ -26,6 +28,8 @@ function BaseClass (game) {
   };
   // the inventory for this class
   this.invetory;
+  // the journal for this class
+  this.journal;
   // the dead image for this class
   this.imageDead = 'images/class/dead.png';
   // a list of passives currently affecting this class type
@@ -47,6 +51,8 @@ BaseClass.prototype.initialize = function () {
   this.parent.parent.initialize.call(this);
   // initialize the class's inventory
   this.initializeInventory();
+  // initialize the journal for this class type
+  this.initializeJournal();
   // initialize the statistics for this class
   this.initializeStatistics();
   // build the statistics element for this class
@@ -66,6 +72,8 @@ BaseClass.prototype.load = function (data) {
   this.parent.parent.load.call(this, data);
   // initialize the inventory for this class type
   this.initializeInventory();
+  // initialize the journal for this class type
+  this.initializeJournal();
   // load the inventory items for this class type
   this.loadInventory(data.items);
 };
@@ -108,6 +116,17 @@ BaseClass.prototype.initializeInventory = function () {
     this.inventory = new Inventory(this.game);
     // initialize the inventory
     this.inventory.initialize();
+  }
+};
+
+// initializes the journal
+BaseClass.prototype.initializeJournal = function () {
+  // check whether this class has an journal
+  if (this.journal instanceof Journal === false) {
+    // set up a new journal for this class
+    this.journal = new Journal(this.game);
+    // initialize the journal
+    this.journal.initialize();
   }
 };
 

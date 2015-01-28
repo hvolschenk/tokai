@@ -86,8 +86,10 @@ Game.prototype.start = function () {
   this.map.log('Move around and explore with the arrow keys. Press "I" to open the inventory.');
   // setup the player events
   this.map.player.setupEvents();
-  // setup the map events
+  // setup the inventory events
   this.map.player.inventory.setupEvents();
+  // setup the journal events
+  this.map.player.journal.setupEvents();
   // setup the store events
   this.map.store.setupEvents();
 };
@@ -131,6 +133,8 @@ Game.prototype.endFight = function () {
   if (this.map.player.healthCurrent <= 0) {
     // reset the player's inventory to the original one
     this.map.player.inventory = $.extend(true, {}, this.map.inventoryOnStart);
+    // reset the player's journal to the original one
+    this.map.player.journal = $.extend(true, {}, this.map.journalOnStart);
     // re initialize the map
     this.map.initialize();
   } else {
@@ -159,6 +163,8 @@ Game.prototype.endFight = function () {
   this.map.player.setupEvents();
   // set up the inventory events
   this.map.player.inventory.setupEvents();
+  // set up the journal events
+  this.map.player.journal.setupEvents();
   // setup the store events
   this.map.store.setupEvents();
 };

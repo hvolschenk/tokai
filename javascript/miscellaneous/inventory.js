@@ -289,3 +289,32 @@ Inventory.prototype.selectItem = function (event) {
     self.initialize();
   }
 };
+
+// add money to the inventory
+// @param {Integer} money The amount of money to add to the inventory
+Inventory.prototype.addMoney = function (money) {
+  // add the money to the inventory's money
+  this.money += money;
+  // log about the money
+  this.game.map.log(money + ' gold added.');
+};
+
+// find an item in the inventory
+// @param {String} key The key to search for on the item
+// @param {String} value The value of the key to search for
+Inventory.prototype.findItem = function (key, value) {
+  // the item that we found
+  var item;
+  // go through each of the items
+  $.each(this.items, function () {
+    // see if this item has the key and that the key equals value
+    if (this[key] === value) {
+      // set the item that we found
+      item = this;
+      // return false to break out of the each
+      return false;
+    }
+  });
+  // return what we found
+  return item;
+};

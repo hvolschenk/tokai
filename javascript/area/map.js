@@ -19,6 +19,8 @@ function Map (game) {
   this.map = 1;
   // the player's inventory at the start of the game
   this.inventoryOnStart = [];
+  // the player's journal at the start of the game
+  this.journalOnStart = [];
   // the console
   this.console = $('<textarea readonly="readonly" class="console"></textarea>');
   // the last logged console message (to prevent duplicates)
@@ -65,8 +67,12 @@ Map.prototype.load = function () {
   });
   // add the inventory into the map
   this.player.inventory.addElement(this.element);
+  // add the journal to the map
+  this.player.journal.addElement(this.element);
   // save a clone of the player's inventory as the map starts
   this.inventoryOnStart = $.extend(true, {}, this.player.inventory);
+  // save a clone of the player's journal as the map starts
+  this.journalOnStart = $.extend(true, {}, this.player.journal);
 };
 
 // loads all map data
@@ -133,6 +139,26 @@ Map.prototype.loadObjectType = function (type, data, newObject) {
   });
 };
 
+// find an object on the map
+// @param {String} key The key to search for on this object
+// @param {String} value The value of the key to look for
+Map.prototype.findObject = function (key, value) {
+  // the object we found
+  var object;
+  // go through all map objects
+  $.each(this.objects, function () {
+    // see if this object has the key and it is equal to the value
+    if (this[key] === value) {
+      // set up the object
+      object = this;
+      // return false so we exit the loop
+      return false;
+    }
+  });
+  // return the object
+  return object;
+};
+
 // log an entry to the console
 // @param {String} logText The text to log
 Map.prototype.log = function (logText) {
@@ -154,6 +180,8 @@ Map.prototype.log = function (logText) {
       self.console.append(letter);
       // increment the character counter
       currentCharacter++;
+      // scroll to the bottom of the console
+      self.console.scrollTop(self.console.scrollHeight);
       // check if the current character is past the length of the text
       if (currentCharacter > length) {
         // add a linebreak to the console
@@ -161,7 +189,7 @@ Map.prototype.log = function (logText) {
         // stop the timed function from running
         clearInterval(timedFunction);
       }
-    }, 50);
+    }, 5);
     // change the last log message to the new one
     this.lastLogMessage = logText;
   }
