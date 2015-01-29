@@ -508,13 +508,13 @@ a {
   color : #f1f1f1;
   font-size : 12px;
 }
-.inventory .selectedItem p span, .journal .selectedQuest p span {
+.inventory .selectedItem p span, .journal .selectedQuest p span, .store .addDetailContainer p span {
   display : block;
 }
-.inventory .selectedItem p .name, .journal .selectedQuest p .name {
+.inventory .selectedItem p .name, .journal .selectedQuest p .name, .store .addDetailContainer p .name {
   font-size : 16px;
 }
-.inventory .selectedItem p .description, .journal .selectedQuest p .description {
+.inventory .selectedItem p .description, .journal .selectedQuest p .description, .store .addDetailContainer p .description {
   font-style : italic;
 }
 .journal .selectedQuest ul {
@@ -661,10 +661,12 @@ a {
   border : 1px solid #f1f1f1;
   border-radius : 4px;
   margin : 0 11px 0 11px;
+  position: relative;
 }
 .store .addDetailContainer a.buy {
-  top : 164px;
-  position : relative;
+  bottom : 10px;
+  left: 119px;
+  position : absolute;
 }
 .store .items {
   padding : 10px;

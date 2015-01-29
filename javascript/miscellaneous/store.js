@@ -15,8 +15,8 @@ function Store (game) {
     'click .items' : this.showSelection,
     // 'click .items .armor'   : this.showArmor,
     // 'click .items .potions'  : this.showPotion,
-    'click .listContainer .item' : this.selectItem
-    //'click .sell' : this.sellSelected
+    'click .listContainer .item' : this.selectItem,
+    'click .buy' : this.buySelected
   };
 };
 
@@ -63,13 +63,7 @@ Store.prototype.addInnerElements = function () {
 // adds the element that shows the selected item stats
 Store.prototype.addDetailContainer = function () {
   // the selected item element
-  var addDetailContainer = $('<div class="addDetailContainer"></div>'),
-  // the buy button
-  buyButton = $('<a class="button buy grayArea roundedCorners"></a>');
-  // add the buy button text
-  buyButton.text('Buy');
-  // add the buy button to the element
-  addDetailContainer.append(buyButton);
+  var addDetailContainer = $('<div class="addDetailContainer"></div>');
   // add the selected item element to the inventory
   this.element.append(addDetailContainer);
 };
@@ -236,14 +230,11 @@ Store.prototype.showSelection = function () {
 };
 
 // select the item in the list container
-Store.prototype.selectItem = function () {
+Store.prototype.selectItem = function (event) {
   // the element that was clicked on
   var element = $(event.target).closest('.object');
   // each selected item
-  $.each($('.selected'), function () {
-    // remove the selected class on all selected items
-    $(this).removeClass('selected');
-  });
+  this.element.find('.selected').removeClass('selected');
   // add the selected class om the current click element
   element.addClass('selected');
   // run the details
@@ -253,12 +244,33 @@ Store.prototype.selectItem = function () {
 // show the item detail in the detail window
 Store.prototype.itemDetail = function (index) {
   var insertItemDetail = this.element.find('.addDetailContainer'),
-  itemName = $('<p>' + this.items[index].name + '</p>'),
-  itemDescription = $('<p>' + this.items[index].description + '</p>'),
-  itemInfo = $('<p>' + this.items[index].damage + '</p>');
-  insertItemDetail.empty().append(itemName);
-  insertItemDetail.append(itemDescription);
-  insertItemDetail.append(itemInfo);
-
+  // the buy button
+  buyButton = $('<a class="button buy grayArea roundedCorners"></a>');
+  // add the buy button text
+  buyButton.text('Buy');
+  // add the items description
+  insertItemDetail.empty().append(this.items[index].descriptionElement, buyButton);
 };
 
+// buy the selected itemDetail
+Store.prototype.buySelected = function () {
+  // get the Container
+  var itemHolder = this.element.find('.listContainer'),
+  // get the selected item rel
+  selectedItemToBuy = itemHolder.find('.selected').attr('rel'),
+  // get player money
+  playerMoney = this.game.map.player.inventory.money,
+  // get the item cost
+  itemCost = this.items[selectedItemToBuy].cost;
+  // if the player has enough money
+  if (playerMoney >= itemCost) {
+    // subtract the money
+    playerMoney -= itemCost;
+    // set the item in the inventory
+    this.game.map.player.inventory.addItem(this.items[selectedItemToBuy]);
+  }
+  else {
+    // message not enough money
+    this.game.map.log('not enough money');
+  }
+};

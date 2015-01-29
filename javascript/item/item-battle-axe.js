@@ -14,7 +14,7 @@ function ItemBattleAxe (game) {
   // an image of the axe
   this.image = "images/item/item-battle-axe.png";
   // the cost of the axe
-  this.cost = 50;
+  this.cost = 10;
   // the weight of the axe
   this.weight = 5;
   // the damage scaling per level
