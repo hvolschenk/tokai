@@ -455,6 +455,8 @@ BaseClass.prototype.tryMove = function (direction) {
 // moves the player in a direction
 // @param string direction The direction in which the player is trying to move
 BaseClass.prototype.move = function (direction) {
+  // the map we are on
+  var map = this.game.map.cave === null ? this.game.map : this.game.map.cave;
   // check which direction we are moving
   switch (direction) {
     case 'left':
@@ -488,6 +490,8 @@ BaseClass.prototype.move = function (direction) {
   }
   // update the element with the new CSS
   this.updateElement();
+  // clear the fog of war around the player again
+  map.clearFogOfWar();
 };
 
 // detects a clash between the player and the map
@@ -495,7 +499,9 @@ BaseClass.prototype.move = function (direction) {
 // @return boolean Whether the player clashes or not (true = clash)
 BaseClass.prototype.detectMapClash = function (direction) {
   // whether the player is clashing into the bounds of the map
-  var clash = false;
+  var clash = false,
+  // the current map
+  map = this.game.map.cave === null ? this.game.map : this.game.map.cave;
   // see which direction the player is going
   switch (direction) {
     case 'left':
@@ -514,21 +520,21 @@ BaseClass.prototype.detectMapClash = function (direction) {
       break;
     case 'right':
       //see if the player clashes
-      if (this.right + this.width > this.game.map.width) {
+      if (this.right + this.width > map.width) {
         // the player clashes
         clash = true;
       }
       break;
     case 'down':
       //see if the player clashes
-      if (this.bottom + this.height > this.game.map.height) {
+      if (this.bottom + this.height > map.height) {
         // the player clashes
         clash = true;
       }
       break;
   }
   // return the result
-  return clash === false ? clash : this.game.map;
+  return clash === false ? clash : map;
 };
 
 
@@ -542,11 +548,13 @@ BaseClass.prototype.detectClash = function (direction) {
   // whether a clash has happened
   clash = this.detectMapClash(direction),
   // a reference to this class
-  self = this;
+  self = this,
+  // the list of objects
+  objects = this.game.map.cave === null ? this.game.map.objects : this.game.map.cave.objects;
   // see if the player hasn''t gone out of bounds
   if (clash === false) {
     // go through each of this type''s items
-    $.each(this.game.map.objects, function () {
+    $.each(objects, function () {
       // see if you can clash into this object
       if (this.clashable === true) {
         // see which direction we are moving in

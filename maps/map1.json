@@ -61,7 +61,8 @@
     {"position" : {"top" : 6, "left" : 5}, "type" : "Water"},
     {"position" : {"top" : 7, "left" : 3}, "type" : "Water"},
     {"position" : {"top" : 7, "left" : 4}, "type" : "Water"},
-    {"position" : {"top" : 9, "left" : 0}, "type" : "Exit"}
+    {"position" : {"top" : 9, "left" : 0}, "type" : "Exit"},
+    {"position" : {"top" : 7, "left" : 9}, "type" : "CaveEntrance"}
   ],
   "Item" : [
     {"position" : {"top" : 9, "left" : 5}, "type" : "Axe"}

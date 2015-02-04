@@ -132,6 +132,24 @@ function NpcJoshHartman (game) {
           }
         }
       }
+    },
+    // The quest has been completed
+    6 : {
+      // the line of text the NPC says
+      text : "Thank you. You helped me out greatly.",
+      // the possible respnses
+      responses : {
+        // end the conversation
+        1 : {
+          // the line of text the player says
+          text : "My pleasure.",
+          // the outcome of this response
+          outcome : function (self) {
+            // end the conversation
+            self.endConversation(); 
+          }
+        }
+      }
     }
   };
   
@@ -150,13 +168,19 @@ NpcJoshHartman.prototype.clashHandler = function (direction) {
   if (this.met === true) {
     // see if the player has the quest
     if (this.game.map.player.journal.hasQuest(this.quest)) {
-      // see if we have the item he wants
-      if (this.game.map.player.inventory.findItem('name', 'Axe')) {
-        // yay, the axe has been returned
-        this.speechPosition = 5;
+      // see if the quest has been completed
+      if (this.quest.completed === true) {
+        // thank the player
+        this.speechPosition = 6;
       } else {
-        // re-affirm what needs to be done
-        this.speechPosition = 4;
+        // see if we have the item he wants
+        if (this.game.map.player.inventory.findItem('name', 'Axe')) {
+          // yay, the axe has been returned
+          this.speechPosition = 5;
+        } else {
+          // re-affirm what needs to be done
+          this.speechPosition = 4;
+        }
       }
     } else {
       // ask for help, the player has heard the first story and walked away

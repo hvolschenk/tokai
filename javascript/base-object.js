@@ -268,7 +268,6 @@ BaseObject.prototype.setupEvents = function () {
   });
   // see if there are any key events
   if (keyEvents) {
-    console.log(keyEvents);
     // create a keypress event
     $(document).on('keydown', function (e) {
       // see if a method exists for this key
@@ -282,7 +281,6 @@ BaseObject.prototype.setupEvents = function () {
 
 // removes all events for all objects
 BaseObject.prototype.removeEvents = function () {
-  console.log('OFF');
   // remove all events
   $(document).off();
 };

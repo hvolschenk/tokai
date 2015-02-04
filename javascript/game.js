@@ -83,7 +83,7 @@ Game.prototype.start = function () {
   // add the console to the right menu
   this.rightMenu.append(this.map.console);
   // add the welcome text to the console
-  this.map.log('Move around and explore with the arrow keys. Press "I" to open the inventory.');
+  this.map.log('Move around and explore with the arrow keys. Press "I" to open your inventory and "J" top open your journal.');
   // setup the player events
   this.map.player.setupEvents();
   // setup the inventory events
@@ -92,6 +92,43 @@ Game.prototype.start = function () {
   this.map.player.journal.setupEvents();
   // setup the store events
   this.map.store.setupEvents();
+};
+
+// enter a cave
+Game.prototype.enterCave = function () {
+  // set the map's cave variable
+  this.map.cave = new Cave(this, this.map.player.position.left, this.map.player.position.top);
+  // set the player of the cave
+  this.map.cave.player = this.map.player;
+  // initialize the cave
+  this.map.cave.initialize();
+  // hide the map
+  this.map.element.hide();
+  // add the separator element to the game area
+  this.gameArea.append(this.map.cave.separator);
+  // add the cave element to the game area
+  this.map.cave.addElement(this.gameArea);
+};
+
+// exit the cave
+Game.prototype.exitCave = function () {
+  // remove the cave element
+  this.map.cave.element.detach();
+  // remove the separator element
+  this.map.cave.separator.detach();
+  // show the map
+  this.map.element.show();
+  // set the left and top position of the player
+  this.map.player.position = {
+    left : this.map.cave.initialLeft,
+    top : this.map.cave.initialTop
+  };
+  // update the player's element
+  this.map.player.updateElement();
+  // remove the cave from the map
+  this.map.cave = null;
+  // add the player to the map
+  this.map.player.addElement(this.map.element);
 };
 
 // start a fight

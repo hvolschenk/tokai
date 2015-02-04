@@ -362,8 +362,29 @@ a {
   text-align : center;
 }
 /* MAP */
-.map {
+.caveSeparator {
+  width : 600px;
+  height : 600px;
+  background-color : #000;
+  position : absolute;
+}
+.map, .cave {
   position : relative;
+}
+.map .fog {
+  width : 60px;
+  height : 60px;
+  background-color : #000;
+  z-index : 11 !important;
+}
+.map .fog.clear {
+  background-color : transparent;
+}
+.map .fog.discovered {
+  opacity : 0.6;
+}
+.map .fog.semi {
+  opacity : 0.4;
 }
 .console {
   height : 100%;

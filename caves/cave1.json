@@ -1,0 +1,14 @@
+{
+  "Environment" : [
+    {"position" : {"top" : 0, "left" : 0}, "type" : "Tree"},
+    {"position" : {"top" : 0, "left" : 1}, "type" : "Tree"},
+    {"position" : {"top" : 0, "left" : 2}, "type" : "Tree"},
+    {"position" : {"top" : 0, "left" : 3}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 1}, "type" : "Tree"},
+    {"position" : {"top" : 1, "left" : 2}, "type" : "Tree"},
+    {"position" : {"top" : 4, "left" : 0}, "type" : "CaveExit"}
+  ],
+  "Player" : [
+    {"position" : {"top" : 4, "left" : 4}, "currentImage" : 2}
+  ]
+}
