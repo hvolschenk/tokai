@@ -92,6 +92,8 @@ BaseNpc.prototype.endConversation = function () {
   this.game.map.player.inventory.setupEvents();
   // setup player journal events
   this.game.map.player.journal.setupEvents();
+  // start the store events again
+  this.game.map.store.setupEvents();
 };
 
 // adds the correct list of responses to the speech element

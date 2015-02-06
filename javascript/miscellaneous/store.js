@@ -26,6 +26,16 @@ Store.inheritsFrom(BaseObject);
 // set the type for this class
 Store.prototype.type = 'store';
 
+Store.prototype.initialize = function () {
+  // call the parent initialize function
+  this.parent.initialize.call(this);
+  // go through all tghe items
+  $.each(this.items, function (index, value) {
+    // initialize the item
+    value.initialize();
+  });
+};
+
 // overwrite the default updateElement method
 Store.prototype.updateElement = function () {
   // call the parent addElement method
@@ -265,7 +275,7 @@ Store.prototype.buySelected = function () {
   // if the player has enough money
   if (playerMoney >= itemCost) {
     // subtract the money
-    playerMoney -= itemCost;
+    this.game.map.player.inventory.money -= itemCost;
     // set the item in the inventory
     this.game.map.player.inventory.addItem(this.items[selectedItemToBuy]);
   }

@@ -23,4 +23,6 @@ EnvironmentExit.prototype.clashHandler = function (direction) {
   this.game.map.map++;
   // initialize the map
   this.game.map.initialize();
+  // initialize the store
+  this.game.map.store.load();
 }

@@ -682,7 +682,8 @@ a {
   border : 1px solid #f1f1f1;
   border-radius : 4px;
   margin : 0 11px 0 11px;
-  position: relative;
+  position : relative;
+  font-size : 13px;
 }
 .store .addDetailContainer a.buy {
   bottom : 10px;
